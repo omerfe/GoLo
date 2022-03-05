@@ -26,6 +26,10 @@ namespace Web.Controllers
         {
             return View();
         }
+        public IActionResult Checkout()
+        {
+            return View();
+        }
 
         public IActionResult Details()
         {
