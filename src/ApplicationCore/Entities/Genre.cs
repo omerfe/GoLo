@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ApplicationCore.Entities
 {
     public class Genre : BaseEntity
     {
-        public string CategoryName { get; set; }
+        public string GenreName { get; set; }
         public List<Game> Games { get; set; }
     }
 }
