@@ -13,12 +13,10 @@ namespace Infrastructure.Data.Config
                 .HasMaxLength(200);
 
             builder.Property(x => x.Description)
-                .IsRequired()
-                .HasMaxLength(1000);
+                .IsRequired();
 
             builder.Property(x => x.GameRequirements)
-                .IsRequired()
-                .HasMaxLength(1000);
+                .IsRequired();
 
             builder.Property(x => x.Developer)
                 .IsRequired()
