@@ -160,7 +160,7 @@ Players will take on several massive experiences, from updated multiplayer modes
                 Developer = "ELECTRONIC ARTS",
                 Publisher = "DICE",
                 MinimumAge = 16,
-                ImagePath = "Battlefield.jpg",
+                ImagePath = "Battlefield2042.jpg",
                 TrailerUrl = @"https://youtu.be/ASzOzrB-a9E",
                 GameRequirements = @"MINIMUM
 OSWindows 7 / 8 / 10(64 - bit OS required)
