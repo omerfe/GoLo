@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Web.Interfaces;
@@ -22,9 +23,16 @@ namespace Web.Controllers
         {
             return View();
         }
-        public async Task<IActionResult> Categories(int? genreId, int? platformId)
+        //public async Task<IActionResult> Categories(int? genreId, int? platformId)
+        //{
+        //    return View(await _filterViewModelService.GetFilterViewModelAsync(genreId, platformId));
+        //}
+
+        [Route("Filter")]
+        public async Task<IActionResult> Categories(List<int> genreIds, List<int> platformIds, int p=1)
         {
-            return View(await _filterViewModelService.GetFilterViewModelAsync(genreId, platformId));
+            if (p < 1) return BadRequest();
+            return View(await _filterViewModelService.GetFilterViewModelAsync(genreIds, platformIds, p));
         }
         public IActionResult Privacy()
         {
