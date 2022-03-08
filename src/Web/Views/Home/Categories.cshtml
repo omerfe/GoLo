@@ -9,16 +9,15 @@
                         <div class="filter__group filter__group--sort">
                             <label for="genres" class="filter__label">Genres:</label>
                             <div class="filter__select-wrap">
-                                <select class="filter__select form-control" asp-items="Model.Genres" asp-for="GenreId">
-                                    <option value="">All Genres</option>
+                                <select class="filter__select form-control" id="genres" multiselect-max-items="2" multiselect-select-all="true" multiple asp-items="Model.Genres" asp-for="GenreIds">
                                 </select>
                             </div>
                         </div>
+
                         <div class="filter__group filter__group--sort">
                             <label for="genres" class="filter__label">Platforms:</label>
                             <div class="filter__select-wrap">
-                                <select class="filter__select form-control" asp-items="Model.Platforms" asp-for="PlatformId">
-                                    <option value="">All Platforms</option>
+                                <select class="filter__select form-control" id="platforms" multiselect-max-items="2" multiselect-select-all="true" multiple asp-items="Model.Platforms" asp-for="PlatformIds">
                                 </select>
                             </div>
                         </div>
@@ -27,7 +26,7 @@
                             <label for="sort" class="filter__label">Sort by:</label>
 
                             <div class="filter__select-wrap">
-                                <select name="sort" id="sort" class="filter__select form-select">
+                                <select name="sort" id="sort" class="filter__select form-control">
                                     <option value="0">Default</option>
                                     <option value="1">Price ↑</option>
                                     <option value="2">Price ↓</option>
@@ -79,30 +78,88 @@
                 </div>
             }
             <!-- paginator -->
+            @*<div class="col-12">
+                    <div class="paginator">
+                        <div class="paginator__counter">
+                            15 from 144
+                        </div>
+
+                        <ul class="paginator__wrap">
+                            <li class="paginator__item paginator__item--prev">
+                                <a href="~/#">
+                                    <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><polyline points='244 400 100 256 244 112' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' /><line x1='120' y1='256' x2='412' y2='256' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' /></svg>
+                                </a>
+                            </li>
+                            <li class="paginator__item paginator__item--active"><a asp-controller="Home" asp-action="Categories">1</a></li>
+                            <li class="paginator__item"><a asp-controller="Home" asp-action="Categories">2</a></li>
+                            <li class="paginator__item"><a asp-controller="Home" asp-action="Categories">3</a></li>
+                            <li class="paginator__item paginator__item--next">
+                                <a asp-controller="Home" asp-action="Categories">
+                                    <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><polyline points='268 112 412 256 268 400' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' /><line x1='392' y1='256' x2='100' y2='256' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' /></svg>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>*@
+            <!-- end paginator -->
+            @* Bizim Paginator Başlangıç *@
+
+            @{
+                var pi = Model.PaginationInfo;
+            }
             <div class="col-12">
                 <div class="paginator">
                     <div class="paginator__counter">
-                        15 from 144
+                        Showing @pi.Start - @pi.End of @pi.TotalItems items
                     </div>
+                    <ul class="paginator__wrap ">
+                        @if (pi.HasPrevious)
+                        {
+                            <li class="paginator__item paginator__item--prev">
+                                @{
+                                    var hrefQuery = @Model.HrefMaker(pi.CurrentPage - 1);
+                                }
+                                <a href="@hrefQuery">
+                                    <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><polyline points='244 400 100 256 244 112' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' /><line x1='120' y1='256' x2='412' y2='256' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' /></svg>
+                                </a>
+                            </li>
+                        }
 
-                    <ul class="paginator__wrap">
-                        <li class="paginator__item paginator__item--prev">
-                            <a href="~/#">
-                                <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><polyline points='244 400 100 256 244 112' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' /><line x1='120' y1='256' x2='412' y2='256' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' /></svg>
-                            </a>
-                        </li>
-                        <li class="paginator__item paginator__item--active"><a asp-controller="Home" asp-action="Categories">1</a></li>
-                        <li class="paginator__item"><a asp-controller="Home" asp-action="Categories">2</a></li>
-                        <li class="paginator__item"><a asp-controller="Home" asp-action="Categories">3</a></li>
-                        <li class="paginator__item paginator__item--next">
-                            <a asp-controller="Home" asp-action="Categories">
-                                <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><polyline points='268 112 412 256 268 400' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' /><line x1='392' y1='256' x2='100' y2='256' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' /></svg>
-                            </a>
-                        </li>
+                        @foreach (int i in pi.PageNumbers)
+                        {
+                            if (i == -1)
+                            {
+                                <li class="paginator__item disabled">
+                                    <a>&hellip;</a>
+                                </li>
+                            }
+                            else
+                            {
+                                <li class="paginator__item @(i == pi.CurrentPage ? "paginator__item--active" : "")">
+                                    @{
+                                        var hrefQuery = @Model.HrefMaker(i);
+                                    }
+                                    <a href="@hrefQuery">@i</a>
+                                </li>
+                            }
+                        }
+
+                        @if (pi.HasNext)
+                        {
+                            <li class="paginator__item paginator__item--next">
+                                @{ 
+                                    var hrefQuery = @Model.HrefMaker(pi.CurrentPage + 1);
+                                }
+                                <a href="@hrefQuery">
+                                    <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><polyline points='268 112 412 256 268 400' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' /><line x1='392' y1='256' x2='100' y2='256' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' /></svg>
+                                </a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
-            <!-- end paginator -->
+            @* Bizim Paginator Bitiş *@
+
         </div>
         <!-- end catalog -->
     </div>
