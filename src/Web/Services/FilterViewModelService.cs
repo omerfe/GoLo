@@ -1,7 +1,6 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
 using ApplicationCore.Specifications;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -18,15 +17,13 @@ namespace Web.Services
         private readonly IRepository<Genre> _genreRepo;
         private readonly IRepository<Platform> _platformRepo;
         private readonly IRepository<Discount> _discountRepo;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public FilterViewModelService(IRepository<Product> productRepo, IRepository<Genre> genreRepo, IRepository<Platform> platformRepo, IRepository<Discount> discountRepo, IHttpContextAccessor httpContextAccessor)
+        public FilterViewModelService(IRepository<Product> productRepo, IRepository<Genre> genreRepo, IRepository<Platform> platformRepo, IRepository<Discount> discountRepo)
         {
             _productRepo = productRepo;
             _genreRepo = genreRepo;
             _platformRepo = platformRepo;
             _discountRepo = discountRepo;
-            _httpContextAccessor = httpContextAccessor;
         }
 
         //public async Task<FilterViewModel> GetFilterViewModelAsync(int? genreId, int? platformId)
@@ -43,7 +40,7 @@ namespace Web.Services
             List<Genre> genres = await _genreRepo.GetAllAsync();
             List<Platform> platforms = await _platformRepo.GetAllAsync();
 
-            FilterViewModel vm = new FilterViewModel(_httpContextAccessor)
+            FilterViewModel vm = new FilterViewModel()
             {
                 Products = products.Select(x => new ProductViewModel()
                 {

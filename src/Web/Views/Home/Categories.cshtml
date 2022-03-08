@@ -106,6 +106,7 @@
 
             @{
                 var pi = Model.PaginationInfo;
+                var query = Context.Request.QueryString.Value;
             }
             <div class="col-12">
                 <div class="paginator">
@@ -117,7 +118,7 @@
                         {
                             <li class="paginator__item paginator__item--prev">
                                 @{
-                                    var hrefQuery = @Model.HrefMaker(pi.CurrentPage - 1);
+                                    var hrefQuery = @Model.HrefMaker(query,pi.CurrentPage - 1);
                                 }
                                 <a href="@hrefQuery">
                                     <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><polyline points='244 400 100 256 244 112' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' /><line x1='120' y1='256' x2='412' y2='256' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' /></svg>
@@ -137,7 +138,7 @@
                             {
                                 <li class="paginator__item @(i == pi.CurrentPage ? "paginator__item--active" : "")">
                                     @{
-                                        var hrefQuery = @Model.HrefMaker(i);
+                                        var hrefQuery = @Model.HrefMaker(query,i);
                                     }
                                     <a href="@hrefQuery">@i</a>
                                 </li>
@@ -148,7 +149,7 @@
                         {
                             <li class="paginator__item paginator__item--next">
                                 @{ 
-                                    var hrefQuery = @Model.HrefMaker(pi.CurrentPage + 1);
+                                    var hrefQuery = @Model.HrefMaker(query,pi.CurrentPage + 1);
                                 }
                                 <a href="@hrefQuery">
                                     <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><polyline points='268 112 412 256 268 400' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' /><line x1='392' y1='256' x2='100' y2='256' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' /></svg>
