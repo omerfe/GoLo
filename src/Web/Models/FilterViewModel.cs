@@ -1,17 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 
 namespace Web.Models
 {
     public class FilterViewModel
     {
-        private readonly IHttpContextAccessor _httpContextAccessor;
-
-        public FilterViewModel(IHttpContextAccessor httpContextAccessor)
-        {
-            _httpContextAccessor = httpContextAccessor;
-        }
         public List<ProductViewModel> Products { get; set; }
 
         public List<SelectListItem> Genres { get; set; }
@@ -24,9 +17,8 @@ namespace Web.Models
 
         public PaginationInfoViewModel PaginationInfo { get; set; }
 
-        public string HrefMaker(int pageNo)
+        public string HrefMaker(string query,int pageNo)
         {
-            var query = _httpContextAccessor.HttpContext.Request.QueryString.Value;
             var indexP = query.IndexOf("p=");
             var index = query.IndexOf('&');
             string newquery = query;
