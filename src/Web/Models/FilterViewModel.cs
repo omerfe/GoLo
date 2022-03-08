@@ -15,29 +15,34 @@ namespace Web.Models
         public List<int> GenreIds { get; set; } = new List<int>();
         public List<int> PlatformIds { get; set; } = new List<int>();
 
+        public string SearchText { get; set; }
+        public int? SortItem { get; set; }
+        public List<SelectListItem> SortTypes { get; set; }
+        
+        
         public PaginationInfoViewModel PaginationInfo { get; set; }
 
-        public string HrefMaker(string query,int pageNo)
+        public string HrefMaker(string query,int pageNo, string controller, string action)
         {
             var indexP = query.IndexOf("p=");
             var index = query.IndexOf('&');
-            string newquery = query;
+            string newQuery = query;
             var route = "";
-            if (newquery == "")
+            if (newQuery == "")
             {
-                return $"/Filter?p={pageNo}";
+                return $"/{controller}/{action}/?p={pageNo}";
             }
-            else if (!newquery.Contains("Genre") && !newquery.Contains("Platform"))
+            else if (!newQuery.Contains("Genre") && !newQuery.Contains("Platform") && !newQuery.Contains("Search") && !newQuery.Contains("Sort"))
             {
-                return $"/Filter?p={pageNo}";
+                return $"/{controller}/{action}/?p={pageNo}";
             }
             else
             {
                 if (indexP > 0)
                 {
-                    newquery = query.Remove(indexP - 1, index - indexP + 1);
+                    newQuery = query.Remove(indexP - 1, index - indexP + 1);
                 }
-                return route = $"/Filter?p={pageNo}&{newquery.Remove(0, 1)}";
+                return route = $"/{controller}/{action}/?p={pageNo}&{newQuery.Remove(0, 1)}";
             }
         }
     }

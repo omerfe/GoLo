@@ -7,7 +7,7 @@ namespace Web.Interfaces
     public interface IFilterViewModelService
     {
         //Task<FilterViewModel> GetFilterViewModelAsync(int? genreId, int? platformId);
-        Task<FilterViewModel> GetFilterViewModelAsync(List<int> genreIds, List<int> platformIds, int page);
+        Task<FilterViewModel> GetFilterViewModelAsync(List<int> genreIds, List<int> platformIds, int? sort, string searchText, int page);
 
     }
 }
