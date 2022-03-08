@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Threading.Tasks;
+using Web.Interfaces;
 using Web.Models;
 
 namespace Web.Controllers
@@ -8,19 +11,28 @@ namespace Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IFilterViewModelService _filterViewModelService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IFilterViewModelService filterViewModelService)
         {
             _logger = logger;
+            _filterViewModelService = filterViewModelService;
         }
 
         public IActionResult Index()
         {
             return View();
         }
-        public IActionResult Categories()
+        //public async Task<IActionResult> Categories(int? genreId, int? platformId)
+        //{
+        //    return View(await _filterViewModelService.GetFilterViewModelAsync(genreId, platformId));
+        //}
+
+        [Route("Filter")]
+        public async Task<IActionResult> Categories(List<int> genreIds, List<int> platformIds, int p=1)
         {
-            return View();
+            if (p < 1) return BadRequest();
+            return View(await _filterViewModelService.GetFilterViewModelAsync(genreIds, platformIds, p));
         }
         public IActionResult Privacy()
         {
