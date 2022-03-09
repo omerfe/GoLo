@@ -265,7 +265,7 @@ body::-webkit-scrollbar-thumb {
 }
 
     .header__logo img {
-        width: 120px;
+        width: 53px;
         height: auto;
     }
 
@@ -518,8 +518,11 @@ body::-webkit-scrollbar-thumb {
     }
 
     .header__login:hover {
-        background-color: rgba(167,130,233,0.04);
-        border-color: rgba(167,130,233,0.5);
+        background-color: #9173CC;
+        /*background-color: rgba(167,130,233,0.04);*/
+        border-color: #9173CC;
+        color: #fff;
+        /*border-color: rgba(167,130,233,0.5);*/
     }
 
         .header__login:hover svg {
@@ -1571,8 +1574,9 @@ body::-webkit-scrollbar-thumb {
 
     .paginator__item:hover a {
         color: #fff;
-        background-color: rgba(167,130,233,0.04);
+        background-color: #9173CC;
         border-color: rgba(167,130,233,0.07);
+        cursor: pointer;
     }
 
 .paginator__item--prev svg,
