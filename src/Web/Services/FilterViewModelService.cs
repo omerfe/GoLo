@@ -1,4 +1,5 @@
 ﻿using ApplicationCore.Entities;
+using ApplicationCore.Enums;
 using ApplicationCore.Interfaces;
 using ApplicationCore.Specifications;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -27,13 +28,13 @@ namespace Web.Services
         }
 
         //public async Task<FilterViewModel> GetFilterViewModelAsync(int? genreId, int? platformId)
-        public async Task<FilterViewModel> GetFilterViewModelAsync(List<int> genreIds, List<int> platformIds, int page)
+        public async Task<FilterViewModel> GetFilterViewModelAsync(List<int> genreIds, List<int> platformIds, int? sort, string searchText, int page)
         {
 
-            var specAllProducts = new ProductsFilterSpecification(genreIds, platformIds);
+            var specAllProducts = new ProductsFilterSpecification(genreIds, platformIds,searchText);
             int totalItems = await _productRepo.CountAsync(specAllProducts);
             int totalPages = (int)Math.Ceiling((double)totalItems / Constants.ITEMS_PER_PAGE);
-            var specProducts = new ProductsFilterSpecification(genreIds, platformIds, (page - 1) * Constants.ITEMS_PER_PAGE, Constants.ITEMS_PER_PAGE);
+            var specProducts = new ProductsFilterSpecification(genreIds, platformIds, (page - 1) * Constants.ITEMS_PER_PAGE, Constants.ITEMS_PER_PAGE, sort,searchText);
 
             List<Product> products = await _productRepo.GetAllAsync(specProducts);
 
@@ -63,7 +64,18 @@ namespace Web.Services
                     TotalPages = totalPages,
                     HasPrevious = page > 1,
                     HasNext = page < totalPages
-                }
+                },
+                SortTypes = new List<SelectListItem>()
+                {
+                    new SelectListItem() { Text = SortTypes.Price_Asc.GetDescription(), Value = ((int)SortTypes.Price_Asc).ToString()},
+                    new SelectListItem() { Text = SortTypes.Price_Desc.GetDescription(), Value = ((int)SortTypes.Price_Desc).ToString()},
+                    new SelectListItem() { Text = SortTypes.Release_Date_Asc.GetDescription(), Value = ((int)SortTypes.Release_Date_Asc).ToString()},
+                    new SelectListItem() { Text = SortTypes.Release_Date_Desc.GetDescription(), Value = ((int)SortTypes.Release_Date_Desc).ToString()},
+                    new SelectListItem() { Text = SortTypes.Name_Asc.GetDescription(), Value = ((int)SortTypes.Name_Asc).ToString()},
+                    new SelectListItem() { Text = SortTypes.Name_Desc.GetDescription(), Value = ((int)SortTypes.Name_Desc).ToString()}
+                },
+                SortItem = sort,
+                SearchText = searchText
             };
 
             return vm;
