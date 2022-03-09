@@ -4,11 +4,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Web.Data
+namespace Infrastructure.Identity
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class GoloIdentityDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public GoloIdentityDbContext(DbContextOptions<GoloIdentityDbContext> options)
             : base(options)
         {
         }
