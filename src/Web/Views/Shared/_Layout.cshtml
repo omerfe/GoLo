@@ -42,25 +42,10 @@
                             <a href="index.html" class="header__logo">
                                 <img src="~/img/logo.png" alt="logo">
                             </a>
-                            <form action="#" class="header__form">
-                                <input type="text" class="header__input" placeholder="I'm searching for...">  
-                                @{
-                                    // TODO => Buraya bak input search
-                                 }
-                                <select class="header__select">
-                                    <option value="0">All Categories</option>
-                                    <option value="1">Action</option>
-                                    <option value="3">Adventure</option>
-                                    <option value="4">Fighting</option>
-                                    <option value="5">Flight simulation</option>
-                                    <option value="6">Platform</option>
-                                    <option value="7">Racing</option>
-                                    <option value="8">RPG</option>
-                                    <option value="9">Sports</option>
-                                    <option value="10">Strategy</option>
-                                    <option value="11">Survival horror</option>
-                                </select>
-                                <button class="header__btn" type="button">
+                            <form action="/Home/Categories" class="header__form" method="get">
+                                <input id="searchInput" name="SearchText" type="text" class="header__input" placeholder="I'm searching for...">  
+                         
+                                <button class="header__btn" type="submit" id="searchButton">
                                     <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><path d='M221.09,64A157.09,157.09,0,1,0,378.18,221.09,157.1,157.1,0,0,0,221.09,64Z' style='fill:none;stroke-miterlimit:10;stroke-width:32px' /><line x1='338.29' y1='338.29' x2='448' y2='448' style='fill:none;stroke-linecap:round;stroke-miterlimit:10;stroke-width:32px' /></svg>
                                 </button>
                             </form>
@@ -175,7 +160,23 @@
     <script src="~/js/jquery.mCustomScrollbar.min.js"></script>
     <script src="~/js/multiselect-dropdown.js"></script>
     <script src="~/js/main.js" asp-append-version="true"></script>
+@*    <script>
+        $("#searchButton").click(function(event) {
+           event.preventDefault();
+           var inputId = $("#searchInput").val();
+           $.ajax({
+             url: "@Url.Action("Categories","Home")",
+             type: "get",
+             data: {searchText: inputId}
+           })
+        });
+
+    </script>*@
+
+    
+
     @await RenderSectionAsync("Scripts", required: false)
+    
 </body>
 </html>
 
