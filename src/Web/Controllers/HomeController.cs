@@ -28,11 +28,10 @@ namespace Web.Controllers
         //    return View(await _filterViewModelService.GetFilterViewModelAsync(genreId, platformId));
         //}
 
-        [Route("Filter")]
-        public async Task<IActionResult> Categories(List<int> genreIds, List<int> platformIds, int p=1)
+        public async Task<IActionResult> Categories(List<int> genreIds, List<int> platformIds, int? sortItem, string searchText, int p = 1)
         {
             if (p < 1) return BadRequest();
-            return View(await _filterViewModelService.GetFilterViewModelAsync(genreIds, platformIds, p));
+            return View(await _filterViewModelService.GetFilterViewModelAsync(genreIds, platformIds, sortItem, searchText, p));
         }
         public IActionResult Privacy()
         {
@@ -47,6 +46,7 @@ namespace Web.Controllers
         {
             return View();
         }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

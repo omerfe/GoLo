@@ -8,7 +8,7 @@ namespace Infrastructure.Data
     {
         public GoloContext(DbContextOptions<GoloContext> options) : base(options)
         {
-
+            Database.Migrate();
         }
         public DbSet<Product> Products { get; set; }
         public DbSet<Genre> Genres { get; set; }
