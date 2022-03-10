@@ -208,7 +208,7 @@
                     <h3><a asp-controller="Home" asp-action="Details" asp-route-productId="@item.Id">@item.GameName</a></h3>
                     @if (item.DiscountRate != 0)
                     {
-                        var discountedPrice = item.UnitPrice * item.DiscountRate / 100;
+                        var discountedPrice = (item.UnitPrice * (100 - item.DiscountRate) / 100).ToString("N2");
                         <span>$@discountedPrice<s>$@item.UnitPrice</s></span>
                     }
                     else
@@ -274,7 +274,7 @@
                     <h3><a asp-controller="Home" asp-action="Details" asp-route-productId="@item.Id">@item.GameName</a></h3>
                     @if (item.DiscountRate != 0)
                     {
-                        var discountedPrice = item.UnitPrice * item.DiscountRate / 100;
+                        var discountedPrice = (item.UnitPrice * (100 - item.DiscountRate) / 100).ToString("N2");
                         <span>$@discountedPrice<s>$@item.UnitPrice</s></span>
                     }
                     else
@@ -340,7 +340,7 @@
                     <h3><a asp-controller="Home" asp-action="Details" asp-route-productId="@item.Id">@item.GameName</a></h3>
                     @if (item.DiscountRate != 0)
                     {
-                        var discountedPrice = item.UnitPrice * item.DiscountRate / 100;
+                        var discountedPrice = (item.UnitPrice * (100-item.DiscountRate) / 100).ToString("N2");
                         <span>$@discountedPrice<s>$@item.UnitPrice</s></span>
                     }
                     else

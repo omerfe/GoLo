@@ -14,7 +14,8 @@ namespace ApplicationCore.Specifications
         {
             Query.Include(x => x.Game);
             Query.Include(x => x.Discounts);
-            Query.Where(x => x.Game.ReleaseDate > DateTime.Now.AddDays(-7)).OrderByDescending(x => x.Game.ReleaseDate);
+            Query.Include(x => x.Platform);
+            Query.Where(x => x.Game.ReleaseDate >= DateTime.Now.AddMonths(-3) && x.Game.ReleaseDate <= DateTime.Now).OrderByDescending(x => x.Game.ReleaseDate);
             Query.Take(10);
         }
     }

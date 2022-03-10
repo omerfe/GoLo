@@ -44,7 +44,7 @@ namespace Web.Controllers
             return View();
         }
 
-        public IActionResult Details()
+        public IActionResult Details(int productId)
         {
             return View();
         }
