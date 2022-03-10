@@ -38,6 +38,24 @@
                 </form>
             </div>
         </div>
+
+        <!--Search Text Start-->
+
+        @if (Model.PaginationInfo.TotalItems < 1)
+        {
+            <div class="row fw-bold justify-content-center" style="color:white !important">
+                <h3>Sorry, no results found</h3>
+            </div>
+        }
+        else if (!string.IsNullOrEmpty(@Model.SearchText))
+        {
+            <div class="row fw-bold justify-content-center" style="color:white !important">
+                <h3>Search for : @Model.SearchText</h3>
+            </div>
+        }
+            
+        <!--Search Text End-->
+
         <!-- catalog -->
         <div class="row category">
             @foreach (var item in @Model.Products)
