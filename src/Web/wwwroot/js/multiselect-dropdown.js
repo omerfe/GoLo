@@ -5,8 +5,7 @@ style.innerHTML = `
   display: inline-block;
   padding: 2px 5px 0px 5px;
   border-radius: 4px;
-  border: solid 1px #ced4da;
-  background-color: white;
+  border: solid 1px #61528B;
   position: relative;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23343a40' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
@@ -54,6 +53,8 @@ style.innerHTML = `
   margin-bottom:5px;
 }
 .multiselect-dropdown-list{
+  background-color: #1B222E;
+  color: #fff;
   padding:2px;
   height: 15rem;
   overflow-y:auto;
@@ -71,14 +72,20 @@ style.innerHTML = `
   padding: 5px;
 }
 .multiselect-dropdown-list input{
+  border: 1px solid #fff;
+  border-radius: 4px;
+  margin-top: 1px;
+
+  
   height: 1.15em;
   width: 1.15em;
   margin-right: 0.35em;  
 }
-.multiselect-dropdown-list div.checked{
+.multiselect-dropdown-list div.checked > input{
+  background-color:#fff;
 }
 .multiselect-dropdown-list div:hover{
-  background-color: #ced4da;
+  background-color: #61528B;
 }
 .multiselect-dropdown span.maxselected {width:100%;}
 .multiselect-dropdown-all-selector {border-bottom:solid 1px #999;}
