@@ -12,16 +12,18 @@ namespace Web.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IFilterViewModelService _filterViewModelService;
+        private readonly IHomeViewModelService _homeViewModelService;
 
-        public HomeController(ILogger<HomeController> logger, IFilterViewModelService filterViewModelService)
+        public HomeController(ILogger<HomeController> logger, IFilterViewModelService filterViewModelService, IHomeViewModelService homeViewModelService)
         {
             _logger = logger;
             _filterViewModelService = filterViewModelService;
+            _homeViewModelService = homeViewModelService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            return View(await _homeViewModelService.GetHomeViewModelAsync());
         }
         //public async Task<IActionResult> Categories(int? genreId, int? platformId)
         //{
