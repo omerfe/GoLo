@@ -73,7 +73,7 @@
                         </ul>
 
                         <div class="card__title">
-                            <h3><a href="~/details.html">@item.GameName</a></h3>
+                            <h3><a asp-controller="Home" asp-action="Details" asp-route-productId="@item.Id">@item.GameName</a></h3>
                             @if (item.DiscountRate != 0)
                             {
                                 var discountedPrice = item.UnitPrice * item.DiscountRate / 100;
