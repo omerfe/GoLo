@@ -41,7 +41,13 @@
 
         <!--Search Text Start-->
 
-        @if (!string.IsNullOrEmpty(@Model.SearchText))
+        @if (Model.PaginationInfo.TotalItems < 1)
+        {
+            <div class="row fw-bold justify-content-center" style="color:white !important">
+                <h3>Sorry, no results found</h3>
+            </div>
+        }
+        else if (!string.IsNullOrEmpty(@Model.SearchText))
         {
             <div class="row fw-bold justify-content-center" style="color:white !important">
                 <h3>Search for : @Model.SearchText</h3>
