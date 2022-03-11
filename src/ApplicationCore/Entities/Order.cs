@@ -9,6 +9,5 @@ namespace ApplicationCore.Entities
         public DateTimeOffset OrderDate { get; set; } = DateTimeOffset.Now;
         public List<OrderDetails> OrderDetails { get; set; }
 
-
     }
 }

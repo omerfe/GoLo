@@ -57,7 +57,9 @@ namespace Web.Services
         }
         private CartViewModel CartToViewModel(Cart cart)
         {
-            return new CartViewModel()
+
+
+            var vm = new CartViewModel()
             {
                 Id = cart.Id,
                 BuyerId = cart.BuyerId,
@@ -66,11 +68,15 @@ namespace Web.Services
                     Id = x.Id,
                     ProductId = x.ProductId,
                     Quantity = x.Quantity,
-                    ProductName = x.Product.Game.GameName,
+                    GameName = x.Product.Game.GameName,
                     PictureUri = x.Product.Game.ImagePath,
-                    UnitPrice = x.Product.ProductUnitPrice
+                    UnitPrice = x.Product.Discounts.FirstOrDefault(x => x.IsValid) == null ? x.Product.ProductUnitPrice : 
+                        (x.Product.ProductUnitPrice * (100 - x.Product.Discounts.FirstOrDefault(x => x.IsValid).DiscountRate) / 100),
+                    PlatformName = x.Product.Platform.PlatformName
                 }).ToList()
             };
+
+            return vm;
         }
 
         public async Task<Cart> GetOrCreateCartAsync()

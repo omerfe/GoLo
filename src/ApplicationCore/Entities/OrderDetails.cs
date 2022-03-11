@@ -4,6 +4,8 @@
     {
         // TODO: BaseEntity problem olur mu?
         public decimal UnitPrice { get; set; }
+        public string GameName { get; set; }
+        public string ImagePath { get; set; }
         public int? OrderDiscountId { get; set; }
         public int OrderId { get; set; }
         public int KeyId { get; set; }
