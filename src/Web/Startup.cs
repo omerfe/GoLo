@@ -39,6 +39,7 @@ namespace Web
                 .AddEntityFrameworkStores<GoloIdentityDbContext>();
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped<IFilterViewModelService, FilterViewModelService>();
+            services.AddScoped<IHomeViewModelService, HomeViewModelService>();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
