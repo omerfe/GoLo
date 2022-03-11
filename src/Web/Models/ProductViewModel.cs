@@ -8,6 +8,5 @@
         public string PicturePath { get; set; }
         public string PlatformLogo { get; set; }
         public int DiscountRate { get; set; }
-
     }
 }

@@ -1000,7 +1000,7 @@ body::-webkit-scrollbar-thumb {
         position: absolute;
         display: block;
         z-index: 1;
-        top: 60px;
+        top: 70px;
         left: 0;
         right: 0;
         height: 500px;
@@ -1024,7 +1024,7 @@ body::-webkit-scrollbar-thumb {
         position: absolute;
         display: block;
         z-index: 1;
-        top: 140px;
+        top: 70px;
         left: 0;
         right: 0;
         bottom: 0;

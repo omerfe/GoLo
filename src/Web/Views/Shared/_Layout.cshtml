@@ -22,7 +22,7 @@
         // TODO(GOLO): İconlara dikkat.
     }
 
-    <title>GoGame – Digital marketplace HTML Template</title>
+    <title>GoLo – Digital Game Marketplace</title>
 
 </head>
 <body>
@@ -39,7 +39,7 @@
                                 <span></span>
                             </button>
 
-                            <a href="index.html" class="header__logo">
+                            <a asp-controller="Home" asp-action="Index" class="header__logo">
                                 <img src="~/img/logo.png" alt="logo">
                             </a>
                             <form asp-controller="Home" asp-action="Categories" class="header__form" method="get">
@@ -138,7 +138,7 @@
 
                 <div class="col-12">
                     <div class="footer__wrap">
-                        <a class="footer__logo" href="index.html">
+                        <a class="footer__logo" asp-controller="Home" asp-action="Index">
                             <img src="~/img/logo.svg" alt="">
                         </a>
 

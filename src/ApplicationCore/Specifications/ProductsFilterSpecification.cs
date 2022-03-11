@@ -29,6 +29,7 @@ namespace ApplicationCore.Specifications
         {
             Query.Include(x => x.Game.Genres);
             Query.Include(x => x.Discounts);
+            Query.Include(x => x.Platform);
 
             if (genreIds.Count > 0)
                 Query.Where(x => x.Game.Genres.Any(x => genreIds.Contains(x.Id)));
