@@ -62,7 +62,7 @@
             {
                 <div class="col-12 col-sm-6 col-md-4 col-xl-3 col-xl-20">
                     <div class="card card--catalog">
-                        <a href="~/details.html" class="card__cover">
+                        <a asp-controller="Home" asp-action="Details" asp-route-productId="@item.Id" class="card__cover">
                             <img src="~/img/games/@item.PicturePath" alt="">
                         </a>
 
@@ -73,10 +73,10 @@
                         </ul>
 
                         <div class="card__title">
-                            <h3><a href="~/details.html">@item.GameName</a></h3>
+                            <h3><a asp-controller="Home" asp-action="Details" asp-route-productId="@item.Id">@item.GameName</a></h3>
                             @if (item.DiscountRate != 0)
                             {
-                                var discountedPrice = item.UnitPrice * item.DiscountRate / 100;
+                                var discountedPrice = (item.UnitPrice * (100 - item.DiscountRate) / 100).ToString("N2");
                                 <span>$@discountedPrice<s>$@item.UnitPrice</s></span>
                             }
                             else

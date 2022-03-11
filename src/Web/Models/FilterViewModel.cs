@@ -32,7 +32,7 @@ namespace Web.Models
             {
                 return $"/{controller}/{action}/?p={pageNo}";
             }
-            else if (!newQuery.Contains("Genre") && !newQuery.Contains("Platform") && !newQuery.Contains("Search") && !newQuery.Contains("Sort"))
+            else if (indexP > 0 && index < 0)
             {
                 return $"/{controller}/{action}/?p={pageNo}";
             }
