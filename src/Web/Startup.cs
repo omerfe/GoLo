@@ -40,6 +40,7 @@ namespace Web
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped<IFilterViewModelService, FilterViewModelService>();
             services.AddScoped<IHomeViewModelService, HomeViewModelService>();
+            services.AddScoped<IProductDetailsViewModelService, ProductDetailsViewModelService>();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }

@@ -8,15 +8,16 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Specifications
 {
-    public class ProductPreOrdersSpecification : Specification<Product>
+    public class ProductsOnSaleSpecification : Specification<Product>
     {
-        public ProductPreOrdersSpecification()
+        public ProductsOnSaleSpecification()
         {
             Query.Include(x => x.Game);
             Query.Include(x => x.Discounts);
             Query.Include(x => x.Platform);
-            Query.Where(x => x.Game.ReleaseDate > DateTime.Now).OrderBy(x => x.Game.ReleaseDate);
+            Query.Where(x => x.Discounts.Any(x => x.ValidUntil >= DateTime.Now && x.ValidFrom <= DateTime.Now));
             Query.Take(10);
         }
+
     }
 }

@@ -20,9 +20,9 @@ namespace Web.Services
         
         public async Task<HomeViewModel> GetHomeViewModelAsync()
         {
-            var specOnSale = new ProductOnSaleSpecification();
-            var specPreOrders = new ProductPreOrdersSpecification();
-            var specNewRelease = new ProductNewReleaseSpecification();
+            var specOnSale = new ProductsOnSaleSpecification();
+            var specPreOrders = new ProductsPreOrdersSpecification();
+            var specNewRelease = new ProductsNewReleaseSpecification();
 
             List<Product> productsOnSale = await _productRepo.GetAllAsync(specOnSale);
             List<Product> productsNewReleases = await _productRepo.GetAllAsync(specNewRelease);
