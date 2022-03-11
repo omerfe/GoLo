@@ -15,6 +15,7 @@ namespace ApplicationCore.Specifications
             Query.Include(x => x.Game);
             Query.Include(x => x.Discounts);
             Query.Include(x => x.Platform);
+            Query.Where(x => x.IsAvailable);
             Query.Where(x => x.Game.ReleaseDate > DateTime.Now).OrderBy(x => x.Game.ReleaseDate);
             Query.Take(10);
         }
