@@ -13,12 +13,14 @@ namespace Web.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly IFilterViewModelService _filterViewModelService;
         private readonly IHomeViewModelService _homeViewModelService;
+        private readonly IProductDetailsViewModelService _productDetailsViewModelService;
 
-        public HomeController(ILogger<HomeController> logger, IFilterViewModelService filterViewModelService, IHomeViewModelService homeViewModelService)
+        public HomeController(ILogger<HomeController> logger, IFilterViewModelService filterViewModelService, IHomeViewModelService homeViewModelService, IProductDetailsViewModelService productDetailsViewModelService)
         {
             _logger = logger;
             _filterViewModelService = filterViewModelService;
             _homeViewModelService = homeViewModelService;
+            _productDetailsViewModelService = productDetailsViewModelService;
         }
 
         public async Task<IActionResult> Index()
@@ -44,9 +46,10 @@ namespace Web.Controllers
             return View();
         }
 
-        public IActionResult Details(int productId)
+        public async Task<IActionResult> Details(int productId)
         {
-            return View();
+            if (productId < 1) return BadRequest();
+            return View(await _productDetailsViewModelService.GetProductDetailsViewModelAsync(productId));
         }
 
 
