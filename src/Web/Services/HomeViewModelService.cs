@@ -52,7 +52,5 @@ namespace Web.Services
 
             return productViewModelList;
         }
-
-        //
     }
 }

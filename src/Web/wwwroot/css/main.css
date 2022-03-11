@@ -164,6 +164,19 @@ body::-webkit-scrollbar-thumb {
     outline: 1px solid rgba(167,130,233,0.06);
 }
 
+.container,
+.container-fluid,
+.container-lg,
+.container-md,
+.container-sm,
+.container-xl {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
 @media (min-width: 1310px) {
     .container {
         max-width: 1310px;
@@ -987,7 +1000,7 @@ body::-webkit-scrollbar-thumb {
         position: absolute;
         display: block;
         z-index: 1;
-        top: 60px;
+        top: 70px;
         left: 0;
         right: 0;
         height: 500px;
@@ -1011,7 +1024,7 @@ body::-webkit-scrollbar-thumb {
         position: absolute;
         display: block;
         z-index: 1;
-        top: 140px;
+        top: 70px;
         left: 0;
         right: 0;
         bottom: 0;
@@ -5493,12 +5506,13 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    border: 1px solid rgba(167,130,233,0.06);
+    border: 2px solid #645490;
     border-radius: 6px;
     padding: 40px 20px;
     position: relative;
     width: 100%;
     max-width: 400px;
+    margin-top: 7rem;
 }
 
 .sign__logo {
@@ -5539,6 +5553,11 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
     margin-bottom: 20px;
     width: 100%;
 }
+
+    .sign__group span {
+        color: #EE4B2B;
+        font-size: smaller;
+    }
 
 .sign__group--checkbox {
     width: 100%;

@@ -14,7 +14,8 @@ namespace ApplicationCore.Specifications
         {
             Query.Include(x => x.Game);
             Query.Include(x => x.Discounts);
-            Query.Where(x => x.Discounts.Any(x => x.ValidUntil <= DateTime.Now && x.ValidFrom >= DateTime.Now));
+            Query.Include(x => x.Platform);
+            Query.Where(x => x.Discounts.Any(x => x.ValidUntil >= DateTime.Now && x.ValidFrom <= DateTime.Now));
             Query.Take(10);
         }
 
