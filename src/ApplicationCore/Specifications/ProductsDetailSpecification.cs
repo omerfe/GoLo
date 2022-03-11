@@ -17,8 +17,7 @@ namespace ApplicationCore.Specifications
                 Query.Include(x => x.Game.Genres);
                 Query.Include(x => x.Discounts);
                 Query.Include(x => x.Platform);
-                Query.Where(x => x.Id == productId);
-
+                Query.Where(x => x.Id == productId && x.IsAvailable);
             }
         }
     }

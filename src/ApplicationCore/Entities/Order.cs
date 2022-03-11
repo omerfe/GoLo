@@ -5,8 +5,10 @@ namespace ApplicationCore.Entities
 {
     public class Order : BaseEntity
     {
-        public DateTime OrderDate { get; set; } = DateTime.Now;
-        public decimal TotalPrice { get; set; }
+        public string BuyerId { get; set; }
+        public DateTimeOffset OrderDate { get; set; } = DateTimeOffset.Now;
         public List<OrderDetails> OrderDetails { get; set; }
+
+
     }
 }
