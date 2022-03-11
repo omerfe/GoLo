@@ -8,26 +8,27 @@ using System.Threading.Tasks;
 
 namespace Web
 {
-    public class Program
-    {
-        public async static Task Main(string[] args)
-        {
-            var host = CreateHostBuilder(args).Build();
-            using (var scope = host.Services.CreateScope())
-            {
-                var goloContext = scope.ServiceProvider.GetRequiredService<GoloContext>();
-                var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
-                var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-                await GoloContextSeed.SeedAsync(goloContext);
-            }
-            host.Run();
-        }
+	public class Program
+	{
+		public async static Task Main(string[] args)
+		{
+			var host = CreateHostBuilder(args).Build();
+			using (var scope = host.Services.CreateScope())
+			{
+				var goloContext = scope.ServiceProvider.GetRequiredService<GoloContext>();
+				var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+				var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+				await GoloContextSeed.SeedAsync(goloContext);
+				await GoloIdentityDbContextSeed.SeedAsync(roleManager, userManager);
+			}
+			host.Run();
+		}
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
-    }
+		public static IHostBuilder CreateHostBuilder(string[] args) =>
+			Host.CreateDefaultBuilder(args)
+				.ConfigureWebHostDefaults(webBuilder =>
+				{
+					webBuilder.UseStartup<Startup>();
+				});
+	}
 }
