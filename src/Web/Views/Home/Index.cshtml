@@ -218,7 +218,7 @@
                 </div>
 
                 <div class="card__actions justify-content-center">
-                    <button class="card__buy" type="button">Buy Now</button>
+                    <a data-add-item="@item.Id" href="#" class="card__buy" type="button">Buy Now</a>
                 </div>
             </div>
         }
@@ -284,7 +284,7 @@
                 </div>
 
                 <div class="card__actions justify-content-center">
-                    <button class="card__buy" type="button">Buy Now</button>
+                    <a data-add-item="@item.Id" href="#" class="card__buy" type="button">Buy Now</a>
                 </div>
             </div>
         }
@@ -322,7 +322,7 @@
     <!-- carousel -->
     <div class="owl-carousel section__carousel section__carousel--catalog" id="carousel3">
         <!-- card -->
-       @foreach (var item in Model.ProductsOnSale)
+        @foreach (var item in Model.ProductsOnSale)
         {
             <div class="card">
                 <a asp-controller="Home" asp-action="Details" asp-route-productId="@item.Id" class="card__cover">
@@ -340,7 +340,7 @@
                     <h3><a asp-controller="Home" asp-action="Details" asp-route-productId="@item.Id">@item.GameName</a></h3>
                     @if (item.DiscountRate != 0)
                     {
-                        var discountedPrice = (item.UnitPrice * (100-item.DiscountRate) / 100).ToString("N2");
+                        var discountedPrice = (item.UnitPrice * (100 - item.DiscountRate) / 100).ToString("N2");
                         <span>$@discountedPrice<s>$@item.UnitPrice</s></span>
                     }
                     else
@@ -350,12 +350,12 @@
                 </div>
 
                 <div class="card__actions justify-content-center">
-                    <button class="card__buy" type="button">Buy Now</button>
+                    <a data-add-item="@item.Id" href="#" class="card__buy" type="button">Buy Now</a>
                 </div>
             </div>
         }
         <!-- end card -->
-        
+
     </div>
     <!-- end carousel -->
 </section>
@@ -395,3 +395,20 @@
     </div>
 </div>
 <!-- end section -->
+@section Scripts{
+<script>
+    $("[data-add-item]").click(function (event) {
+        event.preventDefault();
+        var id = $(this).data("add-item");
+        $.ajax({
+            url: "@Url.Action("AddToCart", "Cart")",
+            type: "post",
+            data: { productId: id, quantity: 1 },
+            success: function (data) {
+            $("#navCartItemsCount").text(data.totalItemsCount);
+            toastr.success("The item has been added to cart.");
+            }
+        })
+    });
+</script>
+}

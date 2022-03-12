@@ -1,4 +1,5 @@
 using ApplicationCore.Interfaces;
+using ApplicationCore.Services;
 using Infrastructure.Data;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Builder;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Web.Interfaces;
+using Web.Middlewares;
 using Web.Services;
 
 namespace Web
@@ -40,6 +42,9 @@ namespace Web
             services.AddScoped(typeof(IRepository<>), typeof(EfRepository<>));
             services.AddScoped<IFilterViewModelService, FilterViewModelService>();
             services.AddScoped<IHomeViewModelService, HomeViewModelService>();
+            services.AddScoped<IProductDetailsViewModelService, ProductDetailsViewModelService>();
+            services.AddScoped<ICartService, CartService>();
+            services.AddScoped<ICartViewModelService, CartViewModelService>();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
@@ -72,6 +77,8 @@ namespace Web
 
             app.UseAuthentication();
             app.UseAuthorization();
+
+            app.UseCartTransfer();
 
             app.UseEndpoints(endpoints =>
             {

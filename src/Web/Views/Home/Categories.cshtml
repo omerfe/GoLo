@@ -40,7 +40,6 @@
         </div>
 
         <!--Search Text Start-->
-
         @if (Model.PaginationInfo.TotalItems < 1)
         {
             <div class="row fw-bold justify-content-center" style="color:white !important">
@@ -53,9 +52,8 @@
                 <h3>Search for : @Model.SearchText</h3>
             </div>
         }
-            
-        <!--Search Text End-->
 
+        <!--Search Text End-->
         <!-- catalog -->
         <div class="row category">
             @foreach (var item in @Model.Products)
@@ -86,36 +84,12 @@
                         </div>
 
                         <div class="card__actions justify-content-center ">
-                            <button class="card__buy" type="button">Buy</button>
+                            <a data-add-item="@item.Id" href="#" class="card__buy" type="button">Buy Now</a>
                         </div>
                     </div>
                 </div>
             }
-            <!-- paginator -->
-            @*<div class="col-12">
-                <div class="paginator">
-                <div class="paginator__counter">
-                15 from 144
-                </div>
 
-                <ul class="paginator__wrap">
-                <li class="paginator__item paginator__item--prev">
-                <a href="~/#">
-                <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><polyline points='244 400 100 256 244 112' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' /><line x1='120' y1='256' x2='412' y2='256' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' /></svg>
-                </a>
-                </li>
-                <li class="paginator__item paginator__item--active"><a asp-controller="Home" asp-action="Categories">1</a></li>
-                <li class="paginator__item"><a asp-controller="Home" asp-action="Categories">2</a></li>
-                <li class="paginator__item"><a asp-controller="Home" asp-action="Categories">3</a></li>
-                <li class="paginator__item paginator__item--next">
-                <a asp-controller="Home" asp-action="Categories">
-                <svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><polyline points='268 112 412 256 268 400' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' /><line x1='392' y1='256' x2='100' y2='256' style='fill:none;stroke-linecap:round;stroke-linejoin:round;stroke-width:48px' /></svg>
-                </a>
-                </li>
-                </ul>
-                </div>
-                </div>*@
-            <!-- end paginator -->
             @* Bizim Paginator Başlangıç *@
 
             @{
@@ -182,3 +156,24 @@
     </div>
 </section>
 <!-- end section -->
+
+
+
+
+@section Scripts{
+<script>
+    $("[data-add-item]").click(function (event) {
+        event.preventDefault();
+        var id = $(this).data("add-item");
+        $.ajax({
+            url: "@Url.Action("AddToCart", "Cart")",
+            type: "post",
+            data: { productId: id, quantity: 1 },
+            success: function (data) {
+            $("#navCartItemsCount").text(data.totalItemsCount);
+            toastr.success("The item has been added to cart.");
+            }
+        })
+    });
+</script>
+}
