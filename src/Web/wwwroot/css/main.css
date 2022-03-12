@@ -5052,7 +5052,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
                 }
 
         .cart__table th:last-child {
-            width: 24px;
+            width: 100px;
             padding: 0 0 10px 0;
         }
 
@@ -6341,3 +6341,19 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
         .mCS-custom-bar2.mCSB_scrollTools .mCSB_dragger.mCSB_dragger_onDrag .mCSB_dragger_bar {
             background-color: #a782e9;
         }
+
+.cart-badge {
+    border: 1px solid #A782E9;
+    border-radius: 50rem !important;
+    display: inline-block !important;
+    padding: 0.35em 0.65em !important;
+    font-size: .75em !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    color: #fff !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    vertical-align: baseline !important;
+    --bs-bg-opacity: 1 !important;
+    background-color: #A782E9 !important;
+}
