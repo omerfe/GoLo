@@ -12,12 +12,15 @@ namespace ApplicationCore.Specifications
     {
         public CartSpecification(string buyerId)
         {
-            Query.Include(x => x.CartItems)
-                 .ThenInclude(x => x.Product.Game);
-            Query.Include(x => x.CartItems)
-               .ThenInclude(x => x.Product.Platform); //TODO bura patlayabilir
-            Query.Include(x => x.CartItems)
-                .ThenInclude(x => x.Product.Discounts); //TODO bura patlayabilir
+            Query.Include(c => c.CartItems)
+                 .ThenInclude(ci => ci.Product.Game)
+                 .ThenInclude(g => g.Products).ThenInclude(pr => pr.Platform).ThenInclude(pl => pl.Products).ThenInclude(pr => pr.Discounts);
+            //Query.Include(c => c.CartItems)
+            //    .ThenInclude(ci => ci.Product.Game);
+            //Query.Include(x => x.CartItems)
+            //   .ThenInclude(x => x.Product.Platform);
+            //Query.Include(x => x.CartItems)
+            //    .ThenInclude(x => x.Product.Discounts);
             Query.Where(x => x.BuyerId == buyerId);
         }
     }
