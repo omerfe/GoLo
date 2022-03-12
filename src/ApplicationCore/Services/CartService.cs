@@ -26,7 +26,8 @@ namespace ApplicationCore.Services
         {
             if (quantity < 1)
                 throw new ArgumentException("Quantity must be greater than zero.");
-            var product = await _productRepo.GetByIdAsync(productId);
+            var productSpec = new ProductsDetailSpecification(productId);
+            var product = await _productRepo.FirstOrDefaultAsync(productSpec);
             if (product == null)
                 throw new ArgumentException($"Product with the id {productId} can not be found.");
             var spec = new CartWithItemsSpecification(cartId);
@@ -104,7 +105,7 @@ namespace ApplicationCore.Services
             var userCart = await _cartRepo.FirstOrDefaultAsync(specUser);
             if (userCart == null)
             {
-                userCart = new Cart() { BuyerId = userId };
+                userCart = new Cart() { BuyerId = userId, CartItems = new List<CartItem>() };
                 await _cartRepo.AddAsync(userCart);
             }
 
