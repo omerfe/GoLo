@@ -68,7 +68,7 @@
                             }
                         </div>
                         <div class="details__actions">
-                            <button class="details__buy" type="button">Buy now</button>
+                            <a data-add-item="@Model.Id" href="#" class="details__buy" type="button">Buy Now</a>
                         </div>
                     </div>
 
@@ -163,7 +163,7 @@
                 </div>
 
                 <div class="card__actions justify-content-center">
-                    <button class="card__buy" type="button">Buy Now</button>
+                    <a data-add-item="@item.Id" href="#" class="card__buy" type="button">Buy Now</a>
                 </div>
             </div>
         }
@@ -172,3 +172,21 @@
     <!-- end carousel -->
 </section>
 <!-- end section -->
+
+@section Scripts{
+<script>
+    $("[data-add-item]").click(function (event) {
+        event.preventDefault();
+        var id = $(this).data("add-item");
+        $.ajax({
+            url: "@Url.Action("AddToCart", "Cart")",
+            type: "post",
+            data: { productId: id, quantity: 1 },
+            success: function (data) {
+            $("#navCartItemsCount").text(data.totalItemsCount);
+            toastr.success("The item has been added to cart.");
+            }
+        })
+    });
+</script>
+}
