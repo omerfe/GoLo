@@ -6,9 +6,19 @@
 <ul class="header__nav" style="margin-left:auto; margin-right:0">
     @if (SignInManager.IsSignedIn(User))
     {
-        <li class="header__nav-item">
-            <a class="header__nav-link" style="text-align: center; font-size: .85rem;" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">My Account</a>
-        </li>
+        @if (User.IsInRole("admin"))
+        {
+            <li class="header__nav-item">
+                <a class="header__nav-link" style="text-align: center; font-size: .85rem;" asp-area="Admin" asp-controller="Dashboard" asp-action="Index" title="Manage">Admin</a>
+            </li>
+        }
+        else
+        {
+            <li class="header__nav-item">
+                <a class="header__nav-link" style="text-align: center; font-size: .85rem;" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">My Account</a>
+            </li>
+        }
+
         <li class="header__nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
                 <button type="submit" class="header__nav-link" style="color: #fff;">Logout</button>
