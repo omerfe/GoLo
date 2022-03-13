@@ -1,0 +1,103 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>@ViewData["Title"] - GoLo Game</title>
+    <link href="~/admin/css/styles.css" rel="stylesheet" />
+    <script src="~/lib/font-awesome/js/all.min.js"></script>
+</head>
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" asp-area="" asp-controller="Home" asp-action="Index">GoLo Game</a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+        <!-- Navbar-->
+        <ul class="navbar-nav ms-auto me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                    <li class="dropdown-item">
+                    <a class="nav-link text-dark" style="color: #fff;" asp-area="identity" asp-page="/Account/Manage/Index">Settings</a></li>
+                    <li><hr class="dropdown-divider" /></li>
+                    <li>
+                        <form class="form-inline dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                            <button type="submit" class="nav-link btn btn-link text-dark " style="color: #fff;">Logout</button>
+                        </form>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+                        <div class="sb-sidenav-menu-heading">MAIN</div>
+                        <a class="nav-link" asp-controller="Dashboard" asp-action="Index">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Admin Panel
+                        </a>
+                        <div class="sb-sidenav-menu-heading">MENU</div>
+                        <a class="nav-link" asp-controller="Order" asp-action="Index">
+                            <div class="sb-nav-link-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                            Orders
+                        </a>
+                        <a class="nav-link" asp-controller="Platform" asp-action="Index">
+                            <div class="sb-nav-link-icon"><i class="fab fa-steam"></i></div>
+                            Platforms
+                        </a>
+                        <a class="nav-link" asp-controller="Genre" asp-action="Index">
+                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                            Genres
+                        </a>
+                        <a class="nav-link" asp-controller="Game" asp-action="Index">
+                            <div class="sb-nav-link-icon"><i class="fas fa-gamepad"></i></div>
+                            Games
+                        </a>
+                        <a class="nav-link" asp-controller="Product" asp-action="Index">
+                            <div class="sb-nav-link-icon"><i class="fas fa-hand-holding-usd"></i></div>
+                            Products
+                        </a>
+                    </div>
+                </div>
+                <div class="sb-sidenav-footer">
+                    <div class="small">Logged in as:</div>
+                    Admin
+                </div>
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">@ViewData["Title"]</h1>
+                    <ol class="breadcrumb mb-4">
+                        <li class="breadcrumb-item active">Dashboard</li>
+                    </ol>
+                    @RenderBody()
+                </div>
+            </main>
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">Copyright &copy; GoLo Game @DateTime.Now.Year</div>
+                        <div>
+                            <a href="#">Privacy Policy</a>
+                            &middot;
+                            <a href="#">Terms &amp; Conditions</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="~/lib/bootstrap5/js/bootstrap.bundle.min.js"></script>
+    <script src="~/admin/js/scripts.js"></script>
+    @await RenderSectionAsync("Scripts", false)
+</body>
+</html>
