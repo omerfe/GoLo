@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Contact";
+}
+<section class="section section--first section--last section--head" data-bg="img/bg.jpg">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="section__wrap">
+					<!-- section title -->
+					<h2 class="section__title">Contact Us</h2>
+					<!-- end section title -->
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+<div class="container">
+	<div class="row">
+		<div class="col-12">
+			<div class="sign__content">
+				<form action="https://formsubmit.co/omerfe.eker@gmail.com" method="post" class="sign__form">
+					<a asp-controller="Home" asp-action="Index" class="sign__logo">
+						<img src="~/img/GoLoLogo.png" alt="logo">
+					</a>
+					<div class="sign__group">
+						<input class="sign__input" placeholder="Your Name">
+					</div>
+					<div class="sign__group">
+						<input class="sign__input" placeholder="Your Email" required="">
+					</div>
+					<div class="sign__group">
+						<input class="sign__input" name="_subject" placeholder="Subject">
+					</div>
+					<div class="sign__group">
+						<textarea style="height: auto;" class="sign__input" name="message" cols="30" rows="5" placeholder="Your message" required=""></textarea>
+					</div>
+					<button class="sign__btn" type="submit">Submit</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
