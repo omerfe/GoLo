@@ -278,7 +278,7 @@ body::-webkit-scrollbar-thumb {
 }
 
     .header__logo img {
-        width: 53px;
+        width: 95px;
         height: auto;
     }
 
@@ -795,6 +795,10 @@ body::-webkit-scrollbar-thumb {
 }
 
 @media (min-width: 1200px) {
+    .header__logo img {
+        width: 130px;
+    }
+
     .header__nav {
         flex-direction: row;
         align-items: center;
@@ -5527,7 +5531,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
     }
 
     .sign__logo img {
-        width: 120px;
+        width: 240px;
     }
 
 .sign__input {
