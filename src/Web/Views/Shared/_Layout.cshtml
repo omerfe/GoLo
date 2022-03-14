@@ -17,6 +17,7 @@
 
     <!-- Favicons -->
     <link rel="icon" type="image/png" href="icon/favicon-32x32.png" sizes="32x32">
+    <link rel="icon type="image/png" href="~/img/GoLoLogo.png"/>
     <link rel="apple-touch-icon" href="icon/favicon-32x32.png">
 
     <title>GoLo – Digital Game Marketplace</title>
@@ -36,10 +37,10 @@
                                 <span></span>
                             </button>
 
-                            <a asp-controller="Home" asp-action="Index" class="header__logo">
+                            <a asp-controller="Home" asp-action="Index" class="header__logo" asp-area="">
                                 <img src="~/img/GoLoLogo.png" alt="logo">
                             </a>
-                            <form asp-controller="Home" asp-action="Categories" class="header__form" method="get" style="margin-left: 15%;">
+                            <form asp-controller="Home" asp-action="Categories" asp-area="" class="header__form" method="get" style="margin-left: 15%;">
                                 <input id="searchInput" name="SearchText" type="text" class="header__input" placeholder="I'm searching for...">
 
                                 <button class="header__btn" type="submit" id="searchButton">
@@ -50,7 +51,6 @@
                         </div>
                     </div>
                         <partial name="_NavCartPartial" />
-                    
                 </div>
             </div>
         </div>
@@ -71,10 +71,10 @@
                             <div class="footer__title"><svg xmlns='http://www.w3.org/2000/svg' width='512' height='512' viewBox='0 0 512 512'><polygon points='336 320 32 320 184 48 336 320' style='fill:none;stroke-linejoin:round;stroke-width:32px' /><path d='M265.32,194.51A144,144,0,1,1,192,320' style='fill:none;stroke-linejoin:round;stroke-width:32px' /></svg> <span>GoLo</span></div>
 
                             <nav class="footer__list">
-                                <a asp-controller="Home" asp-action="Categories">Catalog</a>
-                                <a asp-controller="Home" asp-action="About">About Us</a>
-                                <a asp-controller="Home" asp-action="HelpCenter">Help Center</a>
-                                <a asp-controller="Home" asp-action="Contact">Contact Us</a>
+                                <a asp-controller="Home" asp-action="Categories" asp-area="">Catalog</a>
+                                <a asp-controller="Home" asp-action="About" asp-area="">About Us</a>
+                                <a asp-controller="Home" asp-action="HelpCenter" asp-area="">Help Center</a>
+                                <a asp-controller="Home" asp-action="Contact" asp-area="">Contact Us</a>
                             </nav>
                         </div>
 
@@ -127,7 +127,7 @@
 
                 <div class="col-12">
                     <div class="footer__wrap">
-                        <a class="footer__logo" asp-controller="Home" asp-action="Index">
+                        <a class="footer__logo" asp-controller="Home" asp-action="Index" asp-area="">
                             <img src="~/img/GoLoLogo.svg" alt="">
                         </a>
 

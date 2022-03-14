@@ -1,8 +1,7 @@
 ﻿using ApplicationCore.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Web.Interfaces;
 using Web.Models;
@@ -14,7 +13,7 @@ namespace Web.Controllers
         private readonly ICartViewModelService _cartViewModelService;
         private readonly ICartService _cartService;
 
-        public CartController(ICartViewModelService cartViewModelService, ICartService cartService )
+        public CartController(ICartViewModelService cartViewModelService, ICartService cartService)
         {
             _cartViewModelService = cartViewModelService;
             _cartService = cartService;
@@ -53,6 +52,35 @@ namespace Web.Controllers
             var cart = await _cartViewModelService.GetOrCreateCartAsync();
             await _cartService.DeleteCartItemAsync(cart.Id, cartItemId);
             return RedirectToAction(nameof(Index));
+        }
+
+        [Authorize]
+        public async Task<IActionResult> Checkout()
+        {
+            return View();
+        }
+
+        [Authorize, HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> Checkout(CheckoutViewModel vm)
+        {
+            if (ModelState.IsValid)
+            {
+                //payment received..
+                var result = await _cartViewModelService.CompleteCheckoutAsync(vm.Email);
+                if (result is null)
+                {
+                    ViewBag.OutOfStock = "Some of the items you've selected has changed due to their stock status.";
+                    return View(vm);
+                }
+                return RedirectToAction("OrderComplete", result);
+            }
+
+            return View(vm);
+        }
+
+        public async Task<IActionResult> OrderComplete(OrderCompleteViewModel vm)
+        {
+            return View(vm);
         }
     }
 }

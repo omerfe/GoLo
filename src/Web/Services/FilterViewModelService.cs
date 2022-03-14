@@ -31,10 +31,10 @@ namespace Web.Services
         public async Task<FilterViewModel> GetFilterViewModelAsync(List<int> genreIds, List<int> platformIds, int? sort, string searchText, int page)
         {
 
-            var specAllProducts = new ProductsFilterSpecification(genreIds, platformIds,searchText);
+            var specAllProducts = new ProductsFilterSpecification(genreIds, platformIds, searchText);
             int totalItems = await _productRepo.CountAsync(specAllProducts);
             int totalPages = (int)Math.Ceiling((double)totalItems / Constants.ITEMS_PER_PAGE);
-            var specProducts = new ProductsFilterSpecification(genreIds, platformIds, (page - 1) * Constants.ITEMS_PER_PAGE, Constants.ITEMS_PER_PAGE, sort,searchText);
+            var specProducts = new ProductsFilterSpecification(genreIds, platformIds, (page - 1) * Constants.ITEMS_PER_PAGE, Constants.ITEMS_PER_PAGE, sort, searchText);
 
             List<Product> products = await _productRepo.GetAllAsync(specProducts);
 
@@ -50,7 +50,7 @@ namespace Web.Services
                     UnitPrice = x.ProductUnitPrice,
                     PicturePath = x.Game.ImagePath,
                     PlatformLogo = x.Platform.LogoPath,
-                    DiscountRate = x.Discounts.FirstOrDefault(x => x.IsValid) == null ? 0 : x.Discounts.FirstOrDefault(x => x.IsValid).DiscountRate//TODO Test edilmedi,discount'lu game yok
+                    DiscountRate = x.Discounts.FirstOrDefault(x => x.IsValid) == null ? 0 : x.Discounts.FirstOrDefault(x => x.IsValid).DiscountRate
                 }).ToList(),
                 Genres = genres.Select(x => new SelectListItem(x.GenreName, x.Id.ToString())).ToList(),
                 Platforms = platforms.Select(x => new SelectListItem(x.PlatformName, x.Id.ToString())).ToList(),

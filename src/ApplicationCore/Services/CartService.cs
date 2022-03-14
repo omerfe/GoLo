@@ -4,7 +4,6 @@ using ApplicationCore.Specifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ApplicationCore.Services
@@ -105,7 +104,7 @@ namespace ApplicationCore.Services
             var userCart = await _cartRepo.FirstOrDefaultAsync(specUser);
             if (userCart == null)
             {
-                userCart = new Cart() { BuyerId = userId, CartItems = new List<CartItem>() };
+                userCart = new Cart() { BuyerId = userId };
                 await _cartRepo.AddAsync(userCart);
             }
 
