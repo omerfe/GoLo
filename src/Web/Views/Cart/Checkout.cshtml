@@ -1,0 +1,69 @@
+﻿@model CheckoutViewModel
+@{
+	ViewData["Title"] = "Checkout";
+}
+<section class="section section--bg section--first" data-bg="img/bg.jpg">
+	<div class="container">
+		<div class="row g-5">
+			<div class="col-md-5 col-lg-4 order-md-last">
+				<vc:checkout-cart />
+			</div>
+			<div class="col-md-7 col-lg-8">
+				<form method="post">
+					<div class="row g-3">
+						<div class="col-md-12 sign__group">
+							<label asp-for="Email" class="sign__text">Email:</label>
+							<input asp-for="Email" type="text" class="sign__input">
+							<small style="opacity: .6; color:#fff;">example@example.com</small>
+							<div>
+								<span asp-validation-for="Email"></span>
+							</div>
+						</div>
+					</div>
+					<hr class="my-4">
+
+					<h3 style="color: #A782E9;" class="mb-3 section__title section__title--small">Payment</h3>
+
+					<div class="row gy-3">
+						<div class="col-md-6 sign__group">
+							<label asp-for="CCOwner" class="sign__text">Name on card</label>
+							<input asp-for="CCOwner" type="text" class="sign__input" >
+							<small style="opacity: .6; color:#fff;">Full name as displayed on card</small>
+							<div>
+								<span asp-validation-for="CCOwner"></span>
+							</div>
+						</div>
+						<div class="col-md-6 sign__group">
+							<label asp-for="CCNumber" class="sign__text">Credit card number</label>
+							<input asp-for="CCNumber" type="text" class="sign__input">
+							<small style="opacity: .6; color:#fff;">XXXX-XXXX-XXXX-XXXX</small>
+							<div>
+								<span asp-validation-for="CCNumber"></span>
+							</div>
+						</div>
+						<div class="col-md-3 sign__group">
+							<label asp-for="CCExpiration" class="sign__text">Expiration</label>
+							<input asp-for="CCExpiration" type="text" class="sign__input">
+							<small style="opacity: .6; color:#fff;">MM/YY</small>
+							<div>
+								<span asp-validation-for="CCExpiration"></span>
+							</div>
+						</div>
+						<div class="col-md-3 sign__group">
+							<label asp-for="CCCvv" class="sign__text">CVV</label>
+							<input asp-for="CCCvv" type="text" class="sign__input">
+							<small style="opacity: .6; color:#fff;">XXXX</small>
+							<div>
+								<span asp-validation-for="CCCvv"></span>
+							</div>
+						</div>
+					</div>
+
+					<hr class="my-4">
+
+					<button class="sign__btn" type="submit">Complete Payment</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</section>

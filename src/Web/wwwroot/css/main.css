@@ -511,7 +511,7 @@ body::-webkit-scrollbar-thumb {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: 44px;
+    width: 76px;
     height: 44px;
     background-color: rgba(167,130,233,0.03);
     border: 1px solid rgba(167,130,233,0.4);
@@ -5667,7 +5667,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
 
 .sign__text {
     margin-top: 15px;
-    font-size: 14px;
+    font-size: 1rem;
     color: #dbdada;
 }
 

@@ -1,0 +1,26 @@
+﻿@model CartViewModel
+
+<h3 class="d-flex justify-content-between align-items-center mb-3">
+	<span style="color: #A782E9;" class="section__title section__title--small">Your cart</span>
+	<span class="cart-badge">@Model.TotalItemsCount</span>
+</h3>
+<ul class="list-group mb-3">
+	@foreach (var item in Model.Items)
+	{
+		<li class="list-group-item d-flex justify-content-between lh-sm">
+			<div>
+				<h6 class="my-0 sign__text">@item.GameName</h6>
+				<h6 style="opacity: .6; color:#fff;" >@item.PlatformName</h6>
+				<small class="sign__text">@item.UnitPrice.ToString("c2") x@(item.Quantity)</small>
+			</div>
+			<span class="sign__text">@item.SubTotalPrice.ToString("c2")</span>
+		</li>
+		<hr />
+	}
+
+
+	<li class="list-group-item d-flex justify-content-between">
+		<span style="color: #00AE41;" class="section__title section__title--small mt-3">Total (USD)</span>
+		<strong style="color: #00AE41;" class="section__title section__title--small mt-3">@Model.TotalPrice.ToString("c2")</strong>
+	</li>
+</ul>

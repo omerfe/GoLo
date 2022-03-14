@@ -55,7 +55,7 @@ namespace Web.Services
                 UnitPrice = x.ProductUnitPrice,
                 PicturePath = x.Game.ImagePath,
                 PlatformLogo = x.Platform.LogoPath,
-                DiscountRate = x.Discounts.FirstOrDefault(x => x.IsValid) == null ? 0 : x.Discounts.FirstOrDefault(x => x.IsValid).DiscountRate//TODO Test edilmedi,discount'lu game yok
+                DiscountRate = x.Discounts.FirstOrDefault(x => x.IsValid) == null ? 0 : x.Discounts.FirstOrDefault(x => x.IsValid).DiscountRate
             }).ToList();
 
             return productViewModelList;
