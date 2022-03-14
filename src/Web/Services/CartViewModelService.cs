@@ -17,13 +17,14 @@ namespace Web.Services
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IRepository<Cart> _cartRepo;
         private readonly ICartService _cartService;
+        private readonly IOrderService _orderService;
 
-
-        public CartViewModelService(IHttpContextAccessor httpContextAccessor, IRepository<Cart> cartRepo, ICartService cartService)
+        public CartViewModelService(IHttpContextAccessor httpContextAccessor, IRepository<Cart> cartRepo, ICartService cartService, IOrderService orderService)
         {
             _httpContextAccessor = httpContextAccessor;
             _cartRepo = cartRepo;
             _cartService = cartService;
+            _orderService = orderService;
         }
 
         public async Task<CartViewModel> GetCartViewModelAsync()
@@ -55,10 +56,9 @@ namespace Web.Services
 
             return CartToViewModel(cart);
         }
+
         private CartViewModel CartToViewModel(Cart cart)
         {
-
-
             var vm = new CartViewModel()
             {
                 Id = cart.Id,
@@ -70,7 +70,7 @@ namespace Web.Services
                     Quantity = x.Quantity,
                     GameName = x.Product.Game.GameName,
                     PictureUri = x.Product.Game.ImagePath,
-                    UnitPrice = x.Product.Discounts.FirstOrDefault(x => x.IsValid) == null ? x.Product.ProductUnitPrice : 
+                    UnitPrice = x.Product.Discounts.FirstOrDefault(x => x.IsValid) == null ? x.Product.ProductUnitPrice :
                         (x.Product.ProductUnitPrice * (100 - x.Product.Discounts.FirstOrDefault(x => x.IsValid).DiscountRate) / 100),
                     PlatformName = x.Product.Platform.PlatformName
                 }).ToList()
@@ -124,6 +124,18 @@ namespace Web.Services
                 return null;
 
             return _httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier);
+        }
+
+        public async Task<OrderCompleteViewModel> CompleteCheckoutAsync(string email)
+        {
+            var cart = await GetOrCreateCartAsync();
+            var order = await _orderService.CreateOrderAsync(cart.Id, email);
+
+            if (order is null)
+                return null;
+
+            await _cartService.DeleteCartAsync(cart.Id);
+            return new OrderCompleteViewModel() { OrderId = order.Id };
         }
     }
 }
