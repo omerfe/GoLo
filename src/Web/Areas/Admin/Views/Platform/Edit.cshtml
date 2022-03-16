@@ -1,0 +1,56 @@
+﻿@model PlatformEditViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Platform</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="PlatformName" class="control-label"></label>
+                <input asp-for="PlatformName" class="form-control" />
+                <span asp-validation-for="PlatformName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LogoImage" class="control-label"></label>
+                <div class="mb-2">
+                    <img id="picturePreview" class="img-thumbnail" src="~/img/partners/@Model.LogoPath" width="100" alt="Profile Picture" />
+                </div>
+                <input id="picture" asp-for="LogoImage" type="file" class="form-control" />
+                <span asp-validation-for="LogoImage" class="text-danger"></span>
+            </div>
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="LogoPath" />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        //https://stackoverflow.com/questions/4459379/preview-an-image-before-it-is-uploaded
+        var picturePreview = document.getElementById("picturePreview");
+        var inputPicture = document.getElementById("picture");
+
+        inputPicture.onchange = event => {
+            var file = inputPicture.files[0];
+            if (file) {
+                picturePreview.src = URL.createObjectURL(file);
+            }
+        }
+    </script>
+}

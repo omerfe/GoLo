@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 namespace Web.Areas.Admin.Models
 {
-    public class GenreVieModel
+    public class GenreViewModel
     {
+        public int Id { get; set; }
         public string GenreName { get; set; }
     }
 }
