@@ -1,0 +1,44 @@
+﻿@model List<Platform>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-admin">
+    <thead>
+        <tr>
+            <th>
+                Logo
+            </th>
+            <th>
+                Platform Name
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    <img src="~/img/partners/@item.LogoPath" alt="Alternate Text" style="object-fit: contain; max-width: 50px; max-height: 50px;" class="w3-margin-bottom">
+                </td>
+                <td>
+                    @item.PlatformName
+                </td>
+                <td>
+                    <form class="d-inline-block ms-auto" asp-controller="Platform" asp-action="Delete" method="post" onsubmit="return confirm('Are you sure to delete this item?');">
+                        <input type="hidden" name="platformId" value="@item.Id" />
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                    <a asp-controller="Platform" asp-action="Edit" asp-route-platformId="@item.Id" class="btn btn-warning">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
