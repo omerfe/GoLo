@@ -1,5 +1,6 @@
 using ApplicationCore.Interfaces;
 using ApplicationCore.Services;
+using FluentValidation.AspNetCore;
 using Infrastructure.Data;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Builder;
@@ -27,7 +28,7 @@ namespace Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddControllersWithViews().AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<Startup>());
             services.AddDbContext<GoloIdentityDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("GoloIdentityDbContext")));
@@ -46,6 +47,7 @@ namespace Web
             services.AddScoped<ICartService, CartService>();
             services.AddScoped<ICartViewModelService, CartViewModelService>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IGenreService, GenreService>();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
