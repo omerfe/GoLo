@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
 using ApplicationCore.Entities;
-using Infrastructure.Data;
 using ApplicationCore.Interfaces;
+using Web.Areas.Admin.Models;
+using Web.Interfaces;
 
 // DİKKAT!!!!! CSHTML'lerin içinde Entity'leri mi kullanmalıyız, ViewModel'leri oluşturup onları mı kullanmalıyız? ViewModel'leri kullanacaksak WEB tarafında IGenreViewModelService adında bir servis açılmalı.
 // HomeViewModelService(Index için göstermelik veri gönderiyor) ile CartViewModelService'in(Create-Update-Delete işlerini Application Core'daki CartService yardımı ile yapıyor)  
@@ -16,13 +15,13 @@ namespace Web.Areas.Admin.Controllers
     [Area("Admin")]
     public class GenreController : Controller
     {
-        private readonly GoloContext _context;
         private readonly IGenreService _genreService;
+        private readonly IGenreViewModelService _genreViewModelService;
 
-        public GenreController(GoloContext context, IGenreService genreService)
+        public GenreController(IGenreService genreService, IGenreViewModelService genreViewModelService)
         {
-            _context = context;
             _genreService = genreService;
+            _genreViewModelService = genreViewModelService;
         }
 
         // GET: Admin/Genres
@@ -40,11 +39,11 @@ namespace Web.Areas.Admin.Controllers
         // POST: Admin/Genres/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("GenreName,Id")] Genre genre)
+        public async Task<IActionResult> Create([Bind("GenreName")] GenreViewModel genre)
         {
             if (ModelState.IsValid)
             {
-                await _genreService.AddGenreAsync(genre);
+                await _genreService.AddGenreAsync(genre.GenreName);
                 return RedirectToAction(nameof(Index));
             }
             return View(genre);
@@ -54,20 +53,20 @@ namespace Web.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(int genreId)
         {
             var genre = await _genreService.GetGenreByIdAsync(genreId);
-            
-            return View(genre);
+            var vm = await _genreViewModelService.GetGenreViewModelAsync(genre);
+            return View(vm);
         }
 
         // POST: Admin/Genres/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit([Bind("GenreName,Id")] Genre genre)
+        public async Task<IActionResult> Edit([Bind("GenreName,Id")] GenreViewModel vm)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    await _genreService.UpdateGenreAsync(genre.Id, genre.GenreName);
+                    await _genreService.UpdateGenreAsync(vm.Id, vm.GenreName);
                 }
                 catch (ArgumentException)
                 {
@@ -75,10 +74,10 @@ namespace Web.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(genre);
+            return View(vm);
         }
 
-        // GET: Admin/Genres/Delete/5
+        // POST: Admin/Genres/Delete/5
         public async Task<IActionResult> Delete(int genreId)
         {
             await _genreService.DeleteGenreAsync(genreId);

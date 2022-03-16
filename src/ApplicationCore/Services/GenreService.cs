@@ -16,8 +16,9 @@ namespace ApplicationCore.Services
         {
             _genreRepo = genreRepo;
         }
-        public async Task<Genre> AddGenreAsync(Genre genre)
+        public async Task<Genre> AddGenreAsync(string genreName)
         {
+            var genre = new Genre() { GenreName = genreName };
             return await _genreRepo.AddAsync(genre);
         }
 
@@ -43,6 +44,8 @@ namespace ApplicationCore.Services
 
         public async Task UpdateGenreAsync(int genreId, string genreName)
         {
+            if (genreId < 0)
+                throw new ArgumentException($"Genre with id {genreId} can not be found.");
             var genre = await GetGenreByIdAsync(genreId);
             if (genre == null)
                 throw new ArgumentException($"Genre with id {genreId} can not be found.");
