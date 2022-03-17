@@ -51,6 +51,8 @@ namespace Web
             services.AddScoped<IGenreViewModelService, GenreViewModelService>();
             services.AddScoped<IPlatformService, PlatformService>();
             services.AddScoped<IPlatformViewModelService, PlatformViewModelService>();
+            services.AddScoped<IGameService, GameService>();
+            services.AddScoped<IGameViewModelService, GameViewModelService>();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
