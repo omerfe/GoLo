@@ -1,0 +1,97 @@
+﻿@model GameEditViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Game</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="GameName" class="control-label"></label>
+                <input asp-for="GameName" class="form-control" />
+                <span asp-validation-for="GameName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <textarea cols="20" rows="10" asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Developer" class="control-label"></label>
+                <input asp-for="Developer" class="form-control" />
+                <span asp-validation-for="Developer" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Publisher" class="control-label"></label>
+                <input asp-for="Publisher" class="form-control" />
+                <span asp-validation-for="Publisher" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ReleaseDate" class="control-label"></label>
+                <input type="date" asp-for="ReleaseDate" class="form-control" />
+                <span asp-validation-for="ReleaseDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MinimumAge" class="control-label"></label>
+                <input type="number" min="1" value="1" asp-for="MinimumAge" class="form-control" />
+                <span asp-validation-for="MinimumAge" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TrailerUrl" class="control-label"></label>
+                <input type="url" asp-for="TrailerUrl" class="form-control" />
+                <span asp-validation-for="TrailerUrl" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GameRequirements" class="control-label"></label>
+                <textarea asp-for="GameRequirements" class="form-control"> </textarea>
+                <span asp-validation-for="GameRequirements" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AllGenres" class="control-label"></label>
+				<select asp-items="Model.AllGenres" asp-for="GenreIds" multiple id="genres" multiselect-max-items="2" class="form-select">
+                </select>
+                <span asp-validation-for="GenreIds" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GameImage" class="control-label"></label>
+                <div class="mb-2">
+                    <img id="picturePreview" class="img-thumbnail" src="~/img/games/@Model.ImagePath" width="100" alt="Profile Picture" />
+                </div>
+                <input id="picture" asp-for="GameImage" type="file" class="form-control" />
+                <span asp-validation-for="GameImage" class="text-danger"></span>
+            </div>
+			<input type="hidden" asp-for="Id" />
+			<input type="hidden" asp-for="ImagePath" />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        //https://stackoverflow.com/questions/4459379/preview-an-image-before-it-is-uploaded
+        var picturePreview = document.getElementById("picturePreview");
+        var inputPicture = document.getElementById("picture");
+
+        inputPicture.onchange = event => {
+            var file = inputPicture.files[0];
+            if (file) {
+                picturePreview.src = URL.createObjectURL(file);
+            }
+        }
+    </script>
+}
