@@ -1,0 +1,38 @@
+﻿@model List<Genre>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Genres Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-admin">
+    <thead>
+        <tr>
+            <th>
+               Genre Name
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.GenreName
+                </td>
+                <td>
+                    <form class="d-inline-block ms-auto" asp-controller="Genre" asp-action="Delete" method="post" onsubmit="return confirm('Are you sure to delete this item?');">
+                        <input type="hidden" name="genreId" value="@item.Id" />
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                    <a asp-controller="Genre" asp-action="Edit" asp-route-genreId="@item.Id" class="btn btn-warning">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
