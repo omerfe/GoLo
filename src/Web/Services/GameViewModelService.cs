@@ -76,6 +76,7 @@ namespace Web.Services
             if (game is null)
                 throw new ArgumentException("Game can not be found.");
 
+            var oldGameName = game.GameName;
             game.GameName = gameEditViewModel.GameName;
             game.Description = gameEditViewModel.Description;
             game.GameRequirements = gameEditViewModel.GameRequirements;
@@ -93,7 +94,7 @@ namespace Web.Services
                 game.Genres.Add(genre);
             }
 
-            await _gameService.UpdateGameAsync(game);
+            await _gameService.UpdateGameAsync(game, oldGameName);
         }
         public async Task<List<IndexGameViewModel>> GetAllGamesWithViewModel()
         {

@@ -10,7 +10,7 @@ namespace ApplicationCore.Interfaces
         Task<Game> GetGameByIdWithGenresAsync(int gameId);
         Task<List<Game>> GetAllGamesAsync();
         Task<Game> AddGameAsync(Game game);
-        Task UpdateGameAsync(Game game);
+        Task UpdateGameAsync(Game game, string oldGameName);
         Task<string> DeleteGameAsync(int gameId);
     }
 }

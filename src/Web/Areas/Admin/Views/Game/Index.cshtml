@@ -9,7 +9,7 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table table-admin">
+<table id="gameTable" class="table table-admin table-bordered table-striped w-100">
     <thead>
         <tr>
             <th>
@@ -66,3 +66,12 @@
         }
     </tbody>
 </table>
+
+@section Scripts{
+    <script>
+        $("#gameTable").DataTable();
+    </script>
+}
+
+
+
