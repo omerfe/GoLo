@@ -28,7 +28,6 @@ namespace ApplicationCore.Specifications
             Query.Include(x => x.Discounts);
             Query.Include(x => x.Game);
             Query.Include(x => x.Keys);
-
         }
     }
 }
