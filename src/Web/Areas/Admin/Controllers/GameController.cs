@@ -16,14 +16,12 @@ namespace Web.Areas.Admin.Controllers
         private readonly IGameService _gameService;
         private readonly IGameViewModelService _gameViewModelService;
         private readonly IWebHostEnvironment _webHostEnvironment;
-        private readonly IRepository<Genre> _genreRepo;
 
-        public GameController(IGameService gameService, IGameViewModelService gameViewModelService, IWebHostEnvironment webHostEnvironment, IRepository<Genre> genreRepo)
+        public GameController(IGameService gameService, IGameViewModelService gameViewModelService, IWebHostEnvironment webHostEnvironment)
         {
             _gameService = gameService;
             _gameViewModelService = gameViewModelService;
             _webHostEnvironment = webHostEnvironment;
-            _genreRepo = genreRepo;
         }
 
         // GET: Admin/Game

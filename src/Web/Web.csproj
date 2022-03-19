@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
+    <Folder Include="Areas\Admin\Views\Product - Copy\" />
     <Folder Include="wwwroot\img\instructions\steam\" />
     <Folder Include="wwwroot\lib\bootstrap5\" />
   </ItemGroup>
