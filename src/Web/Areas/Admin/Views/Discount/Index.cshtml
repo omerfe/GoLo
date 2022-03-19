@@ -1,0 +1,64 @@
+﻿@model IndexDiscountViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+<h3>@Model.PlatformName</h3>
+<h3>@Model.GameName</h3>
+<p>
+    <a asp-action="Create" asp-route-productId="@Model.ProductId">Create New</a>
+</p>
+<table id="discountTable" class="table table-admin table-bordered table-striped w-100">
+    <thead>
+        <tr>
+            <th>
+                Discount Rate(%)
+            </th>
+            <th>
+                Discount Valid From
+            </th>
+            <th>
+                Discount Valid Until
+            </th>
+            <th>
+                Is Discount Valid
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Discounts)
+        {
+            <tr>
+                <td>
+                    @item.DiscountRate
+                </td>
+                <td>
+                    @item.ValidFrom
+                </td>
+                <td>
+                    @item.ValidUntil
+                </td>
+                <td>
+                    @item.IsValid
+                </td>
+                <td>
+                    <form class="d-inline-block ms-auto" asp-controller="Discount" asp-action="Delete" method="post" onsubmit="return confirm('Are you sure to delete this item?');">
+                        <input type="hidden" name="discountId" value="@item.Id" />
+                        <input type="hidden" name="productId" value="@Model.ProductId" />
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                    <a asp-controller="Discount" asp-action="Edit" asp-route-discountId="@item.Id" class="btn btn-warning">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{
+    <script>
+        $("#discountTable").DataTable();
+    </script>
+}

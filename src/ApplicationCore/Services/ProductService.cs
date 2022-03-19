@@ -3,8 +3,6 @@ using ApplicationCore.Interfaces;
 using ApplicationCore.Specifications;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace ApplicationCore.Services
@@ -64,10 +62,24 @@ namespace ApplicationCore.Services
             var spec = new ProductSpecification(product.Platform.PlatformName, product.Game.GameName);
             var existingProductWithSameName = await _productRepo.FirstOrDefaultAsync(spec);
 
-            if (existingProductWithSameName != null && product.Platform.PlatformName != oldPlatformName && product.Game.GameName != oldGameName)
+            // TODO: steam mahmut ve origin mahmut mevcut ===>>> steam mahmutu origin yapınca hata vercez.
+            // Durum 1: NP == OP && NG == OG && GPExist ==> var olan kendisidir.
+            // Durum 2: NP == OP && NG != OG && GPExist ==> varsa hatalıdır. tick
+            // Durum 3: NP != OP && NG == OG && GPExist ==> varsa hatalıdır. tick
+            // Durum 4: NP != OP && NG != OG && GPExist ==> varsa hatalıdır. tick
+            // Durum 5: NP == OP && NG != OG && GPNOTExist ==> hata yok
+            // Durum 6: NP != OP && NG == OG && GPNOTExist ==> hata yok
+            // Durum 7: NP != OP && NG != OG && GPNOTExist ==> hata yok
+            if (existingProductWithSameName != null && product.Platform.PlatformName == oldPlatformName && product.Game.GameName != oldGameName)
+                throw new ArgumentException("There is already a Product for this platform and game.");
+            else if (existingProductWithSameName != null && product.Platform.PlatformName != oldPlatformName && product.Game.GameName == oldGameName)
+                throw new ArgumentException("There is already a Product for this platform and game.");
+            else if (existingProductWithSameName != null && product.Platform.PlatformName != oldPlatformName && product.Game.GameName != oldGameName)
                 throw new ArgumentException("There is already a Product for this platform and game.");
 
-            await _productRepo.UpdateAsync(product);
+            else
+                await _productRepo.UpdateAsync(product);
+
         }
     }
 }
