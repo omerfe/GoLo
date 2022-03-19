@@ -19,8 +19,8 @@ namespace Web.Areas.Admin.Models
         public string ImagePath { get; set; }
         public IFormFile GameImage { get; set; }
         public string GameRequirements { get; set; }
-        public List<SelectListItem> AllGenres { get; set; } //TODO: Instance almak gerekebilir.
-        public List<int> GenreIds { get; set; } //TODO: Instance almak gerekebilir.
+        public List<SelectListItem> AllGenres { get; set; }
+        public List<int> GenreIds { get; set; }
         public List<Product> Products { get; set; }
     }
 }

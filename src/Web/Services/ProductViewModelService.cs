@@ -49,7 +49,9 @@ namespace Web.Services
                 PlatformId = product.PlatformId,
                 IsAvailable = product.IsAvailable,
                 AllGames = await GetGamesAsync(),
-                AllPlatforms = await GetPlatformsAsync()
+                AllPlatforms = await GetPlatformsAsync(),
+                Game = await _gameRepo.GetByIdAsync(product.GameId),
+                Platform = await _platformRepo.GetByIdAsync(product.PlatformId)
             };
         }
 
@@ -67,6 +69,8 @@ namespace Web.Services
 
             product.GameId = productViewModel.GameId;
             product.PlatformId = productViewModel.PlatformId;
+            product.Game = await _gameRepo.GetByIdAsync(productViewModel.GameId);
+            product.Platform = await _platformRepo.GetByIdAsync(productViewModel.PlatformId);
             product.IsAvailable = productViewModel.IsAvailable;
             product.ProductUnitPrice = productViewModel.ProductUnitPrice;
 
