@@ -7,6 +7,7 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>@ViewData["Title"] - GoLo Game</title>
+    <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css" rel="stylesheet" /> @* bootstrapli datatable *@ 
     <link href="~/admin/css/styles.css" rel="stylesheet" />
     <script src="~/lib/font-awesome/js/all.min.js"></script>
 </head>
@@ -22,7 +23,8 @@
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <li class="dropdown-item">
-                    <a class="nav-link text-dark" style="color: #fff;" asp-area="identity" asp-page="/Account/Manage/Index">Settings</a></li>
+                        <a class="nav-link text-dark" style="color: #fff;" asp-area="identity" asp-page="/Account/Manage/Index">Settings</a>
+                    </li>
                     <li><hr class="dropdown-divider" /></li>
                     <li>
                         <form class="form-inline dropdown-item" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
@@ -76,9 +78,9 @@
             <main>
                 <div class="container-fluid px-4">
                     @*<h1 class="mt-4">@ViewData["Title"]</h1>
-                    <ol class="breadcrumb mb-4">
-                        <li class="breadcrumb-item active">Dashboard</li>
-                    </ol>*@
+                        <ol class="breadcrumb mb-4">
+                            <li class="breadcrumb-item active">Dashboard</li>
+                        </ol>*@
                     @RenderBody()
                 </div>
             </main>
@@ -97,7 +99,10 @@
         </div>
     </div>
     <script src="~/lib/bootstrap5/js/bootstrap.bundle.min.js"></script>
-	<script src="~/js/multiselect-dropdown.js"></script>
+    <script src="~/js/multiselect-dropdown.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
     <script src="~/admin/js/scripts.js"></script>
     @await RenderSectionAsync("Scripts", false)
 </body>

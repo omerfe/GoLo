@@ -1,0 +1,50 @@
+﻿@model AdminProductViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Product</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="AllPlatforms" class="control-label">Select Platform</label>
+                <select asp-items="Model.AllPlatforms" asp-for="PlatformId" class="form-select">
+                </select>
+                <span asp-validation-for="PlatformId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="AllGames" class="control-label">Select Game</label>
+                <select asp-items="Model.AllGames" asp-for="GameId" class="form-select">
+                </select>
+                <span asp-validation-for="GameId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProductUnitPrice" class="control-label">Product Unit Price</label>
+                <input asp-for="ProductUnitPrice" class="form-control" />
+                <span asp-validation-for="ProductUnitPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IsAvailable" class="control-label">Is Available</label>
+                <input type="checkbox" asp-for="IsAvailable" class="form-check-input" />
+            </div>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

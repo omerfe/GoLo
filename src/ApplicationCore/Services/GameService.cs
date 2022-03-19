@@ -52,13 +52,15 @@ namespace ApplicationCore.Services
             await _gameRepo.DeleteAsync(game);
             return deletePath;
         }
-        public async Task UpdateGameAsync(Game game)
+        public async Task UpdateGameAsync(Game game, string oldGameName)
         {
             if (game is null)
                 throw new ArgumentException($"Game can not be found.");
             var spec = new GameSpecification(game.GameName);
             var existingGameWithSameName = await _gameRepo.FirstOrDefaultAsync(spec);
-            if (existingGameWithSameName != null && game.GameName != game.GameName)
+
+            //bu isimde bir oyun var ve değiştirilmek istenen isim güncellenen oyunun eski ismi değil
+            if (existingGameWithSameName != null && game.GameName != oldGameName)
                 throw new ArgumentException("There is already a Game with same name.");
 
             await _gameRepo.UpdateAsync(game);
