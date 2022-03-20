@@ -57,6 +57,9 @@ namespace Web
             services.AddScoped<IProductViewModelService, ProductViewModelService>();
             services.AddScoped<IDiscountService, DiscountService>();
             services.AddScoped<IDiscountViewModelService, DiscountViewModelService>();
+            services.AddScoped<IKeyService, KeyService>();
+            services.AddScoped<IKeyViewModelService, KeyViewModelService>();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
