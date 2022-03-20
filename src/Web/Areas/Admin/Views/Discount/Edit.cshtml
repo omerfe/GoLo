@@ -14,7 +14,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="DiscountRate" class="control-label">Discount Rate</label>
-                <input type="range" step="5" min="5" max="100" oninput="this.nextElementSibling.value = this.value" asp-for="DiscountRate" class="form-control" />
+                <input type="range" step="5" min="5" oninput="this.nextElementSibling.value = this.value" asp-for="DiscountRate" class="form-control" />
 				<output></output>
                 <span asp-validation-for="DiscountRate" class="text-danger"></span>
             </div>
