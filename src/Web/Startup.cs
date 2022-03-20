@@ -55,6 +55,8 @@ namespace Web
             services.AddScoped<IGameViewModelService, GameViewModelService>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IProductViewModelService, ProductViewModelService>();
+            services.AddScoped<IDiscountService, DiscountService>();
+            services.AddScoped<IDiscountViewModelService, DiscountViewModelService>();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
