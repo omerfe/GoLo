@@ -17,9 +17,10 @@ namespace ApplicationCore.Specifications
                 .ThenInclude(p => p.Game);
         }
 
-        public DiscountSpecification(DateTime validFrom, DateTime validUntil)
+        public DiscountSpecification(int productId, DateTime validFrom, DateTime validUntil)
         {
-            Query.Where(x => validUntil > x.ValidFrom && x.ValidUntil > validFrom);
+            Query.Where(x => x.ProductId == productId);
+            Query.Where(x => validUntil >= x.ValidFrom && x.ValidUntil >= validFrom);
         }
     }
 }
