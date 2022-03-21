@@ -51,6 +51,15 @@ namespace Web
             services.AddScoped<IGenreViewModelService, GenreViewModelService>();
             services.AddScoped<IPlatformService, PlatformService>();
             services.AddScoped<IPlatformViewModelService, PlatformViewModelService>();
+            services.AddScoped<IGameService, GameService>();
+            services.AddScoped<IGameViewModelService, GameViewModelService>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IProductViewModelService, ProductViewModelService>();
+            services.AddScoped<IDiscountService, DiscountService>();
+            services.AddScoped<IDiscountViewModelService, DiscountViewModelService>();
+            services.AddScoped<IKeyService, KeyService>();
+            services.AddScoped<IKeyViewModelService, KeyViewModelService>();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
         }

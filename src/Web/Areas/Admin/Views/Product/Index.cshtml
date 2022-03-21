@@ -1,0 +1,79 @@
+﻿@model List<IndexProductViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table id="gameTable" class="table table-admin table-bordered table-striped w-100">
+    <thead>
+        <tr>
+            <th>
+                Platform Name
+            </th>
+            <th>
+                Game Name
+            </th>
+            <th>
+                Availability
+            </th>
+            <th>
+                Keys In Stock
+            </th>
+            <th>
+                Unit Price
+            </th>
+            <th>
+                Active Discount Rate
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Platform.PlatformName
+                </td>
+                <td>
+                    @item.Game.GameName
+                </td>
+                <td>
+                    @(item.IsAvailable ? "Available" : "Not For Sale")
+                </td>
+                <td>
+                    @item.UnitInStocks
+                </td>
+                <td>
+                    @item.ProductUnitPrice
+                </td>
+                <td>
+                    @(item.CurrentDiscountRate > 0 ? item.CurrentDiscountRate : "N/A")
+                </td>
+                <td>
+                    <form class="d-inline-block ms-auto" asp-controller="Product" asp-action="Delete" method="post" onsubmit="return confirm('Are you sure to delete this item?');">
+                        <input type="hidden" name="productId" value="@item.Id" />
+                        <button class="btn btn-danger">Delete</button>
+                    </form>
+                    <a asp-controller="Product" asp-action="Edit" asp-route-productId="@item.Id" class="btn btn-warning">Edit</a>
+                    <a asp-controller="Discount" asp-action="Index" asp-route-productId="@item.Id" class="btn btn-outline-primary">Discount</a>
+                    <a asp-controller="Key" asp-action="Index" asp-route-productId="@item.Id" class="btn btn-outline-info">Key</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{
+    <script>
+        $("#gameTable").DataTable();
+    </script>
+}
+
+
+

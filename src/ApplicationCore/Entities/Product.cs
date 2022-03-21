@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace ApplicationCore.Entities
 {
@@ -13,5 +14,10 @@ namespace ApplicationCore.Entities
         public Platform Platform { get; set; }
         public List<Discount> Discounts { get; set; }
         public List<Key> Keys { get; set; }
+
+        public int GetDiscountRate()
+        {
+            return Discounts.FirstOrDefault(x => x.IsValid) == null ? 0 : Discounts.FirstOrDefault(x => x.IsValid).DiscountRate;
+        }
     }
 }

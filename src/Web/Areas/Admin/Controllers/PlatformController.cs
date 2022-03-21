@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore;
-using ApplicationCore.Entities;
-using Infrastructure.Data;
-using ApplicationCore.Interfaces;
-using Web.Interfaces;
-using Web.Areas.Admin.Models;
-using Web.Managers;
+﻿using ApplicationCore.Interfaces;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
+using Web.Areas.Admin.Models;
+using Web.Interfaces;
+using Web.Managers;
 
 namespace Web.Areas.Admin.Controllers
 {
@@ -98,8 +92,7 @@ namespace Web.Areas.Admin.Controllers
                 {
                     if (!string.IsNullOrEmpty(logoPath))
                         FileManager.RemoveImageFromDisk(logoPath, _webHostEnvironment, "partners");
-                    else
-                        FileManager.RemoveImageFromDisk(vm.LogoPath, _webHostEnvironment, "partners");
+
 
                     throw;
                 }
