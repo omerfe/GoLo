@@ -1,0 +1,46 @@
+﻿@{
+    if (ViewData.TryGetValue("ParentLayout", out var parentLayout))
+    {
+        Layout = (string)parentLayout;
+    }
+    else
+    {
+        Layout = "/Areas/Identity/Pages/_Layout.cshtml";
+    }
+}
+
+<section class="section section--first section--last section--head" data-bg="img/bg.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="section__wrap">
+                    <!-- section title -->
+                    <h2 class="section__title">Profile</h2>
+                    <!-- end section title -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section class="section section--last">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="profile">
+                    <partial name="_ManageNav" />
+                </div>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col">
+                @RenderBody()
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    @RenderSection("Scripts", required: false)
+}

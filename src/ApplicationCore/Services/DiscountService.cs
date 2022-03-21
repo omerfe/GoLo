@@ -38,7 +38,7 @@ namespace ApplicationCore.Services
             var product = await _productRepo.GetByIdAsync(discount.ProductId);
             if (product is null)
                 throw new ArgumentException("Can not create discount without a product.");
-            var spec = new DiscountSpecification(discount.ValidFrom, discount.ValidUntil);
+            var spec = new DiscountSpecification(discount.ProductId, discount.ValidFrom, discount.ValidUntil);
             var existingDiscount = await _discountRepo.FirstOrDefaultAsync(spec);
             if (existingDiscount is not null)
                 throw new ArgumentException("There is already a discount for this product in this timespan.");
@@ -61,7 +61,7 @@ namespace ApplicationCore.Services
             // Durum 3: VF == OVF && VU != OVU && CC == 1 hata yok
             // Durum 4: VF != OVF && VU != OVU ==> 
 
-            var spec = new DiscountSpecification(discount.ValidFrom, discount.ValidUntil);
+            var spec = new DiscountSpecification(discount.ProductId, discount.ValidFrom, discount.ValidUntil);
             var existingDiscounts = await _discountRepo.GetAllAsync(spec);
             var conflictCount = existingDiscounts.Count;
 
