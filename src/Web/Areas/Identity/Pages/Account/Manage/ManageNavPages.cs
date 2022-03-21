@@ -9,6 +9,7 @@ namespace Web.Areas.Identity.Pages.Account.Manage
     public static class ManageNavPages
     {
         public static string Index => "Index";
+        public static string Order => "Order";
 
         public static string Email => "Email";
 
@@ -25,6 +26,7 @@ namespace Web.Areas.Identity.Pages.Account.Manage
         public static string TwoFactorAuthentication => "TwoFactorAuthentication";
 
         public static string IndexNavClass(ViewContext viewContext) => PageNavClass(viewContext, Index);
+        public static string OrderNavClass(ViewContext viewContext) => PageNavClass(viewContext, Order);
 
         public static string EmailNavClass(ViewContext viewContext) => PageNavClass(viewContext, Email);
 
