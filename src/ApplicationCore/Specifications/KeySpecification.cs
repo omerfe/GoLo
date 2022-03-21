@@ -1,13 +1,16 @@
 ﻿using ApplicationCore.Entities;
 using Ardalis.Specification;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ApplicationCore.Specifications
 {
-    public class DiscountSpecification : Specification<Discount>
+    public class KeySpecification : Specification<Key>
     {
-        public DiscountSpecification(int productId)
+        public KeySpecification(int productId)
         {
             Query.Where(x => x.ProductId == productId)
                 .Include(x => x.Product)
@@ -16,11 +19,9 @@ namespace ApplicationCore.Specifications
                 .Include(x => x.Product)
                 .ThenInclude(p => p.Game);
         }
-
-        public DiscountSpecification(int productId, DateTime validFrom, DateTime validUntil)
+        public KeySpecification(Guid keyCode)
         {
-            Query.Where(x => x.ProductId == productId);
-            Query.Where(x => validUntil >= x.ValidFrom && x.ValidUntil >= validFrom);
+            Query.Where(x => x.KeyCode == keyCode);
         }
     }
 }
