@@ -38,7 +38,8 @@ namespace Web.Areas.Admin.Models.Validators
                 .MaximumLength(200).WithMessage(maxLengthMessage);
             RuleFor(x => x.GenreIds)
                 .NotNull().WithMessage(notNullMessage)
-                .Must(x=>x.Count <= 5).WithMessage("You can choose max 5 genres.");
+                .Must(x=>x.Count <= 5).WithMessage("You can choose max 5 genres.")
+                .Must(x => x.Count >= 1).WithMessage("You have to choose at least 1 genre.");
             RuleFor(x => x.GameImage)
                 .NotNull().WithMessage(notNullMessage)
                 .NotEmpty().WithMessage(notNullMessage)
