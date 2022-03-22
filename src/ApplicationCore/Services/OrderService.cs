@@ -38,6 +38,7 @@ namespace ApplicationCore.Services
 
             var outOfStock = 0;
             var cartItems = cart.CartItems;
+            var cartItemIdsForRemove = new List<int>();
             var cartItemsCount = cartItems.Count;
             for (int i = 0; i < cartItemsCount; i++)
             {
@@ -48,7 +49,14 @@ namespace ApplicationCore.Services
                     cartItems[i].Quantity = availableKeysCount;
                 }
                 if (cartItems[i].Quantity == 0)
-                    cart.CartItems.Remove(cartItems[i]);
+                    cartItemIdsForRemove.Add(cartItems[i].Id);
+            }
+            if (cartItemIdsForRemove.Count > 0)
+            {
+                for (int i = 0; i < cartItemIdsForRemove.Count; i++)
+                {
+                    cart.CartItems.Remove(cartItems.FirstOrDefault(x => x.Id == cartItemIdsForRemove[i]));
+                }
             }
 
             if (outOfStock > 0)
@@ -82,5 +90,20 @@ namespace ApplicationCore.Services
 
             return await _orderRepo.AddAsync(order);
         }
+
+        public async Task<List<Order>> GetAllUserOrdersAsync(string buyerId)
+        {
+            if (string.IsNullOrEmpty(buyerId))
+                throw new ArgumentException("Buyer can not be found!");
+
+            var spec = new OrderSpecification(buyerId);
+            var buyerOrders = await _orderRepo.GetAllAsync(spec);
+
+            return buyerOrders;
+
+
+        }
+
+      
     }
 }
