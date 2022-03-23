@@ -77,8 +77,8 @@ namespace ApplicationCore.Services
                     orderDetail.ImagePath = item.Product.Game.ImagePath;
                     orderDetail.OrderDiscountId = item.Product.Discounts
                         .FirstOrDefault(x => x.IsValid) == null ? null : item.Product.Discounts.FirstOrDefault(x => x.IsValid).Id;
-                    orderDetail.UnitPrice = item.Product.ProductUnitPrice;
-
+                    orderDetail.UnitPrice =  item.Product.Discounts.FirstOrDefault(x => x.IsValid) == null ? item.Product.ProductUnitPrice :
+                        (item.Product.ProductUnitPrice * (100 - item.Product.Discounts.FirstOrDefault(x => x.IsValid).DiscountRate) / 100);
                     var key = item.Product.Keys.FirstOrDefault(x => x.Status == true);
                     orderDetail.KeyId = key.Id;
                     key.Status = false;
