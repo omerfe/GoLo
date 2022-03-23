@@ -1,5 +1,6 @@
 ﻿@page
 @model OrderModel
+@inject IJsonHelper  json;
 @{
     ViewData["Title"] = "Orders";
     ViewData["ActivePage"] = ManageNavPages.Order;
@@ -19,7 +20,7 @@
                                     <th class="col-3">Date</th>
                                     <th class="col-3">Price</th>
                                     <th class="col-2">Key Quantity</th>
-                                    <th class="col-2">Order Detail</th>
+                                    <th class="col-2 " style="padding-top: 20px">Order Detail</th>
                                 </tr>
                             </thead>
 
@@ -31,7 +32,10 @@
                                         <td class="col-3"><span class="profile__status">@item.OrderDate</span></td>
                                         <td class="col-3"><span class="profile__price">$@item.TotalPrice</span></td>
                                         <td class="col-2"><span class="profile__status">@item.KeyQuantity</span></td>
-                                        <td class="col-2"><a href="#modal-info" class="open-modal">Show Keys</a></td>
+                                        @{
+                                            var listString = json.Serialize(item.OrderDetails);
+                                        }
+                                        <td class="col-2"><a data-keys="@item.OrderId" data-content='@listString' href="#modal-info" class="open-modal">Show Keys</a></td>
                                     </tr>
                                 }
                             </tbody>
@@ -55,46 +59,36 @@
                 <th class="col-2">Platform</th>
                 <th class="col-3">Game</th>
                 <th class="col-2">Price</th>
-                <th class="col-5">Key</th>
+                <th class="col-5" style="padding-top: 20px">Key</th>
             </tr>
         </thead>
 
-        <tbody>
-            <tr class="row">
-                <td class="col-2">Steam</td>
-                <td class="col-3"><span class="profile__status">FIFA 22</span></td>
-                <td class="col-2"><span class="profile__price">$49.00</span></td>
-                <td class="col-5"><span class="profile__status">4324-1234-5565-5466-4324-1234-5565-5466</span></td>
-            </tr>
-            <tr class="row">
-                <td class="col-2">Steam</td>
-                <td class="col-3"><span class="profile__status">FIFA 22</span></td>
-                <td class="col-2"><span class="profile__price">$49.00</span></td>
-                <td class="col-5"><span class="profile__status">4324-1234-5565-5466-4324-1234-5565-5466</span></td>
-            </tr>
-            <tr class="row">
-                <td class="col-2">Steam</td>
-                <td class="col-3"><span class="profile__status">FIFA 22</span></td>
-                <td class="col-2"><span class="profile__price">$49.00</span></td>
-                <td class="col-5"><span class="profile__status">4324-1234-5565-5466-4324-1234-5565-5466</span></td>
-            </tr>
+        <tbody id="modal-items">
+
         </tbody>
     </table>
-        @*    <h4 class="modal__title">Receipt</h4>
-
-        <div class="modal__group">
-        <label class="modal__label" for="value">Total cost:</label>
-        <span class="modal__value">$59.00</span>
-        </div>
-
-        <div class="modal__group">
-        <label class="modal__label" for="method">Payment method: <b>Paypal</b></label>
-
-        <span class="modal__text">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.</span>
-        </div>*@
 </div>
 <!-- end modal info -->
 @section Scripts {
-<partial name="_ValidationScriptsPartial" />
+    <partial name="_ValidationScriptsPartial" />
+    <script>
+        var jsonList = [];
+        $("[data-keys]").click(function (event) {
 
+            jsonList = $(this).data("content");
+            //var itemArray = JSON.parse(jsonList);
+            console.log(jsonList);
+            var list = "";
+            for (var i = 0; i < jsonList.length; i++) {
+
+                list += '<tr class="row" ><td class="col-2">' + jsonList[i].platform + '</td><td class="col-3"><span class="profile__status">' + jsonList[i].game + '</span></td><td class="col-2"><span class="profile__price">' + jsonList[i].price + '</span></td><td class="col-5"><span class="profile__status">' + jsonList[i].keyCode + '</span></td></tr>';
+            }
+            $("#modal-items").empty();
+            console.log(list);
+            $("#modal-items").append(
+                list
+            );
+            
+        });
+    </script>
 }
