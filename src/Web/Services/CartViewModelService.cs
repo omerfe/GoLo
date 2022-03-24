@@ -135,7 +135,7 @@ namespace Web.Services
                 return null;
 
             await _cartService.DeleteCartAsync(cart.Id);
-            return new OrderCompleteViewModel() { OrderId = order.Id };
+            return new OrderCompleteViewModel() { OrderId = order.Id , TotalPrice = order.OrderDetails.Sum(x=> x.UnitPrice)};
         }
     }
 }

@@ -54,7 +54,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="AllGenres" class="control-label"></label>
-				<select asp-items="Model.AllGenres" asp-for="GenreIds" multiple id="genres" multiselect-max-items="2" class="form-select">
+                <select asp-items="Model.AllGenres" asp-for="GenreIds" multiple id="genres" multiselect-max-items="2" class="form-select">
                 </select>
                 <span asp-validation-for="GenreIds" class="text-danger"></span>
             </div>
@@ -92,4 +92,10 @@
             }
         }
     </script>
+    @if (!string.IsNullOrEmpty(ViewBag.Message))
+    {
+        <script type="text/javascript">
+            alert("@ViewBag.Message");
+        </script>
+    }
 }

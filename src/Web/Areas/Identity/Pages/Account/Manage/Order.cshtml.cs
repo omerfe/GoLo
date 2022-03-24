@@ -56,16 +56,16 @@ namespace Web.Areas.Identity.Pages.Account.Manage
             var buyerOrders = await _orderService.GetAllUserOrdersAsync(userId);
             Input = new InputModel
             {
-                OrderViewModels = buyerOrders.Select(x => 
-                new OrderViewModel() 
+                OrderViewModels = buyerOrders.Select(x =>
+                new OrderViewModel()
                 {
                     OrderId = x.Id,
                     BuyerId = x.BuyerId,
                     OrderDate = x.OrderDate.ToString("dd-MM-yyyy"),
                     TotalPrice = x.OrderDetails.Sum(x => x.UnitPrice),
                     KeyQuantity = x.OrderDetails.Count(),
-                    OrderDetails = x.OrderDetails.Select(y => 
-                        new OrderDetailsModel() 
+                    OrderDetails = x.OrderDetails.Select(y =>
+                        new OrderDetailsModel()
                         {
                             Game = y.GameName,
                             Platform = y.Key.Product.Platform.PlatformName,
@@ -84,7 +84,14 @@ namespace Web.Areas.Identity.Pages.Account.Manage
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            await LoadAsync(user);
+            try
+            {
+                await LoadAsync(user);
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
             return Page();
         }
 
@@ -98,7 +105,14 @@ namespace Web.Areas.Identity.Pages.Account.Manage
 
             if (!ModelState.IsValid)
             {
-                await LoadAsync(user);
+                try
+                {
+                    await LoadAsync(user);
+                }
+                catch (ArgumentException ex)
+                {
+                    return NotFound(ex.Message);
+                }
                 return Page();
             }
 

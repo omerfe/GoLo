@@ -100,10 +100,6 @@ namespace ApplicationCore.Services
             var buyerOrders = await _orderRepo.GetAllAsync(spec);
 
             return buyerOrders;
-
-
         }
-
-      
     }
 }

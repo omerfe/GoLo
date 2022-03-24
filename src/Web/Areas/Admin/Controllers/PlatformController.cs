@@ -1,4 +1,6 @@
-﻿using ApplicationCore.Interfaces;
+﻿using ApplicationCore.Entities;
+using ApplicationCore.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -9,7 +11,7 @@ using Web.Managers;
 
 namespace Web.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"), Authorize(Roles = "admin")]
     public class PlatformController : Controller
     {
 
@@ -49,10 +51,11 @@ namespace Web.Areas.Admin.Controllers
                 {
                     await _platformService.AddPlatformAsync(vm.PlatformName, logoPath);
                 }
-                catch (ArgumentException)
+                catch (ArgumentException ex)
                 {
                     FileManager.RemoveImageFromDisk(logoPath, _webHostEnvironment, "partners");
-                    throw;
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -62,8 +65,18 @@ namespace Web.Areas.Admin.Controllers
         // GET: Admin/Platforms/Edit/5
         public async Task<IActionResult> Edit(int platformId)
         {
-            var platform = await _platformService.GetPlatformByIdAsync(platformId);
-            var vm = await _platformViewModelService.GetPlatformEditViewModelAsync(platform);
+            Platform platform;
+            PlatformEditViewModel vm;
+            try
+            {
+                platform = await _platformService.GetPlatformByIdAsync(platformId);
+                vm = await _platformViewModelService.GetPlatformEditViewModelAsync(platform);
+            }
+            catch (ArgumentException ex)
+            {
+                ViewBag.Message = ex.Message;
+                return RedirectToAction(nameof(Index));
+            }
             return View(vm);
         }
 
@@ -88,13 +101,12 @@ namespace Web.Areas.Admin.Controllers
                         await _platformService.UpdatePlatformAsync(vm.Id, vm.PlatformName, vm.LogoPath);
                     }
                 }
-                catch (ArgumentException)
+                catch (ArgumentException ex)
                 {
                     if (!string.IsNullOrEmpty(logoPath))
                         FileManager.RemoveImageFromDisk(logoPath, _webHostEnvironment, "partners");
-
-
-                    throw;
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -109,9 +121,10 @@ namespace Web.Areas.Admin.Controllers
             {
                 deletePath = await _platformService.DeletePlatformAsync(platformId);
             }
-            catch (ArgumentException)
+            catch (ArgumentException ex)
             {
-                throw;
+                ViewBag.Message = ex.Message;
+                return RedirectToAction(nameof(Index));
             }
 
             FileManager.RemoveImageFromDisk(deletePath, _webHostEnvironment, "partners");

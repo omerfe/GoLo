@@ -54,7 +54,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="AllGenres" class="control-label"></label>
-				<select asp-items="Model.AllGenres" asp-for="GenreIds" multiple id="genres" multiselect-max-items="2" class="form-select">
+                <select asp-items="Model.AllGenres" asp-for="GenreIds" multiple id="genres" multiselect-max-items="2" class="form-select">
                 </select>
                 <span asp-validation-for="GenreIds" class="text-danger"></span>
             </div>
@@ -66,8 +66,8 @@
                 <input id="picture" asp-for="GameImage" type="file" class="form-control" />
                 <span asp-validation-for="GameImage" class="text-danger"></span>
             </div>
-			<input type="hidden" asp-for="Id" />
-			<input type="hidden" asp-for="ImagePath" />
+            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="ImagePath" />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
@@ -94,4 +94,11 @@
             }
         }
     </script>
+
+    @if (!string.IsNullOrEmpty(ViewBag.Message))
+    {
+        <script type="text/javascript">
+		alert("@ViewBag.Message");
+        </script>
+    }
 }

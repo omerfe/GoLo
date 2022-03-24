@@ -13,7 +13,7 @@
     <thead>
         <tr>
             <th>
-               Genre Name
+                Genre Name
             </th>
             <th></th>
         </tr>
@@ -36,3 +36,12 @@
         }
     </tbody>
 </table>
+
+@section Scripts {
+    @if (TempData["Message"] != null)
+    {
+        <script type="text/javascript">
+            alert('@TempData["Message"].ToString()');
+        </script>
+    }
+}
