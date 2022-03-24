@@ -33,7 +33,7 @@ namespace ApplicationCore.Services
             {
                 BuyerId = cart.BuyerId,
                 OrderDate = DateTimeOffset.Now,
-                OrderDetails = new List<OrderDetails>()
+                OrderDetails = new List<OrderDetail>()
             };
 
             var outOfStock = 0;
@@ -71,7 +71,7 @@ namespace ApplicationCore.Services
 
                 for (int i = 1; i <= item.Quantity; i++)
                 {
-                    var orderDetail = new OrderDetails();
+                    var orderDetail = new OrderDetail();
 
                     orderDetail.GameName = item.Product.Game.GameName;
                     orderDetail.ImagePath = item.Product.Game.ImagePath;

@@ -23,16 +23,19 @@ namespace Web.Services
             var specOnSale = new ProductsOnSaleSpecification();
             var specPreOrders = new ProductsPreOrdersSpecification();
             var specNewRelease = new ProductsNewReleaseSpecification();
+            var specEditorsChoice = new ProductsEditorsChoiceSpecification();
 
             List<Product> productsOnSale = await _productRepo.GetAllAsync(specOnSale);
             List<Product> productsNewReleases = await _productRepo.GetAllAsync(specNewRelease);
             List<Product> productsPreOrders = await _productRepo.GetAllAsync(specPreOrders);
+            List<Product> productsEditorsChoice = await _productRepo.GetAllAsync(specEditorsChoice);
 
             HomeViewModel vm = new HomeViewModel()
             {
                 ProductsOnSale = CreateVmPart(productsOnSale),
                 ProductsPreOrders = CreateVmPart(productsPreOrders),
-                ProductsNewRelease = CreateVmPart(productsNewReleases)
+                ProductsNewRelease = CreateVmPart(productsNewReleases),
+                ProductsEditorsChoice = CreateVmPart(productsEditorsChoice)
             };
 
             return vm;
@@ -47,7 +50,9 @@ namespace Web.Services
                 UnitPrice = x.ProductUnitPrice,
                 PicturePath = x.Game.ImagePath,
                 PlatformLogo = x.Platform.LogoPath,
-                DiscountRate = x.Discounts.FirstOrDefault(x => x.IsValid) == null ? 0 : x.Discounts.FirstOrDefault(x => x.IsValid).DiscountRate
+                DiscountRate = x.Discounts.FirstOrDefault(x => x.IsValid) == null ? 0 : x.Discounts.FirstOrDefault(x => x.IsValid).DiscountRate,
+                ReleaseDate = x.Game.ReleaseDate.ToString("dd-MM-yyyy"),
+                Genres = string.Join(", ", x.Game.Genres.Select(x => x.GenreName))
             }).ToList();
 
             return productViewModelList;

@@ -1,6 +1,6 @@
 ﻿namespace ApplicationCore.Entities
 {
-    public class OrderDetails : BaseEntity
+    public class OrderDetail : BaseEntity
     {
         public decimal UnitPrice { get; set; }
         public string GameName { get; set; }
