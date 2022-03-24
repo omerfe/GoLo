@@ -7,7 +7,7 @@ namespace ApplicationCore.Entities
     {
         public string BuyerId { get; set; }
         public DateTimeOffset OrderDate { get; set; } = DateTimeOffset.Now;
-        public List<OrderDetails> OrderDetails { get; set; }
+        public List<OrderDetail> OrderDetails { get; set; }
 
     }
 }

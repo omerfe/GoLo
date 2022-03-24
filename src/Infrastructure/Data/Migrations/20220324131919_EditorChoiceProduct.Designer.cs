@@ -200,7 +200,7 @@ namespace Infrastructure.Data.Migrations
                     b.ToTable("Orders");
                 });
 
-            modelBuilder.Entity("ApplicationCore.Entities.OrderDetails", b =>
+            modelBuilder.Entity("ApplicationCore.Entities.OrderDetail", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -348,7 +348,7 @@ namespace Infrastructure.Data.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("ApplicationCore.Entities.OrderDetails", b =>
+            modelBuilder.Entity("ApplicationCore.Entities.OrderDetail", b =>
                 {
                     b.HasOne("ApplicationCore.Entities.Key", "Key")
                         .WithMany()
