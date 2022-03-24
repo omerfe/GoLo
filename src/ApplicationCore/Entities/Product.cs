@@ -10,6 +10,7 @@ namespace ApplicationCore.Entities
         public int UnitInStocks { get; set; }
         public int PlatformId { get; set; }
         public int GameId { get; set; }
+        public bool IsEditorsChoice { get; set; }
         public Game Game { get; set; }
         public Platform Platform { get; set; }
         public List<Discount> Discounts { get; set; }

@@ -72,6 +72,7 @@ namespace Web.Services
             product.Game = await _gameRepo.GetByIdAsync(productViewModel.GameId);
             product.Platform = await _platformRepo.GetByIdAsync(productViewModel.PlatformId);
             product.IsAvailable = productViewModel.IsAvailable;
+            product.IsEditorsChoice = productViewModel.IsEditorsChoice;
             product.ProductUnitPrice = productViewModel.ProductUnitPrice;
 
             await _productService.UpdateProductAsync(product, oldGameName, oldPlatformName);
