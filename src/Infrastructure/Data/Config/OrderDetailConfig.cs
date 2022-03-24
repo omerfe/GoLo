@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.Data.Config
 {
-    public class OrderDetailsConfig : IEntityTypeConfiguration<OrderDetails>
+    public class OrderDetailConfig : IEntityTypeConfiguration<OrderDetail>
     {
-        public void Configure(EntityTypeBuilder<OrderDetails> builder)
+        public void Configure(EntityTypeBuilder<OrderDetail> builder)
         {
             builder.Property(x => x.UnitPrice).HasPrecision(18, 2);
         }
