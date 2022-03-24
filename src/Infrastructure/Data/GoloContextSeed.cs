@@ -449,34 +449,34 @@ OS : Windows 7 64 - bit"
             #endregion
 
             #region Products
-            var product1 = new Product() { Game = game1, Platform = p1, ProductUnitPrice = 10.99m, IsAvailable = true };
-            var product2 = new Product() { Game = game2, Platform = p2, ProductUnitPrice = 20.99m, IsAvailable = true };
-            var product3 = new Product() { Game = game3, Platform = p3, ProductUnitPrice = 30.99m, IsAvailable = true };
-            var product4 = new Product() { Game = game4, Platform = p4, ProductUnitPrice = 40.99m, IsAvailable = true };
-            var product5 = new Product() { Game = game5, Platform = p5, ProductUnitPrice = 50.99m, IsAvailable = true };
-            var product6 = new Product() { Game = game6, Platform = p6, ProductUnitPrice = 60.99m, IsAvailable = true };
-            var product7 = new Product() { Game = game7, Platform = p1, ProductUnitPrice = 70.99m, IsAvailable = true };
-            var product8 = new Product() { Game = game8, Platform = p2, ProductUnitPrice = 80.99m, IsAvailable = true };
-            var product9 = new Product() { Game = game9, Platform = p3, ProductUnitPrice = 90.99m, IsAvailable = true };
-            var product10 = new Product() { Game = game10, Platform = p4, ProductUnitPrice = 10.99m, IsAvailable = true };
-            var product11 = new Product() { Game = game11, Platform = p5, ProductUnitPrice = 20.99m, IsAvailable = true };
-            var product12 = new Product() { Game = game12, Platform = p6, ProductUnitPrice = 30.99m, IsAvailable = true };
-            var product13 = new Product() { Game = game13, Platform = p1, ProductUnitPrice = 40.99m, IsAvailable = true };
-            var product14 = new Product() { Game = game14, Platform = p2, ProductUnitPrice = 50.99m, IsAvailable = true };
-            var product15 = new Product() { Game = game1, Platform = p2, ProductUnitPrice = 60.99m, IsAvailable = true };
-            var product16 = new Product() { Game = game2, Platform = p3, ProductUnitPrice = 70.99m, IsAvailable = true };
-            var product17 = new Product() { Game = game3, Platform = p4, ProductUnitPrice = 80.99m, IsAvailable = true };
-            var product18 = new Product() { Game = game4, Platform = p5, ProductUnitPrice = 90.99m, IsAvailable = true };
-            var product19 = new Product() { Game = game5, Platform = p6, ProductUnitPrice = 10.99m, IsAvailable = true };
-            var product20 = new Product() { Game = game6, Platform = p1, ProductUnitPrice = 20.99m, IsAvailable = true };
-            var product21 = new Product() { Game = game7, Platform = p2, ProductUnitPrice = 30.99m, IsAvailable = true };
-            var product22 = new Product() { Game = game8, Platform = p3, ProductUnitPrice = 40.99m, IsAvailable = true };
-            var product23 = new Product() { Game = game9, Platform = p4, ProductUnitPrice = 50.99m, IsAvailable = true };
-            var product24 = new Product() { Game = game10, Platform = p5, ProductUnitPrice = 60.99m, IsAvailable = true };
-            var product25 = new Product() { Game = game11, Platform = p6, ProductUnitPrice = 70.99m, IsAvailable = true };
-            var product26 = new Product() { Game = game12, Platform = p1, ProductUnitPrice = 80.99m, IsAvailable = true };
-            var product27 = new Product() { Game = game13, Platform = p2, ProductUnitPrice = 90.99m, IsAvailable = true };
-            var product28 = new Product() { Game = game14, Platform = p3, ProductUnitPrice = 10.99m, IsAvailable = true };
+            var product1 = new Product() { Game = game1, Platform = p1, ProductUnitPrice = 10.99m, IsAvailable = true, IsEditorsChoice = true };
+            var product2 = new Product() { Game = game2, Platform = p2, ProductUnitPrice = 20.99m, IsAvailable = true, IsEditorsChoice = true };
+            var product3 = new Product() { Game = game3, Platform = p3, ProductUnitPrice = 30.99m, IsAvailable = true, IsEditorsChoice = true };
+            var product4 = new Product() { Game = game4, Platform = p4, ProductUnitPrice = 40.99m, IsAvailable = true, IsEditorsChoice = true };
+            var product5 = new Product() { Game = game5, Platform = p5, ProductUnitPrice = 50.99m, IsAvailable = true, IsEditorsChoice = true };
+            var product6 = new Product() { Game = game6, Platform = p6, ProductUnitPrice = 60.99m, IsAvailable = true, IsEditorsChoice = true };
+            var product7 = new Product() { Game = game7, Platform = p1, ProductUnitPrice = 70.99m, IsAvailable = true, IsEditorsChoice = true };
+            var product8 = new Product() { Game = game8, Platform = p2, ProductUnitPrice = 80.99m, IsAvailable = true, IsEditorsChoice = true };
+            var product9 = new Product() { Game = game9, Platform = p3, ProductUnitPrice = 90.99m, IsAvailable = true, IsEditorsChoice = true };
+            var product10 = new Product() { Game = game10, Platform = p4, ProductUnitPrice = 10.99m, IsAvailable = true, IsEditorsChoice = true };
+            var product11 = new Product() { Game = game11, Platform = p5, ProductUnitPrice = 20.99m, IsAvailable = true, IsEditorsChoice = true };
+            var product12 = new Product() { Game = game12, Platform = p6, ProductUnitPrice = 30.99m, IsAvailable = true, IsEditorsChoice = true };
+            var product13 = new Product() { Game = game13, Platform = p1, ProductUnitPrice = 40.99m, IsAvailable = true, IsEditorsChoice = true };
+            var product14 = new Product() { Game = game14, Platform = p2, ProductUnitPrice = 50.99m, IsAvailable = true, IsEditorsChoice = true };
+            var product15 = new Product() { Game = game1, Platform = p2, ProductUnitPrice = 60.99m, IsAvailable = true, IsEditorsChoice = true };
+            var product16 = new Product() { Game = game2, Platform = p3, ProductUnitPrice = 70.99m, IsAvailable = true, IsEditorsChoice = true };
+            var product17 = new Product() { Game = game3, Platform = p4, ProductUnitPrice = 80.99m, IsAvailable = true, IsEditorsChoice = true };
+            var product18 = new Product() { Game = game4, Platform = p5, ProductUnitPrice = 90.99m, IsAvailable = true, IsEditorsChoice = true };
+            var product19 = new Product() { Game = game5, Platform = p6, ProductUnitPrice = 10.99m, IsAvailable = true, IsEditorsChoice = true };
+            var product20 = new Product() { Game = game6, Platform = p1, ProductUnitPrice = 20.99m, IsAvailable = true, IsEditorsChoice = true };
+            var product21 = new Product() { Game = game7, Platform = p2, ProductUnitPrice = 30.99m, IsAvailable = true, IsEditorsChoice = true };
+            var product22 = new Product() { Game = game8, Platform = p3, ProductUnitPrice = 40.99m, IsAvailable = true, IsEditorsChoice = true };
+            var product23 = new Product() { Game = game9, Platform = p4, ProductUnitPrice = 50.99m, IsAvailable = true, IsEditorsChoice = true };
+            var product24 = new Product() { Game = game10, Platform = p5, ProductUnitPrice = 60.99m, IsAvailable = true, IsEditorsChoice = true };
+            var product25 = new Product() { Game = game11, Platform = p6, ProductUnitPrice = 70.99m, IsAvailable = true, IsEditorsChoice = true };
+            var product26 = new Product() { Game = game12, Platform = p1, ProductUnitPrice = 80.99m, IsAvailable = true, IsEditorsChoice = true };
+            var product27 = new Product() { Game = game13, Platform = p2, ProductUnitPrice = 90.99m, IsAvailable = true, IsEditorsChoice = true };
+            var product28 = new Product() { Game = game14, Platform = p3, ProductUnitPrice = 10.99m, IsAvailable = true, IsEditorsChoice = true };
             #endregion
 
             db.AddRange(g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, p1, p2, p3, p4, p5, p6, game1, game2, game3, game4, game5, game6, game7, game8, game9, game10, game11, game12, game13, game14, product1, product2, product3, product4, product5, product6, product7, product8, product9, product10, product11, product12, product13, product14, product15, product16, product17, product18, product19, product20, product21, product22, product23, product24, product25, product26, product27, product28);

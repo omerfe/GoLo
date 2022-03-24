@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Specifications
 {
-    public class ProductsPreOrdersSpecification : Specification<Product>
+    public class ProductsEditorsChoiceSpecification : Specification<Product>
     {
-        public ProductsPreOrdersSpecification()
+        public ProductsEditorsChoiceSpecification()
         {
-            Query.Include(x => x.Game);
+            Query.Include(x => x.Game.Genres);
             Query.Include(x => x.Discounts);
             Query.Include(x => x.Platform);
             Query.Where(x => x.IsAvailable);
             Query.Where(x => x.Keys.Where(y => y.Status).ToList().Count > 0);
-            Query.Where(x => x.Game.ReleaseDate > DateTime.Now).OrderBy(x => x.Game.ReleaseDate);
+            Query.Where(x => x.IsEditorsChoice);
             Query.Take(10);
         }
     }
