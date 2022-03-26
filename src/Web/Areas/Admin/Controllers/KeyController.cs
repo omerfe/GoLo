@@ -10,10 +10,11 @@ using Infrastructure.Data;
 using ApplicationCore.Interfaces;
 using Web.Interfaces;
 using Web.Areas.Admin.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Web.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"), Authorize(Roles = "admin")]
     public class KeyController : Controller
     {
         private readonly IKeyService _keyService;
@@ -28,7 +29,17 @@ namespace Web.Areas.Admin.Controllers
         // GET: Admin/Key
         public async Task<IActionResult> Index(int productId)
         {
-            return View(await _keyViewModelService.GetAllKeysWithViewModel(productId));
+            IndexKeyViewModel vm;
+            try
+            {
+                vm = await _keyViewModelService.GetAllKeysWithViewModel(productId);
+            }
+            catch (ArgumentException ex)
+            {
+                ViewBag.Message = ex.Message;
+                return NotFound(ex.Message);
+            }
+            return View(vm);
         }
 
         //GET: Admin/Key/Create
@@ -49,21 +60,28 @@ namespace Web.Areas.Admin.Controllers
                 {
                     await _keyViewModelService.CreateKeyFromViewModelAsync(vm);
                 }
-                catch (ArgumentException)
+                catch (ArgumentException ex)
                 {
-                    throw;
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
                 }
                 return RedirectToAction("Index", new { productId = vm.ProductId });
             }
-
-
             return View(vm);
         }
 
         // GET: Admin/Key/Edit/5
         public async Task<IActionResult> Edit(int keyId)
         {
-            var vm = await _keyViewModelService.GetKeyEditViewModelAsync(keyId);
+            KeyViewModel vm;
+            try
+            {
+                vm = await _keyViewModelService.GetKeyEditViewModelAsync(keyId);
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
             return View(vm);
         }
 
@@ -78,9 +96,10 @@ namespace Web.Areas.Admin.Controllers
                 {
                     await _keyViewModelService.UpdateKeyFromViewModelAsync(vm);
                 }
-                catch (ArgumentException)
+                catch (ArgumentException ex)
                 {
-                    throw;
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
                 }
                 return RedirectToAction("Index", new { productId = vm.ProductId });
             }
@@ -95,9 +114,10 @@ namespace Web.Areas.Admin.Controllers
             {
                 await _keyService.DeleteKeyAsync(keyId);
             }
-            catch (ArgumentException)
+            catch (ArgumentException ex)
             {
-                throw;
+                ViewBag.Message = ex.Message;
+                return RedirectToAction("Index", new { productId = productId });
             }
             return RedirectToAction("Index", new { productId = productId });
         }

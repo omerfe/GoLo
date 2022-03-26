@@ -11,10 +11,11 @@ using ApplicationCore.Interfaces;
 using Web.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 using Web.Areas.Admin.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Web.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"), Authorize(Roles = "admin")]
     public class ProductController : Controller
     {
         private readonly IProductService _productService;
@@ -52,9 +53,12 @@ namespace Web.Areas.Admin.Controllers
                 {
                     await _productViewModelService.CreateProductFromViewModelAsync(vm);
                 }
-                catch (ArgumentException)
+                catch (ArgumentException ex)
                 {
-                    throw;
+                    ViewBag.Message = ex.Message;
+                    vm.AllGames = await _productViewModelService.GetGamesAsync();
+                    vm.AllPlatforms = await _productViewModelService.GetPlatformsAsync();
+                    return View(vm);
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -67,7 +71,16 @@ namespace Web.Areas.Admin.Controllers
         // GET: Admin/Product/Edit/5
         public async Task<IActionResult> Edit(int productId)
         {
-            var vm = await _productViewModelService.GetProductEditViewModelAsync(productId);
+            AdminProductViewModel vm;
+            try
+            {
+                vm = await _productViewModelService.GetProductEditViewModelAsync(productId);
+            }
+            catch (ArgumentException ex)
+            {
+                ViewBag.Message = ex.Message;
+                return RedirectToAction(nameof(Index));
+            }
             return View(vm);
         }
 
@@ -82,9 +95,12 @@ namespace Web.Areas.Admin.Controllers
                 {
                     await _productViewModelService.UpdateProductFromViewModelAsync(vm);
                 }
-                catch (ArgumentException)
+                catch (ArgumentException ex)
                 {
-                    throw;
+                    ViewBag.Message = ex.Message;
+                    vm.AllGames = await _productViewModelService.GetGamesAsync();
+                    vm.AllPlatforms = await _productViewModelService.GetPlatformsAsync();
+                    return View(vm);
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -100,9 +116,10 @@ namespace Web.Areas.Admin.Controllers
             {
                 await _productService.DeleteProductAsync(productId);
             }
-            catch (ArgumentException)
+            catch (ArgumentException ex)
             {
-                throw;
+                ViewBag.Message = ex.Message;
+                return RedirectToAction(nameof(Index));
             }
             return RedirectToAction(nameof(Index));
         }

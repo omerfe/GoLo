@@ -1,4 +1,5 @@
 ﻿using ApplicationCore.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ using Web.Interfaces;
 
 namespace Web.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"),Authorize(Roles = "admin")]
     public class DiscountController : Controller
     {
         private readonly IDiscountService _discountService;
@@ -22,7 +23,17 @@ namespace Web.Areas.Admin.Controllers
         // GET: Admin/Discount
         public async Task<IActionResult> Index(int productId)
         {
-            return View(await _discountViewModelService.GetAllDiscountsWithViewModel(productId));
+            IndexDiscountViewModel vm;
+            try
+            {
+                vm = await _discountViewModelService.GetAllDiscountsWithViewModel(productId);
+            }
+            catch (ArgumentException ex)
+            {
+                ViewBag.Message = ex.Message;
+                return NotFound(ex.Message);
+            }
+            return View(vm);
         }
 
         //GET: Admin/Discount/Create
@@ -43,22 +54,28 @@ namespace Web.Areas.Admin.Controllers
                 {
                     await _discountViewModelService.CreateDiscountFromViewModelAsync(vm);
                 }
-                catch (ArgumentException)
+                catch (ArgumentException ex)
                 {
-                    throw;
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
                 }
                 return RedirectToAction("Index", new { productId = vm.ProductId });
             }
-
-
-
             return View(vm);
         }
 
         // GET: Admin/Discount/Edit/5
         public async Task<IActionResult> Edit(int discountId)
         {
-            var vm = await _discountViewModelService.GetDiscountEditViewModelAsync(discountId);
+            DiscountViewModel vm;
+            try
+            {
+                vm = await _discountViewModelService.GetDiscountEditViewModelAsync(discountId);
+            }
+            catch (ArgumentException ex)
+            {
+               return NotFound(ex.Message);
+            }
             return View(vm);
         }
 
@@ -73,9 +90,10 @@ namespace Web.Areas.Admin.Controllers
                 {
                     await _discountViewModelService.UpdateDiscountFromViewModelAsync(vm);
                 }
-                catch (ArgumentException)
+                catch (ArgumentException ex)
                 {
-                    throw;
+                    ViewBag.Message = ex.Message;
+                    return View(vm);
                 }
                 return RedirectToAction("Index", new { productId = vm.ProductId });
             }
@@ -90,9 +108,10 @@ namespace Web.Areas.Admin.Controllers
             {
                 await _discountService.DeleteDiscountAsync(discountId);
             }
-            catch (ArgumentException)
+            catch (ArgumentException ex)
             {
-                throw;
+                ViewBag.Message = ex.Message;
+                return RedirectToAction("Index", new { productId = productId });
             }
             return RedirectToAction("Index", new { productId = productId });
         }
