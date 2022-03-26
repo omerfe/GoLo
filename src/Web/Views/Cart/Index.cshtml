@@ -81,7 +81,7 @@
                                             </td>
                                         </tr>
                                     }
-                                   
+
                                 </tbody>
                             </table>
                         </div>
@@ -92,7 +92,10 @@
                             <p> Total:</p>
                             <span>@Model.TotalPrice.ToString("C2")</span>
                         </div>
-                        <a href="/Cart/Checkout" type="button" class="form__btn">Complete</a>
+                        @if (Model.Items.Count > 0)
+                        {
+                            <a href="/Cart/Checkout" type="button" class="form__btn">Complete</a>
+                        }
                     </div>
                 </div>
                 <!-- end cart -->
@@ -107,12 +110,12 @@
 </form>
 
 @section Scripts{
-<script>
-    $("[data-remove-item]").click(function (event) {
-        event.preventDefault();
-        var cartItemId = $(this).data("remove-item");
-        $("#cartItemId").val(cartItemId);
-        $("#frmRemoveItem").submit();
-    });
-</script>
+    <script>
+        $("[data-remove-item]").click(function (event) {
+            event.preventDefault();
+            var cartItemId = $(this).data("remove-item");
+            $("#cartItemId").val(cartItemId);
+            $("#frmRemoveItem").submit();
+        });
+    </script>
 }
