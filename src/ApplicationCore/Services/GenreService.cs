@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
+using ApplicationCore.Specifications;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,9 +25,14 @@ namespace ApplicationCore.Services
 
         public async Task DeleteGenreAsync(int genreId)
         {
-            var genre = await GetGenreByIdAsync(genreId);
+            var spec = new GenreSpecification(genreId);
+            var genre = await _genreRepo.FirstOrDefaultAsync(spec);
             if (genre == null)
                 throw new ArgumentException($"Genre with id {genreId} can not be found.");
+
+            if (genre.Games.Count > 0)
+                throw new ArgumentException($"Genre with id {genreId} can not be deleted.");
+
             await _genreRepo.DeleteAsync(genre);
         }
 

@@ -29,10 +29,18 @@ namespace ApplicationCore.Services
 
         public async Task<string> DeletePlatformAsync(int platformId)
         {
-            var platform = await GetPlatformByIdAsync(platformId);
+            var spec = new PlatformSpecification(platformId);
+            var platform = await _platformRepo.FirstOrDefaultAsync(spec);
+            
             if (platform == null)
                 throw new ArgumentException($"Platform with id {platformId} can not be found.");
             var deletePath = platform.LogoPath;
+
+            if (platform.Products.Count > 0)
+            {
+                throw new ArgumentException($"Platform with id {platformId} can not be deleted.");
+            }
+
             await _platformRepo.DeleteAsync(platform);
             return deletePath;
         }
