@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.Specifications
 {
-    public class PlatformSpecification : Specification<Platform>
+    public class GenreSpecification : Specification<Genre>
     {
-        public PlatformSpecification(string platformName)
+        public GenreSpecification(string genreName)
         {
-            Query.Where(x => x.PlatformName.ToLower() == platformName.ToLower());
+            Query.Where(x => x.GenreName.ToLower() == genreName.ToLower());
         }
     }
 }

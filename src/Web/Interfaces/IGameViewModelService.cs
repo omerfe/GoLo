@@ -10,6 +10,7 @@ namespace Web.Interfaces
         Task<GameEditViewModel> GetGameEditViewModelAsync(int gameId);
         Task CreateGameFromViewModelAsync(GameViewModel gameViewModel);
         Task UpdateGameFromViewModelAsync(GameEditViewModel gameEditViewModel);
+        Task DeleteGameThenPictureAsync(int platformId);
         Task<List<IndexGameViewModel>> GetAllGamesWithViewModel();
         Task<List<SelectListItem>> GetGenresAsync();
     }

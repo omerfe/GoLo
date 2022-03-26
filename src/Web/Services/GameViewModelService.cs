@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -7,6 +8,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Web.Areas.Admin.Models;
 using Web.Interfaces;
+using Web.Managers;
 
 namespace Web.Services
 {
@@ -14,34 +16,52 @@ namespace Web.Services
     {
         private readonly IGameService _gameService;
         private readonly IRepository<Genre> _genreRepo;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public GameViewModelService(IGameService gameService, IRepository<Genre> genreRepo)
+        public GameViewModelService(IGameService gameService, IRepository<Genre> genreRepo, IWebHostEnvironment webHostEnvironment)
         {
             _gameService = gameService;
             _genreRepo = genreRepo;
+            _webHostEnvironment = webHostEnvironment;
         }
+
         public async Task CreateGameFromViewModelAsync(GameViewModel gameViewModel)
         {
-            var game = new Game()
+            if (!await _gameService.CheckExistingGameithSameNameBeforeAdd(gameViewModel.GameName))
             {
-                Id = gameViewModel.Id,
-                GameName = gameViewModel.GameName,
-                Description = gameViewModel.Description,
-                Developer = gameViewModel.Developer,
-                GameRequirements = gameViewModel.GameRequirements,
-                MinimumAge = gameViewModel.MinimumAge,
-                Publisher = gameViewModel.Publisher,
-                ReleaseDate = gameViewModel.ReleaseDate,
-                TrailerUrl = gameViewModel.TrailerUrl,
-                ImagePath = gameViewModel.ImagePath
-            };
-            game.Genres = new List<Genre>();
-            foreach (var genreId in gameViewModel.GenreIds)
-            {
-                var genre = await _genreRepo.GetByIdAsync(genreId);
-                game.Genres.Add(genre);
+                var imagePath = "";
+                try
+                {
+                    imagePath = gameViewModel.GameImage.GetUniqueNameAndSavePhotoToDisk(_webHostEnvironment, "games");
+                    var game = new Game()
+                    {
+                        Id = gameViewModel.Id,
+                        GameName = gameViewModel.GameName,
+                        Description = gameViewModel.Description,
+                        Developer = gameViewModel.Developer,
+                        GameRequirements = gameViewModel.GameRequirements,
+                        MinimumAge = gameViewModel.MinimumAge,
+                        Publisher = gameViewModel.Publisher,
+                        ReleaseDate = gameViewModel.ReleaseDate,
+                        TrailerUrl = gameViewModel.TrailerUrl,
+                        ImagePath = imagePath
+                    };
+                    game.Genres = new List<Genre>();
+                    foreach (var genreId in gameViewModel.GenreIds)
+                    {
+                        var genre = await _genreRepo.GetByIdAsync(genreId);
+                        game.Genres.Add(genre);
+                    }
+                    await _gameService.AddGameAsync(game);
+                }
+                catch (ArgumentException)
+                {
+                    if (!string.IsNullOrEmpty(imagePath))
+                        FileManager.RemoveImageFromDisk(imagePath, _webHostEnvironment, "games");
+                }
             }
-            await _gameService.AddGameAsync(game);
+            else
+                throw new ArgumentException("There is already a Game with same name.");
         }
 
         public async Task<GameEditViewModel> GetGameEditViewModelAsync(int gameId)
@@ -69,6 +89,36 @@ namespace Web.Services
 
         public async Task UpdateGameFromViewModelAsync(GameEditViewModel gameEditViewModel)
         {
+            if (!await _gameService.CheckExistingGameWithSameNameBeforeUpdate(gameEditViewModel.Id, gameEditViewModel.GameName))
+            {
+                var imagePath = "";
+                try
+                {
+                    if (gameEditViewModel.GameImage != null)
+                    {
+                        imagePath = gameEditViewModel.GameImage.GetUniqueNameAndSavePhotoToDisk(_webHostEnvironment, "games");
+                        var oldImagePath = gameEditViewModel.ImagePath;
+                        gameEditViewModel.ImagePath = imagePath;
+                        await UpdateGamePropertiesAndSaveAsync(gameEditViewModel);
+                        FileManager.RemoveImageFromDisk(oldImagePath, _webHostEnvironment, "games");
+                    }
+                    else
+                    {
+                        await UpdateGamePropertiesAndSaveAsync(gameEditViewModel);
+                    }
+                }
+                catch (ArgumentException)
+                {
+                    if (!string.IsNullOrEmpty(imagePath))
+                        FileManager.RemoveImageFromDisk(imagePath, _webHostEnvironment, "games");
+                }
+            }
+            else
+                throw new ArgumentException("There is already a Game with same name.");
+        }
+
+        private async Task UpdateGamePropertiesAndSaveAsync(GameEditViewModel gameEditViewModel)
+        {
             if (gameEditViewModel.Id < 0)
                 throw new ArgumentException("Game can not be found.");
             var game = await _gameService.GetGameByIdWithGenresAsync(gameEditViewModel.Id);
@@ -76,7 +126,6 @@ namespace Web.Services
             if (game is null)
                 throw new ArgumentException("Game can not be found.");
 
-            var oldGameName = game.GameName;
             game.GameName = gameEditViewModel.GameName;
             game.Description = gameEditViewModel.Description;
             game.GameRequirements = gameEditViewModel.GameRequirements;
@@ -94,8 +143,9 @@ namespace Web.Services
                 game.Genres.Add(genre);
             }
 
-            await _gameService.UpdateGameAsync(game, oldGameName);
+            await _gameService.UpdateGameAsync(game, gameEditViewModel.GameName);
         }
+
         public async Task<List<IndexGameViewModel>> GetAllGamesWithViewModel()
         {
             var games = await _gameService.GetAllGamesAsync();
@@ -111,10 +161,26 @@ namespace Web.Services
                 GenreNames = String.Join(", ", x.Genres.Select(g => g.GenreName))
             }).ToList();
         }
+
         public async Task<List<SelectListItem>> GetGenresAsync()
         {
             var genres = await _genreRepo.GetAllAsync();
             return genres.Select(x => new SelectListItem() { Text = x.GenreName, Value = x.Id.ToString() }).ToList();
+        }
+
+        public async Task DeleteGameThenPictureAsync(int gameId)
+        {
+            var deletePath = "";
+            try
+            {
+                deletePath = await _gameService.DeleteGameAsync(gameId);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+            FileManager.RemoveImageFromDisk(deletePath, _webHostEnvironment, "games");
         }
     }
 }

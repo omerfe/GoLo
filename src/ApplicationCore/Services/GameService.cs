@@ -15,6 +15,7 @@ namespace ApplicationCore.Services
         {
             _gameRepo = gameRepo;
         }
+
         public async Task<Game> GetGameByIdAsync(int gameId)
         {
             if (gameId < 0)
@@ -30,19 +31,22 @@ namespace ApplicationCore.Services
             var spec = new GameSpecification(gameId);
             return await _gameRepo.FirstOrDefaultAsync(spec);
         }
+
         public async Task<List<Game>> GetAllGamesAsync()
         {
             var spec = new GameSpecification();
             return await _gameRepo.GetAllAsync(spec);
         }
+
         public async Task<Game> AddGameAsync(Game game)
         {
-            var spec = new GameSpecification(game.GameName);
-            var existingGameWithSameName = await _gameRepo.FirstOrDefaultAsync(spec);
-            if (existingGameWithSameName != null)
+            if (game == null)
+                throw new ArgumentException($"Game can not be found.");
+            if (await CheckExistingGameithSameNameBeforeAdd(game.GameName))
                 throw new ArgumentException("There is already a Game with same name.");
             return await _gameRepo.AddAsync(game);
         }
+
         public async Task<string> DeleteGameAsync(int gameId)
         {
             var game = await GetGameByIdAsync(gameId);
@@ -52,18 +56,45 @@ namespace ApplicationCore.Services
             await _gameRepo.DeleteAsync(game);
             return deletePath;
         }
-        public async Task UpdateGameAsync(Game game, string oldGameName)
+
+        public async Task UpdateGameAsync(Game game, string newGameName)
         {
             if (game is null)
                 throw new ArgumentException($"Game can not be found.");
-            var spec = new GameSpecification(game.GameName);
-            var existingGameWithSameName = await _gameRepo.FirstOrDefaultAsync(spec);
+            //--Platform'dan farklı olarak Yeni oyun ismini web tarafında game'e yükleyip gönderdiğimiz için ve ef bu entity'i takip ettiği için alttaki metodu çağıramıyoruz.
 
-            //bu isimde bir oyun var ve değiştirilmek istenen isim güncellenen oyunun eski ismi değil
-            if (existingGameWithSameName != null && game.GameName != oldGameName)
+            //var spec = new GameSpecification(game.GameName);
+            //var existingGameWithSameName = await _gameRepo.FirstOrDefaultAsync(spec);
+            //if (existingGameWithSameName != null && game.GameName != oldGameName)
+            //    throw new ArgumentException("There is already a Game with same name.");
+            if (await CheckExistingGameWithSameNameBeforeUpdate(game.Id, newGameName))
                 throw new ArgumentException("There is already a Game with same name.");
+            //--
 
             await _gameRepo.UpdateAsync(game);
+        }
+
+        public async Task<bool> CheckExistingGameithSameNameBeforeAdd(string gameName)
+        {
+            var spec = new GameSpecification(gameName);
+            var existingGameWithSameName = await _gameRepo.FirstOrDefaultAsync(spec);
+            if (existingGameWithSameName != null)
+                return true;
+            return false;
+        }
+
+        public async Task<bool> CheckExistingGameWithSameNameBeforeUpdate(int gameId, string newGameName)
+        {
+            if (gameId < 0)
+                return true;
+            var game = await GetGameByIdAsync(gameId);
+            if (game == null)
+                return true;
+            var spec = new GameSpecification(newGameName);
+            var existingGameWithSameName = await _gameRepo.FirstOrDefaultAsync(spec);
+            if (existingGameWithSameName != null && game.GameName != newGameName)
+                return true;
+            return false;
         }
     }
 }

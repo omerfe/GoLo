@@ -16,13 +16,11 @@ namespace Web.Areas.Admin.Controllers
     {
         private readonly IGameService _gameService;
         private readonly IGameViewModelService _gameViewModelService;
-        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public GameController(IGameService gameService, IGameViewModelService gameViewModelService, IWebHostEnvironment webHostEnvironment)
+        public GameController(IGameService gameService, IGameViewModelService gameViewModelService)
         {
             _gameService = gameService;
             _gameViewModelService = gameViewModelService;
-            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: Admin/Game
@@ -46,15 +44,12 @@ namespace Web.Areas.Admin.Controllers
             if (ModelState.IsValid)
             {
                 //TODO Resim yükle-sil hoş olmadı refactor edilecek
-                var imagePath = vm.GameImage.GetUniqueNameAndSavePhotoToDisk(_webHostEnvironment, "games");
-                vm.ImagePath = imagePath;
                 try
                 {
                     await _gameViewModelService.CreateGameFromViewModelAsync(vm);
                 }
                 catch (ArgumentException ex)
                 {
-                    FileManager.RemoveImageFromDisk(imagePath, _webHostEnvironment, "games");
                     ViewBag.Message = ex.Message;
                     vm.AllGenres = await _gameViewModelService.GetGenresAsync();
                     return View(vm);
@@ -75,7 +70,7 @@ namespace Web.Areas.Admin.Controllers
             }
             catch (ArgumentException ex)
             {
-                ViewBag.Message = ex.Message;
+                TempData["Message"] = ex.Message;
                 return RedirectToAction(nameof(Index));
             }
             return View(vm);
@@ -88,27 +83,12 @@ namespace Web.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var imagePath = "";
                 try
                 {
-                    if (vm.GameImage != null)
-                    {
-                        imagePath = vm.GameImage.GetUniqueNameAndSavePhotoToDisk(_webHostEnvironment, "games");
-                        var oldImagePath = vm.ImagePath;
-                        vm.ImagePath = imagePath;
-                        await _gameViewModelService.UpdateGameFromViewModelAsync(vm);
-                        FileManager.RemoveImageFromDisk(oldImagePath, _webHostEnvironment, "games");
-                    }
-                    else
-                    {
-                        await _gameViewModelService.UpdateGameFromViewModelAsync(vm);
-                    }
+                    await _gameViewModelService.UpdateGameFromViewModelAsync(vm);
                 }
                 catch (ArgumentException ex)
                 {
-                    if (!string.IsNullOrEmpty(imagePath))
-                        FileManager.RemoveImageFromDisk(imagePath, _webHostEnvironment, "games");
-
                     ViewBag.Message = ex.Message;
                     vm.AllGenres = await _gameViewModelService.GetGenresAsync();
                     return View(vm);
@@ -122,19 +102,15 @@ namespace Web.Areas.Admin.Controllers
         // GET: Admin/Game/Delete/5
         public async Task<IActionResult> Delete(int gameId)
         {
-            var deletePath = "";
             try
             {
-                deletePath = await _gameService.DeleteGameAsync(gameId);
+                await _gameViewModelService.DeleteGameThenPictureAsync(gameId);
             }
             catch (ArgumentException ex)
             {
-                ViewBag.Message = ex.Message;
+                TempData["Message"] = ex.Message;
                 return RedirectToAction(nameof(Index));
             }
-
-            FileManager.RemoveImageFromDisk(deletePath, _webHostEnvironment, "games");
-
             return RedirectToAction(nameof(Index));
         }
     }
