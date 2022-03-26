@@ -14,5 +14,10 @@ namespace ApplicationCore.Specifications
         {
             Query.Where(x => x.PlatformName == platformName);
         }
+        public PlatformSpecification(int platformId)
+        {
+            Query.Where(x => x.Id == platformId);
+            Query.Include(x => x.Products);
+        }
     }
 }
