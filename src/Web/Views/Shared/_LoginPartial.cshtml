@@ -9,19 +9,23 @@
         @if (User.IsInRole("admin"))
         {
             <li class="header__nav-item">
-                <a class="header__nav-link" style="text-align: center; font-size: .85rem;" asp-area="Admin" asp-controller="Dashboard" asp-action="Index" title="Manage">Admin</a>
+                <form class="form-inline" asp-area="Admin" asp-controller="Dashboard" asp-action="Index">
+                    <button class="header__nav-link" title="Manage">Admin</button>
+                </form>
             </li>
         }
         else
         {
             <li class="header__nav-item">
-                <a class="header__nav-link" style="text-align: center; font-size: .85rem;" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">My Account</a>
+                <form class="form-inline" asp-area="Identity" asp-page="/Account/Manage/Index">
+                    <button class="header__nav-link" title="Manage">My Account</button>
+                </form>
             </li>
         }
 
         <li class="header__nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="header__nav-link" style="color: #fff;">Logout</button>
+                <button type="submit" class="header__nav-link" >Logout</button>
             </form>
         </li>
     }

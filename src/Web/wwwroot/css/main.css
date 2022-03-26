@@ -303,7 +303,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .header__nav-link {
-    font-size: 12px;
+    font-size: 0.85rem;
     color: #fff;
     letter-spacing: 0.4px;
     text-transform: uppercase;

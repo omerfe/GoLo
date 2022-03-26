@@ -12,6 +12,7 @@ namespace Web.Areas.Admin.Models
         public int Id { get; set; }
         public decimal ProductUnitPrice { get; set; }
         public bool IsAvailable { get; set; }
+        public bool IsEditorsChoice { get; set; }
         public Platform Platform { get; set; }
         public int PlatformId { get; set; }
         public Game Game { get; set; }

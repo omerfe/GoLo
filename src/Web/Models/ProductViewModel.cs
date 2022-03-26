@@ -8,5 +8,7 @@
         public string PicturePath { get; set; }
         public string PlatformLogo { get; set; }
         public int DiscountRate { get; set; }
+        public string ReleaseDate { get; set; }
+        public string Genres { get; set; }
     }
 }

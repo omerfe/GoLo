@@ -33,7 +33,7 @@ namespace ApplicationCore.Services
             {
                 BuyerId = cart.BuyerId,
                 OrderDate = DateTimeOffset.Now,
-                OrderDetails = new List<OrderDetails>()
+                OrderDetails = new List<OrderDetail>()
             };
 
             var outOfStock = 0;
@@ -71,14 +71,14 @@ namespace ApplicationCore.Services
 
                 for (int i = 1; i <= item.Quantity; i++)
                 {
-                    var orderDetail = new OrderDetails();
+                    var orderDetail = new OrderDetail();
 
                     orderDetail.GameName = item.Product.Game.GameName;
                     orderDetail.ImagePath = item.Product.Game.ImagePath;
                     orderDetail.OrderDiscountId = item.Product.Discounts
                         .FirstOrDefault(x => x.IsValid) == null ? null : item.Product.Discounts.FirstOrDefault(x => x.IsValid).Id;
-                    orderDetail.UnitPrice = item.Product.ProductUnitPrice;
-
+                    orderDetail.UnitPrice =  item.Product.Discounts.FirstOrDefault(x => x.IsValid) == null ? item.Product.ProductUnitPrice :
+                        (item.Product.ProductUnitPrice * (100 - item.Product.Discounts.FirstOrDefault(x => x.IsValid).DiscountRate) / 100);
                     var key = item.Product.Keys.FirstOrDefault(x => x.Status == true);
                     orderDetail.KeyId = key.Id;
                     key.Status = false;
@@ -100,10 +100,6 @@ namespace ApplicationCore.Services
             var buyerOrders = await _orderRepo.GetAllAsync(spec);
 
             return buyerOrders;
-
-
         }
-
-      
     }
 }
