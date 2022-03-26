@@ -48,6 +48,7 @@ namespace Web.Services
                 GameId = product.GameId,
                 PlatformId = product.PlatformId,
                 IsAvailable = product.IsAvailable,
+                IsEditorsChoice = product.IsEditorsChoice,
                 AllGames = await GetGamesAsync(),
                 AllPlatforms = await GetPlatformsAsync(),
                 Game = await _gameRepo.GetByIdAsync(product.GameId),
@@ -72,6 +73,7 @@ namespace Web.Services
             product.Game = await _gameRepo.GetByIdAsync(productViewModel.GameId);
             product.Platform = await _platformRepo.GetByIdAsync(productViewModel.PlatformId);
             product.IsAvailable = productViewModel.IsAvailable;
+            product.IsEditorsChoice = productViewModel.IsEditorsChoice;
             product.ProductUnitPrice = productViewModel.ProductUnitPrice;
 
             await _productService.UpdateProductAsync(product, oldGameName, oldPlatformName);

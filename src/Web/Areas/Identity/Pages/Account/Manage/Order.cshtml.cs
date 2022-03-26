@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using ApplicationCore.Entities;
+using ApplicationCore.Interfaces;
+using ApplicationCore.Services;
 using Infrastructure.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,41 +16,63 @@ namespace Web.Areas.Identity.Pages.Account.Manage
     public partial class OrderModel : PageModel
     {
         private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly IOrderService _orderService;
 
-        public OrderModel(
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+        public OrderModel(UserManager<ApplicationUser> userManager, IOrderService orderService)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
+            _orderService = orderService;
         }
-
-        public string Username { get; set; }
-
-        [TempData]
-        public string StatusMessage { get; set; }
 
         [BindProperty]
         public InputModel Input { get; set; }
 
         public class InputModel
         {
-            [Phone]
-            [Display(Name = "Phone number")]
-            public string PhoneNumber { get; set; }
+            public List<OrderViewModel> OrderViewModels { get; set; }
+        }
+
+        public class OrderViewModel
+        {
+            public int OrderId { get; set; }
+            public string BuyerId { get; set; }
+            public string OrderDate { get; set; }
+            public decimal TotalPrice { get; set; }
+            public int KeyQuantity { get; set; }
+            public List<OrderDetailsModel> OrderDetails { get; set; } = new List<OrderDetailsModel>();
+        }
+
+        public class OrderDetailsModel
+        {
+            public string Platform { get; set; }
+            public string Game { get; set; }
+            public decimal Price { get; set; }
+            public Guid KeyCode { get; set; }
         }
 
         private async Task LoadAsync(ApplicationUser user)
         {
-            var userName = await _userManager.GetUserNameAsync(user);
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-
-            Username = userName;
-
+            var userId = await _userManager.GetUserIdAsync(user);
+            var buyerOrders = await _orderService.GetAllUserOrdersAsync(userId);
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                OrderViewModels = buyerOrders.Select(x =>
+                new OrderViewModel()
+                {
+                    OrderId = x.Id,
+                    BuyerId = x.BuyerId,
+                    OrderDate = x.OrderDate.ToString("dd-MM-yyyy"),
+                    TotalPrice = x.OrderDetails.Sum(x => x.UnitPrice),
+                    KeyQuantity = x.OrderDetails.Count(),
+                    OrderDetails = x.OrderDetails.Select(y =>
+                        new OrderDetailsModel()
+                        {
+                            Game = y.GameName,
+                            Platform = y.Key.Product.Platform.PlatformName,
+                            Price = y.UnitPrice,
+                            KeyCode = y.Key.KeyCode
+                        }).ToList()
+                }).ToList()
             };
         }
 
@@ -59,7 +84,14 @@ namespace Web.Areas.Identity.Pages.Account.Manage
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
 
-            await LoadAsync(user);
+            try
+            {
+                await LoadAsync(user);
+            }
+            catch (ArgumentException ex)
+            {
+                return NotFound(ex.Message);
+            }
             return Page();
         }
 
@@ -73,23 +105,17 @@ namespace Web.Areas.Identity.Pages.Account.Manage
 
             if (!ModelState.IsValid)
             {
-                await LoadAsync(user);
+                try
+                {
+                    await LoadAsync(user);
+                }
+                catch (ArgumentException ex)
+                {
+                    return NotFound(ex.Message);
+                }
                 return Page();
             }
 
-            var phoneNumber = await _userManager.GetPhoneNumberAsync(user);
-            if (Input.PhoneNumber != phoneNumber)
-            {
-                var setPhoneResult = await _userManager.SetPhoneNumberAsync(user, Input.PhoneNumber);
-                if (!setPhoneResult.Succeeded)
-                {
-                    StatusMessage = "Unexpected error when trying to set phone number.";
-                    return RedirectToPage();
-                }
-            }
-
-            await _signInManager.RefreshSignInAsync(user);
-            StatusMessage = "Your profile has been updated";
             return RedirectToPage();
         }
     }

@@ -45,10 +45,18 @@ namespace ApplicationCore.Services
         }
         public async Task<string> DeleteGameAsync(int gameId)
         {
-            var game = await GetGameByIdAsync(gameId);
+            var spec = new GameSpecification(gameId);
+            var game = await _gameRepo.FirstOrDefaultAsync(spec);
             if (game == null)
                 throw new ArgumentException($"Game with id {gameId} can not be found.");
+
+            if (game.Products.Count > 0)
+                throw new ArgumentException($"Game with id {gameId} can not be deleted.");
+
             var deletePath = game.ImagePath;
+
+
+
             await _gameRepo.DeleteAsync(game);
             return deletePath;
         }

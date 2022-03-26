@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Entities;
 using ApplicationCore.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -10,7 +11,7 @@ using Web.Managers;
 
 namespace Web.Areas.Admin.Controllers
 {
-    [Area("Admin")]
+    [Area("Admin"), Authorize(Roles = "admin")]
     public class GameController : Controller
     {
         private readonly IGameService _gameService;
@@ -51,10 +52,12 @@ namespace Web.Areas.Admin.Controllers
                 {
                     await _gameViewModelService.CreateGameFromViewModelAsync(vm);
                 }
-                catch (ArgumentException)
+                catch (ArgumentException ex)
                 {
                     FileManager.RemoveImageFromDisk(imagePath, _webHostEnvironment, "games");
-                    throw;
+                    ViewBag.Message = ex.Message;
+                    vm.AllGenres = await _gameViewModelService.GetGenresAsync();
+                    return View(vm);
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -65,7 +68,16 @@ namespace Web.Areas.Admin.Controllers
         // GET: Admin/Game/Edit/5
         public async Task<IActionResult> Edit(int gameId)
         {
-            var vm = await _gameViewModelService.GetGameEditViewModelAsync(gameId);
+            GameEditViewModel vm;
+            try
+            {
+                vm = await _gameViewModelService.GetGameEditViewModelAsync(gameId);
+            }
+            catch (ArgumentException ex)
+            {
+                ViewBag.Message = ex.Message;
+                return RedirectToAction(nameof(Index));
+            }
             return View(vm);
         }
 
@@ -92,12 +104,14 @@ namespace Web.Areas.Admin.Controllers
                         await _gameViewModelService.UpdateGameFromViewModelAsync(vm);
                     }
                 }
-                catch (ArgumentException)
+                catch (ArgumentException ex)
                 {
                     if (!string.IsNullOrEmpty(imagePath))
                         FileManager.RemoveImageFromDisk(imagePath, _webHostEnvironment, "games");
 
-                    throw;
+                    ViewBag.Message = ex.Message;
+                    vm.AllGenres = await _gameViewModelService.GetGenresAsync();
+                    return View(vm);
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -113,9 +127,10 @@ namespace Web.Areas.Admin.Controllers
             {
                 deletePath = await _gameService.DeleteGameAsync(gameId);
             }
-            catch (ArgumentException)
+            catch (ArgumentException ex)
             {
-                throw;
+                ViewBag.Message = ex.Message;
+                return RedirectToAction(nameof(Index));
             }
 
             FileManager.RemoveImageFromDisk(deletePath, _webHostEnvironment, "games");

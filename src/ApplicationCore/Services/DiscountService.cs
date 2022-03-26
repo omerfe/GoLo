@@ -46,9 +46,15 @@ namespace ApplicationCore.Services
         }
         public async Task DeleteDiscountAsync(int discountId)
         {
-            var discount = await GetDiscountByIdAsync(discountId);
+            var spec = new UsedDiscountSpecification(discountId);
+            var discount = await _discountRepo.FirstOrDefaultAsync(spec);
             if (discount == null)
                 throw new ArgumentException($"Discount with id {discountId} can not be found.");
+
+            if (discount.Product.Keys.Count > 0)
+                throw new ArgumentException($"Discount with id {discountId} can not be deleted.");
+
+
             await _discountRepo.DeleteAsync(discount);
         }
         public async Task UpdateDiscountAsync(Discount discount, DateTime oldValidFrom, DateTime oldValidUntil)

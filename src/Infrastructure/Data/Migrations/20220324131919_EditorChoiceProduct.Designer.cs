@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(GoloContext))]
-    [Migration("20220311165049_OrderFixed")]
-    partial class OrderFixed
+    [Migration("20220324131919_EditorChoiceProduct")]
+    partial class EditorChoiceProduct
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -29,7 +29,9 @@ namespace Infrastructure.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("BuyerId")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -186,7 +188,9 @@ namespace Infrastructure.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("BuyerId")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(450)
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<DateTimeOffset>("OrderDate")
                         .HasColumnType("datetimeoffset");
@@ -203,6 +207,12 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("GameName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImagePath")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("KeyId")
                         .HasColumnType("int");
 
@@ -213,6 +223,7 @@ namespace Infrastructure.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("UnitPrice")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
@@ -259,10 +270,14 @@ namespace Infrastructure.Data.Migrations
                     b.Property<bool>("IsAvailable")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsEditorsChoice")
+                        .HasColumnType("bit");
+
                     b.Property<int>("PlatformId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("ProductUnitPrice")
+                        .HasPrecision(18, 2)
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("UnitInStocks")

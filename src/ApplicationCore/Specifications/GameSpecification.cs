@@ -18,6 +18,8 @@ namespace ApplicationCore.Specifications
         {
             Query.Where(x => x.Id == gameId)
                 .Include(x => x.Genres);
+            Query.Where(x => x.Id == gameId)
+                .Include(x => x.Products);
         }
     }
 }

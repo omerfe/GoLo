@@ -303,7 +303,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .header__nav-link {
-    font-size: 12px;
+    font-size: 0.85rem;
     color: #fff;
     letter-spacing: 0.4px;
     text-transform: uppercase;
@@ -6097,7 +6097,7 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
     background-color: #1b222e;
     margin: 40px auto;
     width: 100%;
-    max-width: 420px;
+   /* max-width: 420px;*/
     padding: 20px;
     border: 1px solid rgba(167,130,233,0.06);
     border-radius: 6px;
@@ -6360,4 +6360,33 @@ html:not([dir="rtl"]) .noUi-horizontal .noUi-handle {
     vertical-align: baseline !important;
     --bs-bg-opacity: 1 !important;
     background-color: #A782E9 !important;
+}
+
+
+.table-width-size-model > tr > th:nth-child(4) {
+    width:15% !important;
+}
+.table-width-size-model > tr > th:nth-child(3) {
+    width: 30% !important;
+}
+.table-width-size-model > tr > th:nth-child(2) {
+    width: 20% !important;
+}
+.table-width-size-model > tr > th:nth-child(1) {
+    width: 35% !important;
+}
+
+
+.table-width-size-model > tr > td:nth-child(4) {
+    width: 15% !important;
+}
+.table-width-size-model > tr > td:nth-child(3) {
+    width: 30% !important;
+}
+.table-width-size-model > tr > td:nth-child(2) {
+    width: 20% !important;
+}
+.table-width-size-model > tr > td:nth-child(1) {
+    width: 35% !important;
+
 }
