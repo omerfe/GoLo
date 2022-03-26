@@ -78,7 +78,7 @@ namespace Web.Areas.Admin.Controllers
             }
             catch (ArgumentException ex)
             {
-                ViewBag.Message = ex.Message;
+                TempData["Message"] = ex.Message;
                 return RedirectToAction(nameof(Index));
             }
             return View(vm);
@@ -118,7 +118,7 @@ namespace Web.Areas.Admin.Controllers
             }
             catch (ArgumentException ex)
             {
-                ViewBag.Message = ex.Message;
+                TempData["Message"] = ex.Message;
                 return RedirectToAction(nameof(Index));
             }
             return RedirectToAction(nameof(Index));

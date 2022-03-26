@@ -17,13 +17,11 @@ namespace Web.Areas.Admin.Controllers
 
         private readonly IPlatformService _platformService;
         private readonly IPlatformViewModelService _platformViewModelService;
-        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public PlatformController(IPlatformService platformService, IPlatformViewModelService platformViewModelService, IWebHostEnvironment webHostEnvironment)
+        public PlatformController(IPlatformService platformService, IPlatformViewModelService platformViewModelService)
         {
             _platformService = platformService;
             _platformViewModelService = platformViewModelService;
-            _webHostEnvironment = webHostEnvironment;
         }
 
         // GET: Admin/Platforms
@@ -45,15 +43,12 @@ namespace Web.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                //TODO Resim yükle-sil hoş olmadı refactor edilecek
-                var logoPath = vm.LogoImage.GetUniqueNameAndSavePhotoToDisk(_webHostEnvironment, "partners");
                 try
                 {
-                    await _platformService.AddPlatformAsync(vm.PlatformName, logoPath);
+                    await _platformViewModelService.CreatePlatformFromViewModelAsync(vm);
                 }
                 catch (ArgumentException ex)
                 {
-                    FileManager.RemoveImageFromDisk(logoPath, _webHostEnvironment, "partners");
                     ViewBag.Message = ex.Message;
                     return View(vm);
                 }
@@ -74,7 +69,7 @@ namespace Web.Areas.Admin.Controllers
             }
             catch (ArgumentException ex)
             {
-                ViewBag.Message = ex.Message;
+                TempData["Message"] = ex.Message;
                 return RedirectToAction(nameof(Index));
             }
             return View(vm);
@@ -87,24 +82,12 @@ namespace Web.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                var logoPath = "";
                 try
                 {
-                    if (vm.LogoImage != null)
-                    {
-                        logoPath = vm.LogoImage.GetUniqueNameAndSavePhotoToDisk(_webHostEnvironment, "partners");
-                        await _platformService.UpdatePlatformAsync(vm.Id, vm.PlatformName, logoPath);
-                        FileManager.RemoveImageFromDisk(vm.LogoPath, _webHostEnvironment, "partners");
-                    }
-                    else
-                    {
-                        await _platformService.UpdatePlatformAsync(vm.Id, vm.PlatformName, vm.LogoPath);
-                    }
+                    await _platformViewModelService.UpdatePlatformFromViewModelAsync(vm);
                 }
                 catch (ArgumentException ex)
                 {
-                    if (!string.IsNullOrEmpty(logoPath))
-                        FileManager.RemoveImageFromDisk(logoPath, _webHostEnvironment, "partners");
                     ViewBag.Message = ex.Message;
                     return View(vm);
                 }
@@ -116,19 +99,15 @@ namespace Web.Areas.Admin.Controllers
         // POST: Admin/Platforms/Delete/5
         public async Task<IActionResult> Delete(int platformId)
         {
-            var deletePath = "";
             try
             {
-                deletePath = await _platformService.DeletePlatformAsync(platformId);
+                await _platformViewModelService.DeletePlatformThenPictureAsync(platformId);
             }
             catch (ArgumentException ex)
             {
-                ViewBag.Message = ex.Message;
+                TempData["Message"] = ex.Message;
                 return RedirectToAction(nameof(Index));
             }
-
-            FileManager.RemoveImageFromDisk(deletePath, _webHostEnvironment, "partners");
-
             return RedirectToAction(nameof(Index));
         }
     }

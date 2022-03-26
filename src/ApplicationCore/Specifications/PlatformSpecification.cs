@@ -12,7 +12,7 @@ namespace ApplicationCore.Specifications
     {
         public PlatformSpecification(string platformName)
         {
-            Query.Where(x => x.PlatformName == platformName);
+            Query.Where(x => x.PlatformName.ToLower() == platformName.ToLower());
         }
         public PlatformSpecification(int platformId)
         {
