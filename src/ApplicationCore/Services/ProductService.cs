@@ -3,6 +3,7 @@ using ApplicationCore.Interfaces;
 using ApplicationCore.Specifications;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace ApplicationCore.Services
@@ -50,9 +51,13 @@ namespace ApplicationCore.Services
         }
         public async Task DeleteProductAsync(int productId)
         {
-            var product = await GetProductByIdAsync(productId);
+            var spec = new ProductDeleteSpecification(productId);
+            var product = await _productRepo.FirstOrDefaultAsync(spec);
             if (product == null)
                 throw new ArgumentException($"Product with id {productId} can not be found.");
+            if (product.Keys.Any(x => !x.Status))
+                throw new ArgumentException($"Product with id {productId} can not be deleted.");
+            
             await _productRepo.DeleteAsync(product);
         }
         public async Task UpdateProductAsync(Product product, string oldGameName, string oldPlatformName)

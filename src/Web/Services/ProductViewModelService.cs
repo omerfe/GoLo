@@ -48,6 +48,7 @@ namespace Web.Services
                 GameId = product.GameId,
                 PlatformId = product.PlatformId,
                 IsAvailable = product.IsAvailable,
+                IsEditorsChoice = product.IsEditorsChoice,
                 AllGames = await GetGamesAsync(),
                 AllPlatforms = await GetPlatformsAsync(),
                 Game = await _gameRepo.GetByIdAsync(product.GameId),

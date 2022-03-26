@@ -54,6 +54,7 @@ namespace Web.Services
                 ReleaseDate = x.Game.ReleaseDate.ToString("dd-MM-yyyy"),
                 Genres = string.Join(", ", x.Game.Genres.Select(x => x.GenreName))
             }).ToList();
+        
 
             return productViewModelList;
         }
