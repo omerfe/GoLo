@@ -51,6 +51,8 @@ namespace ApplicationCore.Services
             var key = await GetKeyByIdAsync(keyId);
             if (key == null)
                 throw new ArgumentException($"Key with id {keyId} can not be found.");
+            if (!key.Status)
+                throw new ArgumentException($"Key with id {keyId} can not be deleted.");
             await _keyRepo.DeleteAsync(key);
         }
         public async Task UpdateKeyAsync(Key key, Guid oldKeyCode)
