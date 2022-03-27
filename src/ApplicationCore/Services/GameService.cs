@@ -18,7 +18,7 @@ namespace ApplicationCore.Services
 
         public async Task<Game> GetGameByIdAsync(int gameId)
         {
-            if (gameId < 0)
+            if (gameId < 1)
                 throw new ArgumentException($"Game with id {gameId} can not be found.");
 
             return await _gameRepo.GetByIdAsync(gameId);
@@ -26,7 +26,7 @@ namespace ApplicationCore.Services
 
         public async Task<Game> GetGameByIdWithGenresAsync(int gameId)
         {
-            if (gameId < 0)
+            if (gameId < 1)
                 throw new ArgumentException($"Game with id {gameId} can not be found.");
             var spec = new GameSpecification(gameId);
             return await _gameRepo.FirstOrDefaultAsync(spec);
@@ -93,7 +93,7 @@ namespace ApplicationCore.Services
 
         public async Task<bool> CheckExistingGameWithSameNameBeforeUpdate(int gameId, string newGameName)
         {
-            if (gameId < 0)
+            if (gameId < 1)
                 return true;
             var game = await GetGameByIdAsync(gameId);
             if (game == null)

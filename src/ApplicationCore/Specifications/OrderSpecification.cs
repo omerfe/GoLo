@@ -23,5 +23,20 @@ namespace ApplicationCore.Specifications
                 .ThenInclude(x => x.Product)
                 .ThenInclude(x => x.Platform);
         }
+        public OrderSpecification(int orderId)
+        {
+            Query.Where(x => x.Id == orderId)
+                .Include(x => x.OrderDetails)
+                .ThenInclude(x => x.Key)
+                .ThenInclude(x => x.Product)
+                .ThenInclude(x => x.Platform);
+        }
+        public OrderSpecification()
+        {
+            Query.Include(x => x.OrderDetails)
+                .ThenInclude(x => x.Key)
+                .ThenInclude(x => x.Product)
+                .ThenInclude(x => x.Platform);
+        }
     }
 }

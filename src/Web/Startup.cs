@@ -47,6 +47,7 @@ namespace Web
             services.AddScoped<ICartService, CartService>();
             services.AddScoped<ICartViewModelService, CartViewModelService>();
             services.AddScoped<IOrderService, OrderService>();
+            services.AddScoped<IOrderViewModelService, OrderViewModelService>();
             services.AddScoped<IGenreService, GenreService>();
             services.AddScoped<IGenreViewModelService, GenreViewModelService>();
             services.AddScoped<IPlatformService, PlatformService>();

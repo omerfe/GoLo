@@ -13,15 +13,11 @@ namespace Web.Services
     public class KeyViewModelService : IKeyViewModelService
     {
         private readonly IKeyService _keyService;
-        private readonly IRepository<Game> _gameRepo;
-        private readonly IRepository<Platform> _platformRepo;
         private readonly IRepository<Product> _productRepo;
 
-        public KeyViewModelService(IKeyService keyService, IRepository<Game> gameRepo, IRepository<Platform> platformRepo, IRepository<Product> productRepo)
+        public KeyViewModelService(IKeyService keyService, IRepository<Product> productRepo)
         {
             _keyService = keyService;
-            _gameRepo = gameRepo;
-            _platformRepo = platformRepo;
             _productRepo = productRepo;
         }
         public async Task CreateKeyFromViewModelAsync(KeyViewModel keyViewModel)
@@ -48,7 +44,7 @@ namespace Web.Services
         }
         public async Task UpdateKeyFromViewModelAsync(KeyViewModel keyViewModel)
         {
-            if (keyViewModel.Id < 0)
+            if (keyViewModel.Id < 1)
                 throw new ArgumentException("Key can not be found.");
             var key = await _keyService.GetKeyByIdAsync(keyViewModel.Id);
 
@@ -63,7 +59,7 @@ namespace Web.Services
         }
         public async Task<IndexKeyViewModel> GetAllKeysWithViewModel(int productId)
         {
-            if (productId < 0)
+            if (productId < 1)
                 throw new ArgumentException("Key can not be found.");
             var spec = new ProductSpecification(productId);
             var product = await _productRepo.FirstOrDefaultAsync(spec);

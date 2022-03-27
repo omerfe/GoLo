@@ -91,6 +91,12 @@ namespace ApplicationCore.Services
             return await _orderRepo.AddAsync(order);
         }
 
+        public async Task<List<Order>> GetAllOrderAsync()
+        {
+            var spec = new OrderSpecification();
+            return await _orderRepo.GetAllAsync(spec);
+        }
+
         public async Task<List<Order>> GetAllUserOrdersAsync(string buyerId)
         {
             if (string.IsNullOrEmpty(buyerId))
@@ -100,6 +106,14 @@ namespace ApplicationCore.Services
             var buyerOrders = await _orderRepo.GetAllAsync(spec);
 
             return buyerOrders;
+        }
+
+        public async Task<Order> GetOrderByIdAsync(int orderId)
+        {
+            var spec = new OrderSpecification(orderId);
+            var order = await _orderRepo.FirstOrDefaultAsync(spec);
+
+            return order;   
         }
     }
 }
