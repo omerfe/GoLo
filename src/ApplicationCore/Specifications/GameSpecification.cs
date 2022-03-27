@@ -12,7 +12,7 @@ namespace ApplicationCore.Specifications
         }
         public GameSpecification(string gameName)
         {
-            Query.Where(x => x.GameName == gameName);
+            Query.Where(x => x.GameName.ToLower() == gameName.ToLower());
         }
         public GameSpecification(int gameId)
         {

@@ -13,5 +13,7 @@ namespace ApplicationCore.Interfaces
         Task<Platform> AddPlatformAsync(string platformName, string logoPath);
         Task UpdatePlatformAsync(int platformId, string platformName, string logoPath);
         Task<string> DeletePlatformAsync(int platformId);
+        Task<bool> CheckExistingPlatformWithSameNameBeforeAdd(string platformName);
+        Task<bool> CheckExistingPlatformWithSameNameBeforeUpdate(int platformId, string newPlatformName);
     }
 }

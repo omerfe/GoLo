@@ -67,4 +67,10 @@
             alert("@ViewBag.Message");
         </script>
     }
+    @if (TempData["Message"] != null)
+    {
+        <script type="text/javascript">
+            alert("@TempData["Message"].ToString()");
+        </script>
+    }
 }

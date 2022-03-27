@@ -10,6 +10,11 @@ namespace ApplicationCore.Specifications
 {
     public class GenreSpecification : Specification<Genre>
     {
+
+        public GenreSpecification(string genreName)
+        {
+            Query.Where(x => x.GenreName.ToLower() == genreName.ToLower());
+        }
         public GenreSpecification(int genreId)
         {
             Query.Where(x => x.Id == genreId)

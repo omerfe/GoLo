@@ -71,10 +71,10 @@
     <script>
         $("#gameTable").DataTable();
     </script>
-    @if (!string.IsNullOrEmpty(ViewBag.Message))
+    @if (TempData["Message"] != null)
     {
         <script type="text/javascript">
-		alert("@ViewBag.Message");
+            alert("@TempData["Message"].ToString()");
         </script>
     }
 }

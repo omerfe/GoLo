@@ -41,7 +41,7 @@ namespace Infrastructure.Data
             var game1 = new Game()
             {
                 GameName = "NBA 2K22 PC",
-                ReleaseDate = new DateTime(2021, 09, 10),
+                ReleaseDate = new DateTime(2022, 03, 10),
                 Description = @"NBA 2K22 is a basketball sports game developed by Visual Concepts and published by 2K Games. It is the latest installment in the series of basketball video games. The player is given the opportunity to become a part of one of the world's leading basketball associations, playing against the best teams in the United States of America. 2K22 introduces several changes and new gameplay mechanics, introducing new locations for the Neighborhood and the City modes, new tactics, and much more. The gameplay features are complemented by stunning visuals and excellent tracks, accompanying the player throughout the game. NBA 2K22 was met with a positive initial reception, with the critics praising the changes to the games modes as well as improved graphics.",
                 Developer = "VISUAL CONCEPTS",
                 Publisher = "2K",
@@ -61,7 +61,7 @@ STORAGE110 GB available space",
             var game2 = new Game()
             {
                 GameName = "RED DEAD REDEMPTION 2 PC",
-                ReleaseDate = new DateTime(2019, 11, 5),
+                ReleaseDate = new DateTime(2022, 03, 5),
                 Description = @"Red Dead Redemption 2 is an action-adventure game it was released on Xbox One and PlayStation 4, and since 2019 it is also available on the PC. The game is a prequel to the Red Dead Redemption released in 2010 and focuses on the life of the outlaw Arthur Morgan. Enter and experience a truly massive world with an astounding amount of activities, interactions, beautiful visuals and more. If you have ever played the first RDR game, you might find a number of references to the characters and events from this game.
             The story
             The action takes place in 1899 in the Western,
@@ -93,7 +93,7 @@ STORAGE150GB",
             var game3 = new Game()
             {
                 GameName = "GOD OF WAR PC",
-                ReleaseDate = new DateTime(2022, 1, 14),
+                ReleaseDate = new DateTime(2022, 03, 14),
                 Description = @"God of War is an action video game with RPG elements, developed by Santa Monica Studio and released thanks to PlayStation PC LLC in 2022 for personal computers. It is an adaptation of the title from 2018, which was available exclusively for PlayStation 4 users. In this installment, Kratos, having completed his violent mission in Greece, goes to the far North to once again face mythological beasts and mighty gods. This time, however, he will not be traveling alone.
     
 
@@ -140,7 +140,7 @@ God of War Story
             var game4 = new Game()
             {
                 GameName = "BATTLEFIELD 2042 GOLD EDITION PC",
-                ReleaseDate = new DateTime(2021, 11, 12),
+                ReleaseDate = new DateTime(2022, 03, 12),
                 Description = @"Battlefield 2042 Gold Edition PC (EN) includes:
 Early access to game launch.
 Year 1 Pass: 4 New Specialists(1 per Season), 4 Battle Passes(1 per Season), and 3 Epic Skin Bundles(”Blistered Earth”, ”Tempest”, and ”Cold Blood”).
@@ -180,7 +180,7 @@ STORAGE17 GB available space",
             var game5 = new Game()
             {
                 GameName = "JUMP FORCE - ULTIMATE EDITION PC (EMEA)",
-                ReleaseDate = new DateTime(2019, 2, 15),
+                ReleaseDate = new DateTime(2022, 03, 15),
                 Description = @"Fight the most dangerous threat, the Jump Force will bear the fate of the entire humankind.
             Create your own avatar and jump into an original Story Mode to fight alongside the most powerful Manga heroes.
             About JUMP FORCE - Ultimate Edition PC(EMEA)
@@ -223,7 +223,7 @@ STORAGE17 GB available space",
             var game6 = new Game()
             {
                 GameName = "MINECRAFT PC (JAVA EDITION)",
-                ReleaseDate = new DateTime(2013, 12, 18),
+                ReleaseDate = new DateTime(2022, 06, 18),
                 Description = @"Experience one of the most popular and best-selling games of all time.
             Minecraft is virtually limitless. The game’s Lego - like world is just perfect for creativity,
                 experimentation,
@@ -259,7 +259,7 @@ STORAGE17 GB available space",
             var game7 = new Game()
             {
                 GameName = "Prince of Persia : The Sands of Time Remake (Xbox)",
-                ReleaseDate = new DateTime(2021, 03, 18),
+                ReleaseDate = new DateTime(2022, 06, 18),
                 Description = @"The 2021 remake of developed by Ubisoft in 2003 and highly acclaimed game Prince of Persia= The Sands of Time. Over the years, many editions of Prince of Persia game have been released and met with very mixed reactions in the gaming environment. And then it was Assassin's Creed which happened to be a great Ubisoft's success, although it was based on Prince of Persia title. Nevertheless, the creators decided to renew the magical world of the Sands of Time.
 
 This time rich in significantly improved graphics and combat system.In this third - person action - adventure game,
@@ -282,7 +282,7 @@ SOUND CARD : Yes."
             var game8 = new Game()
             {
                 GameName = "Football Manager 2022",
-                ReleaseDate = new DateTime(2021, 11, 08),
+                ReleaseDate = new DateTime(2022, 06, 08),
                 Description = @"To plan ahead your tactics and development move, you'll require information. One of the many new features in Football Manager 2022 is Data Hub that will allow you to browse through many metrics and statistics, much like the biggest and the best real-life clubs do. You'll be able to gather the data based on your performance, as well as how the data regarding how opposing teams react to your tactics. All spreadsheets and heat maps are presented in a clear, easy-to navigate-manner. Use all of that information to your advantage and make better tactical and development decisions!",
                 Developer = "Sega",
                 Publisher = "Sega",
@@ -301,7 +301,7 @@ Storage : 7 GB available space."
             var game9 = new Game()
             {
                 GameName = "FIFA 2022",
-                ReleaseDate = new DateTime(2021, 09, 27),
+                ReleaseDate = new DateTime(2022, 06, 27),
                 Description = "FIFA 22 is the latest installment of the FIFA series developed by EA Canada and published by Electronic Arts. The game takes you back to the world of international football, offering improved visuals and gameplay mechanics, bringing the virtual matches even closer to their real-life counterparts. FIFA 22 was met with positive initial reception thanks to its improved motion systems, mang other features.",
                 Developer = "EA Sports",
                 Publisher = "EA Sports",
@@ -319,7 +319,7 @@ PROCESSOR : Intel Core i3 - 6100 @ 3.7GHz or AMD Athlon X4 880K @4GHz
             var game10 = new Game()
             {
                 GameName = "STREET FIGHTER V",
-                ReleaseDate = new DateTime(2000, 12, 30),
+                ReleaseDate = new DateTime(2022, 06, 30),
                 Description = @"The legendary fighting franchise returns with Street Fighter V! 
 
 Powered by Unreal Engine 4 technology,
@@ -349,7 +349,7 @@ OS : Windows 7 64 - bit"
             var game11 = new Game()
             {
                 GameName = "ELDEN RING",
-                ReleaseDate = new DateTime(2022, 2, 25),
+                ReleaseDate = new DateTime(2023, 01, 25),
                 Description = @"Elden Ring is a dark fantasy RPG developed by FromSoftware and published thanks to Bandai Namco Entertainment. It is an epic and challenging adventure created by the developers of Demon's Souls in collaboration with the author of A Song of Ice and Fire series - R. R. Martin. Discover the secrets of the Lands Between and embark on the most heroic mission to discover the purpose of the magical artifact and your destiny. Elden Ring release is set for 2022.
 	Story
 	The Elden Ring is destroyed. Its fragments, scattered all over the world, arouse in the gods a desire to possess them. The incredible power of the artifacts transforms the gods into raging creatures taken over by madness. Return from exile and rise as one of those worthy of collecting the Elden Ring pieces.
@@ -374,7 +374,7 @@ OS : Windows 7 64 - bit"
             var game12 = new Game()
             {
                 GameName = "FAR CRY 6",
-                ReleaseDate = new DateTime(2021, 10, 7),
+                ReleaseDate = new DateTime(2023, 01, 7),
                 Description = @"This time it is about a dictatorship in a paradise. The place seems to be “frozen in time” because of the strict ruler, Anton Castillo. His aim is to bring Yara to its former glory. However, he will stop at nothing to realize his dreams.
 
 	He wants his son, Diego, to follow him on his merciless path of taking full control of the island. The atmosphere is very dense, so the revolution is inevitable. Play as Dani Rojas, a citizen of Yara and a rebel fighting for freedom. Their (the protagonist can be either male or female) ultimate goal is to liberate their home.
@@ -399,7 +399,7 @@ OS : Windows 7 64 - bit"
             var game13 = new Game()
             {
                 GameName = "DYING LIGHT 2: STAY HUMAN",
-                ReleaseDate = new DateTime(2022, 2, 4),
+                ReleaseDate = new DateTime(2023, 01, 4),
                 Description = @"Dying Light 2 is an upcoming survival horror action role-playing video game developed by Techland and set to be released in 2022 by Techland Publishing. It is the sequel to the Dying Light from 2015 and it takes place 15 years after the story presented in its predecessor. As an infected survivor, you will be tasked with bringing back the order and ensuring peace in the city – you are the last hope of the society being on the brink of the collapse.
 	Story
 	In Dying Light 2 game you are playing the role of an infected survivor, Aiden Caldwell, as he tries to make a change in The City, which serves as a home for the local groups of both infected and survivors alike. In the post-apocalyptic world, where people desperately fighting for resources can be as dangerous as the monsters lurking in the shadows, you are the last hope of the falling society, and your decisions will determine its fate.
@@ -424,7 +424,7 @@ OS : Windows 7 64 - bit"
             var game14 = new Game()
             {
                 GameName = "DETROIT: BECOME HUMAN",
-                ReleaseDate = new DateTime(2000, 12, 30),
+                ReleaseDate = new DateTime(2023, 09, 30),
                 Description = @"Interactive gameplay
 	The gameplay of Detroit: Become Human draws upon Heavy Rain’s best features. Those who played the previous hit will recognize the mechanics easily while those who encounter Quantic Dream’s games for the first time will quickly grasp the essence.
 
@@ -449,24 +449,24 @@ OS : Windows 7 64 - bit"
             #endregion
 
             #region Products
-            var product1 = new Product() { Game = game1, Platform = p1, ProductUnitPrice = 10.99m, IsAvailable = true, IsEditorsChoice = false };
+            var product1 = new Product() { Game = game1, Platform = p1, ProductUnitPrice = 10.99m, IsAvailable = true, IsEditorsChoice = true };
             var product2 = new Product() { Game = game2, Platform = p2, ProductUnitPrice = 20.99m, IsAvailable = true, IsEditorsChoice = false };
             var product3 = new Product() { Game = game3, Platform = p3, ProductUnitPrice = 30.99m, IsAvailable = true, IsEditorsChoice = false };
             var product4 = new Product() { Game = game4, Platform = p4, ProductUnitPrice = 40.99m, IsAvailable = true, IsEditorsChoice = false };
-            var product5 = new Product() { Game = game5, Platform = p5, ProductUnitPrice = 50.99m, IsAvailable = true, IsEditorsChoice = false };
+            var product5 = new Product() { Game = game5, Platform = p5, ProductUnitPrice = 50.99m, IsAvailable = true, IsEditorsChoice = true };
             var product6 = new Product() { Game = game6, Platform = p6, ProductUnitPrice = 60.99m, IsAvailable = true, IsEditorsChoice = false };
             var product7 = new Product() { Game = game7, Platform = p1, ProductUnitPrice = 70.99m, IsAvailable = true, IsEditorsChoice = false };
             var product8 = new Product() { Game = game8, Platform = p2, ProductUnitPrice = 80.99m, IsAvailable = true, IsEditorsChoice = false };
             var product9 = new Product() { Game = game9, Platform = p3, ProductUnitPrice = 90.99m, IsAvailable = true, IsEditorsChoice = false };
             var product10 = new Product() { Game = game10, Platform = p4, ProductUnitPrice = 10.99m, IsAvailable = true, IsEditorsChoice = false };
-            var product11 = new Product() { Game = game11, Platform = p5, ProductUnitPrice = 20.99m, IsAvailable = true, IsEditorsChoice = false };
+            var product11 = new Product() { Game = game11, Platform = p5, ProductUnitPrice = 20.99m, IsAvailable = true, IsEditorsChoice = true };
             var product12 = new Product() { Game = game12, Platform = p6, ProductUnitPrice = 30.99m, IsAvailable = true, IsEditorsChoice = false };
             var product13 = new Product() { Game = game13, Platform = p1, ProductUnitPrice = 40.99m, IsAvailable = true, IsEditorsChoice = false };
             var product14 = new Product() { Game = game14, Platform = p2, ProductUnitPrice = 50.99m, IsAvailable = true, IsEditorsChoice = false };
             var product15 = new Product() { Game = game1, Platform = p2, ProductUnitPrice = 60.99m, IsAvailable = true, IsEditorsChoice = false };
             var product16 = new Product() { Game = game2, Platform = p3, ProductUnitPrice = 70.99m, IsAvailable = true, IsEditorsChoice = false };
             var product17 = new Product() { Game = game3, Platform = p4, ProductUnitPrice = 80.99m, IsAvailable = true, IsEditorsChoice = false };
-            var product18 = new Product() { Game = game4, Platform = p5, ProductUnitPrice = 90.99m, IsAvailable = true, IsEditorsChoice = false };
+            var product18 = new Product() { Game = game4, Platform = p5, ProductUnitPrice = 90.99m, IsAvailable = true, IsEditorsChoice = true };
             var product19 = new Product() { Game = game5, Platform = p6, ProductUnitPrice = 10.99m, IsAvailable = true, IsEditorsChoice = false };
             var product20 = new Product() { Game = game6, Platform = p1, ProductUnitPrice = 20.99m, IsAvailable = true, IsEditorsChoice = false };
             var product21 = new Product() { Game = game7, Platform = p2, ProductUnitPrice = 30.99m, IsAvailable = true, IsEditorsChoice = false };
@@ -479,7 +479,50 @@ OS : Windows 7 64 - bit"
             var product28 = new Product() { Game = game14, Platform = p3, ProductUnitPrice = 10.99m, IsAvailable = true, IsEditorsChoice = false };
             #endregion
 
-            db.AddRange(g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, p1, p2, p3, p4, p5, p6, game1, game2, game3, game4, game5, game6, game7, game8, game9, game10, game11, game12, game13, game14, product1, product2, product3, product4, product5, product6, product7, product8, product9, product10, product11, product12, product13, product14, product15, product16, product17, product18, product19, product20, product21, product22, product23, product24, product25, product26, product27, product28);
+
+            #region Discounts
+            var dc1 = new Discount() { DiscountRate = 15, ValidFrom = new DateTime(2022, 03, 20), ValidUntil = new DateTime(2023, 04, 20), Product = product16 };
+            var dc2 = new Discount() { DiscountRate = 20, ValidFrom = new DateTime(2022, 03, 20), ValidUntil = new DateTime(2023, 04, 20), Product = product12 };
+            var dc3 = new Discount() { DiscountRate = 25, ValidFrom = new DateTime(2022, 03, 20), ValidUntil = new DateTime(2023, 04, 20), Product = product8 };
+            var dc4 = new Discount() { DiscountRate = 20, ValidFrom = new DateTime(2022, 03, 20), ValidUntil = new DateTime(2023, 10, 20), Product = product14 };
+            var dc5 = new Discount() { DiscountRate = 50, ValidFrom = new DateTime(2022, 03, 20), ValidUntil = new DateTime(2023, 10, 20), Product = product1 };
+            #endregion
+
+            #region Keys
+            var key1 = new Key() { KeyCode = Guid.Parse("85b836e4-4870-4f82-a5a2-db55393b572c"), Status = true, Product = product4 };
+            var key2 = new Key() { KeyCode = Guid.Parse("56c87db9-8e22-4f31-a957-faa3afbe5264"), Status = true, Product = product6 };
+            var key3 = new Key() { KeyCode = Guid.Parse("861ec3b4-a92e-46fd-86ca-c9b43a895dfe"), Status = true, Product = product9 };
+            var key4 = new Key() { KeyCode = Guid.Parse("158afbf6-c5f4-4f2b-b66b-3b67ed34dac3"), Status = true, Product = product16 };
+            var key5 = new Key() { KeyCode = Guid.Parse("4e92f258-0e03-43b4-ba85-87949387eda8"), Status = true, Product = product17 };
+            var key6 = new Key() { KeyCode = Guid.Parse("154ecb31-0a86-4246-9dac-c6ee341ebbc5"), Status = true, Product = product20 };
+            var key7 = new Key() { KeyCode = Guid.Parse("36946ec2-cde3-4098-9497-4dbe56459f0d"), Status = true, Product = product7 };
+            var key8 = new Key() { KeyCode = Guid.Parse("942ded26-0b29-4cb7-bcc7-89356b7671f1"), Status = true, Product = product12 };
+            var key9 = new Key() { KeyCode = Guid.Parse("373ec59d-77c1-4fa3-983f-6bbfef8a4ff1"), Status = true, Product = product22 };
+            var key10 = new Key() { KeyCode = Guid.Parse("6d7c2bb9-c617-475b-999c-586d6819c729"), Status = true, Product = product27 };
+            var key11 = new Key() { KeyCode = Guid.Parse("1d63f5c0-5922-4961-8ca0-7efbd9193ad8"), Status = true, Product = product28 };
+            var key12 = new Key() { KeyCode = Guid.Parse("27615635-6e12-461e-bc82-cf4f5b0c0ca1"), Status = true, Product = product1 };
+            var key13 = new Key() { KeyCode = Guid.Parse("b8e0e153-865d-4f2c-ba8c-2b6f0dcfad48"), Status = true, Product = product3 };
+            var key14 = new Key() { KeyCode = Guid.Parse("1ed890f8-ae7f-4fce-bd03-7a30371cd24a"), Status = true, Product = product10 };
+            var key15 = new Key() { KeyCode = Guid.Parse("ca5b8828-4b21-4998-a813-c21fcc265776"), Status = true, Product = product26 };
+            var key16 = new Key() { KeyCode = Guid.Parse("23d37731-541f-46ea-a85c-05ea5a533c85"), Status = true, Product = product2 };
+            var key17 = new Key() { KeyCode = Guid.Parse("0330fc4e-0ea7-4f2e-8032-f20c4e148b45"), Status = true, Product = product5 };
+            var key18 = new Key() { KeyCode = Guid.Parse("33b9d301-c726-4f5f-969f-0059eb1c99c4"), Status = true, Product = product8 };
+            var key19 = new Key() { KeyCode = Guid.Parse("14d3b1da-038e-4e89-afa8-1f4eb8813731"), Status = true, Product = product13 };
+            var key20 = new Key() { KeyCode = Guid.Parse("bc025e6a-6d3e-4776-9a64-bc3d85cde3e0"), Status = true, Product = product15 };
+            var key21 = new Key() { KeyCode = Guid.Parse("cbcd3d0c-d3d7-4915-9ac4-3a5de5acabf5"), Status = true, Product = product11 };
+            var key22 = new Key() { KeyCode = Guid.Parse("1f27fe6f-e8c0-4be5-9b28-6638cfc29563"), Status = true, Product = product21 };
+            var key23 = new Key() { KeyCode = Guid.Parse("8efeca86-2f82-4b91-ac7b-54696e7958a0"), Status = true, Product = product23 };
+            var key24 = new Key() { KeyCode = Guid.Parse("a5b77743-3f87-40c6-98ed-1eb10508a81b"), Status = true, Product = product24 };
+            var key25 = new Key() { KeyCode = Guid.Parse("e4de2d5e-ac5c-4313-923a-95975742961d"), Status = true, Product = product14 };
+            var key26 = new Key() { KeyCode = Guid.Parse("69949ce0-2429-453a-bef3-e75ea18eb1dd"), Status = true, Product = product18 };
+            var key27 = new Key() { KeyCode = Guid.Parse("3be281d0-7fa0-4deb-bf11-01f7d925729a"), Status = true, Product = product19 };
+            var key28 = new Key() { KeyCode = Guid.Parse("be668c40-9694-4385-ab72-880c8a0838c6"), Status = true, Product = product25 };
+            var key29 = new Key() { KeyCode = Guid.Parse("035b927e-631d-40e6-aa02-1a09f2222727"), Status = true, Product = product4 };
+            var key30 = new Key() { KeyCode = Guid.Parse("03cbf613-c661-4e9f-9b49-256b99f27a81"), Status = true, Product = product17 };
+            var key31 = new Key() { KeyCode = Guid.Parse("9577afed-6662-4ce4-b7c8-2edec06dbd40"), Status = true, Product = product22 }; 
+            #endregion
+
+            db.AddRange(g1, g2, g3, g4, g5, g6, g7, g8, g9, g10, g11, g12, g13, p1, p2, p3, p4, p5, p6, game1, game2, game3, game4, game5, game6, game7, game8, game9, game10, game11, game12, game13, game14, product1, product2, product3, product4, product5, product6, product7, product8, product9, product10, product11, product12, product13, product14, product15, product16, product17, product18, product19, product20, product21, product22, product23, product24, product25, product26, product27, product28, dc1, dc2, dc3, dc4, dc5, key1, key2, key3, key4, key5, key6, key7, key8, key9, key10, key11, key12, key13, key14, key15, key16, key17, key18, key19, key20, key21, key22, key23, key24, key25, key26, key27, key28, key29, key30, key31);
 
             await db.SaveChangesAsync();
         }
