@@ -58,7 +58,7 @@ namespace Web.Services
 
         public async Task UpdateProductFromViewModelAsync(AdminProductViewModel productViewModel)
         {
-            if (productViewModel.Id < 0)
+            if (productViewModel.Id < 1)
                 throw new ArgumentException("Product can not be found.");
             var product = await _productService.GetProductByIdWithAssetsAsync(productViewModel.Id);
 

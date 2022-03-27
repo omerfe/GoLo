@@ -38,6 +38,9 @@ namespace ApplicationCore.Services
 
         public async Task<string> DeletePlatformAsync(int platformId)
         {
+            if (platformId < 1)
+                throw new ArgumentException($"Platform with id {platformId} can not be found.");
+
             var spec = new PlatformSpecification(platformId);
             var platform = await _platformRepo.FirstOrDefaultAsync(spec);
             
@@ -61,7 +64,7 @@ namespace ApplicationCore.Services
 
         public async Task<Platform> GetPlatformByIdAsync(int platformId)
         {
-            if (platformId < 0)
+            if (platformId < 1)
                 throw new ArgumentException($"Platform with id {platformId} can not be found.");
             return await _platformRepo.GetByIdAsync(platformId);
         }
@@ -69,7 +72,7 @@ namespace ApplicationCore.Services
         public async Task UpdatePlatformAsync(int platformId, string platformName, string logoPath)
         {
             //TODO UnitTest  --- hata mesaji vermek için ayrı kontrol?
-            if (platformId < 0)
+            if (platformId < 1)
                 throw new ArgumentException($"Platform with id {platformId} can not be found.");
             var platform = await GetPlatformByIdAsync(platformId);
             if (platform == null)
@@ -87,7 +90,7 @@ namespace ApplicationCore.Services
 
         public async Task<bool> CheckExistingPlatformWithSameNameBeforeUpdate(int platformId, string newPlatformName)
         {
-            if (platformId < 0)
+            if (platformId < 1)
                 return true;
             var platform = await GetPlatformByIdAsync(platformId);
             if (platform == null)

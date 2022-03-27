@@ -119,7 +119,7 @@ namespace Web.Services
 
         private async Task UpdateGamePropertiesAndSaveAsync(GameEditViewModel gameEditViewModel)
         {
-            if (gameEditViewModel.Id < 0)
+            if (gameEditViewModel.Id < 1)
                 throw new ArgumentException("Game can not be found.");
             var game = await _gameService.GetGameByIdWithGenresAsync(gameEditViewModel.Id);
 

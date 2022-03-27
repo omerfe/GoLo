@@ -17,14 +17,12 @@ namespace Web.Services
         private readonly IRepository<Product> _productRepo;
         private readonly IRepository<Genre> _genreRepo;
         private readonly IRepository<Platform> _platformRepo;
-        private readonly IRepository<Discount> _discountRepo;
 
-        public FilterViewModelService(IRepository<Product> productRepo, IRepository<Genre> genreRepo, IRepository<Platform> platformRepo, IRepository<Discount> discountRepo)
+        public FilterViewModelService(IRepository<Product> productRepo, IRepository<Genre> genreRepo, IRepository<Platform> platformRepo)
         {
             _productRepo = productRepo;
             _genreRepo = genreRepo;
             _platformRepo = platformRepo;
-            _discountRepo = discountRepo;
         }
 
         //public async Task<FilterViewModel> GetFilterViewModelAsync(int? genreId, int? platformId)

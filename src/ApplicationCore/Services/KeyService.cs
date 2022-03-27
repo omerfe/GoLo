@@ -21,21 +21,21 @@ namespace ApplicationCore.Services
         }
         public async Task<List<Key>> GetAllKeysAsync(int productId)
         {
-            if (productId < 0)
+            if (productId < 1)
                 throw new ArgumentException("Key can not be found.");
             var spec = new KeySpecification(productId);
             return await _keyRepo.GetAllAsync(spec);
         }
         public async Task<Key> GetKeyByIdAsync(int keyId)
         {
-            if (keyId < 0)
+            if (keyId < 1)
                 throw new ArgumentException($"Key with id {keyId} can not be found.");
             return await _keyRepo.GetByIdAsync(keyId);
 
         }
         public async Task<Key> AddKeyAsync(Key key)
         {
-            if (key.ProductId < 0)
+            if (key.ProductId < 1)
                 throw new ArgumentException("Can not create key without a product.");
             var product = await _productRepo.GetByIdAsync(key.ProductId);
             if (product is null)

@@ -11,15 +11,11 @@ namespace Web.Services
     public class DiscountViewModelService : IDiscountViewModelService
     {
         private readonly IDiscountService _discountService;
-        private readonly IRepository<Game> _gameRepo;
-        private readonly IRepository<Platform> _platformRepo;
         private readonly IRepository<Product> _productRepo;
 
-        public DiscountViewModelService(IDiscountService discountService, IRepository<Game> gameRepo, IRepository<Platform> platformRepo, IRepository<Product> productRepo)
+        public DiscountViewModelService(IDiscountService discountService, IRepository<Product> productRepo)
         {
             _discountService = discountService;
-            _gameRepo = gameRepo;
-            _platformRepo = platformRepo;
             _productRepo = productRepo;
         }
         public async Task CreateDiscountFromViewModelAsync(DiscountViewModel discountViewModel)
@@ -50,7 +46,7 @@ namespace Web.Services
         }
         public async Task UpdateDiscountFromViewModelAsync(DiscountViewModel discountViewModel)
         {
-            if (discountViewModel.Id < 0)
+            if (discountViewModel.Id < 1)
                 throw new ArgumentException("Discount can not be found.");
             var discount = await _discountService.GetDiscountByIdAsync(discountViewModel.Id);
 
@@ -68,7 +64,7 @@ namespace Web.Services
         }
         public async Task<IndexDiscountViewModel> GetAllDiscountsWithViewModel(int productId)
         {
-            if (productId < 0)
+            if (productId < 1)
                 throw new ArgumentException("Discount can not be found.");
             var spec = new ProductSpecification(productId);
             var product = await _productRepo.FirstOrDefaultAsync(spec);
