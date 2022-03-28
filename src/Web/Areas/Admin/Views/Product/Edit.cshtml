@@ -29,10 +29,19 @@
                 <input asp-for="ProductUnitPrice" class="form-control" />
                 <span asp-validation-for="ProductUnitPrice" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="IsAvailable" class="control-label">Is Available</label>
-                <input type="checkbox" asp-for="IsAvailable" class="form-check-input" />
-            </div>
+            @if (@Model.UnitInKeyStock > 0)
+            {
+                <div class="form-group">
+                    <label asp-for="IsAvailable" class="control-label">Is Available</label>
+                    <input type="checkbox" asp-for="IsAvailable" class="form-check-input" />
+                </div>
+            }
+            else
+            {
+                <div>
+                    <p>If you want to make this product available for sale, you need to add keys first!</p>
+                </div>
+            }
             <div class="form-group">
                 <label asp-for="IsEditorsChoice" class="control-label">Is Editor's Choice</label>
                 <input type="checkbox" asp-for="IsEditorsChoice" class="form-check-input" />

@@ -19,5 +19,6 @@ namespace Web.Areas.Admin.Models
         public int GameId { get; set; }
         public List<SelectListItem> AllGames { get; set; }
         public List<SelectListItem> AllPlatforms { get; set; }
+        public int UnitInKeyStock { get; set; }
     }
 }

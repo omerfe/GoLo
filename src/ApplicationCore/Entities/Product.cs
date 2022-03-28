@@ -20,5 +20,9 @@ namespace ApplicationCore.Entities
         {
             return Discounts.FirstOrDefault(x => x.IsValid) == null ? 0 : Discounts.FirstOrDefault(x => x.IsValid).DiscountRate;
         }
+        public int GetUnitStocks()
+        {
+            return Keys.Where(x => x.Status).ToList().Count();
+        }
     }
 }
