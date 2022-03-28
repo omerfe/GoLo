@@ -19,21 +19,21 @@ namespace ApplicationCore.Services
         }
         public async Task<List<Discount>> GetAllDiscountsAsync(int productId)
         {
-            if (productId < 0)
+            if (productId < 1)
                 throw new ArgumentException("Discount can not be found.");
             var spec = new DiscountSpecification(productId);
             return await _discountRepo.GetAllAsync(spec);
         }
         public async Task<Discount> GetDiscountByIdAsync(int discountId)
         {
-            if (discountId < 0)
+            if (discountId < 1)
                 throw new ArgumentException($"Discount with id {discountId} can not be found.");
             return await _discountRepo.GetByIdAsync(discountId);
 
         }
         public async Task<Discount> AddDiscountAsync(Discount discount)
         {
-            if (discount.ProductId < 0)
+            if (discount.ProductId < 1)
                 throw new ArgumentException("Can not create discount without a product.");
             var product = await _productRepo.GetByIdAsync(discount.ProductId);
             if (product is null)

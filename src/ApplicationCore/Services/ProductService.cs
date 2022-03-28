@@ -19,7 +19,7 @@ namespace ApplicationCore.Services
         }
         public async Task<Product> GetProductByIdAsync(int productId)
         {
-            if (productId < 0)
+            if (productId < 1)
                 throw new ArgumentException($"Product with id {productId} can not be found.");
 
             return await _productRepo.GetByIdAsync(productId);
@@ -27,7 +27,7 @@ namespace ApplicationCore.Services
 
         public async Task<Product> GetProductByIdWithAssetsAsync(int productId)
         {
-            if (productId < 0)
+            if (productId < 1)
                 throw new ArgumentException($"Product with id {productId} can not be found.");
             var spec = new ProductSpecification(productId);
             return await _productRepo.FirstOrDefaultAsync(spec);

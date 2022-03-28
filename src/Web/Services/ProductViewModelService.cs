@@ -52,13 +52,14 @@ namespace Web.Services
                 AllGames = await GetGamesAsync(),
                 AllPlatforms = await GetPlatformsAsync(),
                 Game = await _gameRepo.GetByIdAsync(product.GameId),
-                Platform = await _platformRepo.GetByIdAsync(product.PlatformId)
+                Platform = await _platformRepo.GetByIdAsync(product.PlatformId),
+                UnitInKeyStock = product.GetUnitStocks()
             };
         }
 
         public async Task UpdateProductFromViewModelAsync(AdminProductViewModel productViewModel)
         {
-            if (productViewModel.Id < 0)
+            if (productViewModel.Id < 1)
                 throw new ArgumentException("Product can not be found.");
             var product = await _productService.GetProductByIdWithAssetsAsync(productViewModel.Id);
 
@@ -72,7 +73,7 @@ namespace Web.Services
             product.PlatformId = productViewModel.PlatformId;
             product.Game = await _gameRepo.GetByIdAsync(productViewModel.GameId);
             product.Platform = await _platformRepo.GetByIdAsync(productViewModel.PlatformId);
-            product.IsAvailable = productViewModel.IsAvailable;
+            product.IsAvailable = productViewModel.UnitInKeyStock < 1 ? false : productViewModel.IsAvailable;
             product.IsEditorsChoice = productViewModel.IsEditorsChoice;
             product.ProductUnitPrice = productViewModel.ProductUnitPrice;
 

@@ -60,7 +60,6 @@
                     {
                         var discountedPrice = (item.UnitPrice * (100 - item.DiscountRate) / 100).ToString("N2");
                         <div class="card__price">
-                            <span>$@discountedPrice<s>$@item.UnitPrice</s></span>
                             <span>$@discountedPrice</span><s>$@item.UnitPrice</s><b>@item.DiscountRate% OFF</b>
                         </div>
                     }
