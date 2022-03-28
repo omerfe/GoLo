@@ -1,0 +1,56 @@
+﻿@model OrderViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>@Model.Id</h1>
+<table id="orderDetailsTable" class="table table-admin table-bordered table-striped w-100">
+    <thead>
+        <tr>
+            <th>
+                Order Detail ID
+            </th>
+            <th>
+                Game Name
+            </th>
+            <th>
+                Unit Price
+            </th>
+            <th>
+                Key
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderDetails)
+        {
+            <tr>
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                    @item.GameName
+                </td>
+                <td>
+                    @item.UnitPrice
+                </td>
+                <td>
+                    @item.Key.KeyCode
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{
+    <script>
+        $("#orderDetailsTable").DataTable();
+    </script>
+    @if (TempData["Message"] != null)
+    {
+        <script type="text/javascript">
+            alert('@TempData["Message"].ToString()');
+        </script>
+    }
+}
+

@@ -17,18 +17,30 @@ namespace ApplicationCore.Services
         {
             _platformRepo = platformRepo;
         }
+
         public async Task<Platform> AddPlatformAsync(string platformName, string logoPath)
         {
-            var spec = new PlatformSpecification(platformName);
-            var existingPlatformWithSameName = await _platformRepo.FirstOrDefaultAsync(spec);
-            if (existingPlatformWithSameName != null)
+
+            if (await CheckExistingPlatformWithSameNameBeforeAdd(platformName))
                 throw new ArgumentException("There is already a Platform with same name.");
             var platform = new Platform() { PlatformName = platformName, LogoPath = logoPath };
             return await _platformRepo.AddAsync(platform);
         }
 
+        public async Task<bool> CheckExistingPlatformWithSameNameBeforeAdd(string platformName)
+        {
+            var spec = new PlatformSpecification(platformName);
+            var existingPlatformWithSameName = await _platformRepo.FirstOrDefaultAsync(spec);
+            if (existingPlatformWithSameName != null)
+                return true;
+            return false;
+        }
+
         public async Task<string> DeletePlatformAsync(int platformId)
         {
+            if (platformId < 1)
+                throw new ArgumentException($"Platform with id {platformId} can not be found.");
+
             var spec = new PlatformSpecification(platformId);
             var platform = await _platformRepo.FirstOrDefaultAsync(spec);
             
@@ -52,28 +64,42 @@ namespace ApplicationCore.Services
 
         public async Task<Platform> GetPlatformByIdAsync(int platformId)
         {
-            if (platformId < 0)
+            if (platformId < 1)
                 throw new ArgumentException($"Platform with id {platformId} can not be found.");
             return await _platformRepo.GetByIdAsync(platformId);
         }
 
         public async Task UpdatePlatformAsync(int platformId, string platformName, string logoPath)
         {
-            if (platformId < 0)
+            //TODO UnitTest  --- hata mesaji vermek için ayrı kontrol?
+            if (platformId < 1)
                 throw new ArgumentException($"Platform with id {platformId} can not be found.");
             var platform = await GetPlatformByIdAsync(platformId);
             if (platform == null)
                 throw new ArgumentException($"Platform with id {platformId} can not be found.");
+            //---
 
-            var spec = new PlatformSpecification(platformName);
-            var existingPlatformWithSameName = await _platformRepo.FirstOrDefaultAsync(spec);
-            if (existingPlatformWithSameName != null && platform.PlatformName != platformName)
+            if(await CheckExistingPlatformWithSameNameBeforeUpdate(platformId, platformName))
                 throw new ArgumentException("There is already a Platform with same name.");
 
             platform.PlatformName = platformName;
             if(logoPath != null)
                 platform.LogoPath = logoPath;
             await _platformRepo.UpdateAsync(platform);
+        }
+
+        public async Task<bool> CheckExistingPlatformWithSameNameBeforeUpdate(int platformId, string newPlatformName)
+        {
+            if (platformId < 1)
+                return true;
+            var platform = await GetPlatformByIdAsync(platformId);
+            if (platform == null)
+                return true;
+            var spec = new PlatformSpecification(newPlatformName);
+            var existingPlatformWithSameName = await _platformRepo.FirstOrDefaultAsync(spec);
+            if (existingPlatformWithSameName != null && platform.PlatformName != newPlatformName)
+                return true;
+            return false;
         }
     }
 }

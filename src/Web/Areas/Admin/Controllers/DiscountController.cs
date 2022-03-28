@@ -20,7 +20,7 @@ namespace Web.Areas.Admin.Controllers
             _discountViewModelService = discountViewModelService;
         }
 
-        // GET: Admin/Discount
+        // GET: Admin/Discount/productId
         public async Task<IActionResult> Index(int productId)
         {
             IndexDiscountViewModel vm;
@@ -36,7 +36,7 @@ namespace Web.Areas.Admin.Controllers
             return View(vm);
         }
 
-        //GET: Admin/Discount/Create
+        //GET: Admin/Discount/Create/productId
         public async Task<IActionResult> Create(int productId)
         {
             var vm = new DiscountViewModel() { ProductId = productId };
@@ -110,7 +110,7 @@ namespace Web.Areas.Admin.Controllers
             }
             catch (ArgumentException ex)
             {
-                ViewBag.Message = ex.Message;
+                TempData["Message"] = ex.Message;
                 return RedirectToAction("Index", new { productId = productId });
             }
             return RedirectToAction("Index", new { productId = productId });

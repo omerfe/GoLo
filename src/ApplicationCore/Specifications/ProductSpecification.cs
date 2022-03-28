@@ -19,7 +19,7 @@ namespace ApplicationCore.Specifications
         }
         public ProductSpecification(string platformName, string gameName )
         {
-            Query.Where(x => x.Platform.PlatformName == platformName && x.Game.GameName == gameName);
+            Query.Where(x => x.Platform.PlatformName.ToLower() == platformName.ToLower() && x.Game.GameName.ToLower() == gameName.ToLower());
         }
         public ProductSpecification(int productId)
         {

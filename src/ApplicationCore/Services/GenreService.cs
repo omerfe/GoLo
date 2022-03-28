@@ -19,6 +19,10 @@ namespace ApplicationCore.Services
         }
         public async Task<Genre> AddGenreAsync(string genreName)
         {
+            var spec = new GenreSpecification(genreName);
+            var existingGenreWithSameName = await _genreRepo.FirstOrDefaultAsync(spec);
+            if (existingGenreWithSameName != null)
+                throw new ArgumentException("There is already a Genre with same name.");
             var genre = new Genre() { GenreName = genreName };
             return await _genreRepo.AddAsync(genre);
         }
@@ -43,21 +47,26 @@ namespace ApplicationCore.Services
 
         public async Task<Genre> GetGenreByIdAsync(int genreId)
         {
-            if (genreId < 0)
+            if (genreId < 1)
                 throw new ArgumentException($"Genre with id {genreId} can not be found.");
             return await _genreRepo.GetByIdAsync(genreId);
         }
 
         public async Task UpdateGenreAsync(int genreId, string genreName)
         {
-            if (genreId < 0)
+            if (genreId < 1)
                 throw new ArgumentException($"Genre with id {genreId} can not be found.");
             var genre = await GetGenreByIdAsync(genreId);
             if (genre == null)
                 throw new ArgumentException($"Genre with id {genreId} can not be found.");
 
+            var spec = new GenreSpecification(genreName);
+            var existingGenreWithSameName = await _genreRepo.FirstOrDefaultAsync(spec);
+            if (existingGenreWithSameName != null && genre.GenreName != genreName)
+                throw new ArgumentException("There is already a Genre with same name.");
+
             genre.GenreName = genreName;
-             await _genreRepo.UpdateAsync(genre);
+            await _genreRepo.UpdateAsync(genre);
         }
     }
 }

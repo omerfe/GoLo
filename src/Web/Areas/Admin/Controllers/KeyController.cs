@@ -116,7 +116,7 @@ namespace Web.Areas.Admin.Controllers
             }
             catch (ArgumentException ex)
             {
-                ViewBag.Message = ex.Message;
+                TempData["Message"] = ex.Message;
                 return RedirectToAction("Index", new { productId = productId });
             }
             return RedirectToAction("Index", new { productId = productId });
