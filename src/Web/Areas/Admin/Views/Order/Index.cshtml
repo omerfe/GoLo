@@ -1,0 +1,56 @@
+﻿@model List<OrderViewModel>
+@{
+     ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<table id="orderTable" class="table table-admin table-bordered table-striped w-100">
+    <thead>
+        <tr>
+            <th>
+                Order ID
+            </th>
+            <th>
+                Buyer ID
+            </th>
+            <th>
+                Order Date
+            </th>
+         
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.Id
+                </td>
+                <td>
+                    @item.BuyerId
+                </td>
+                <td>
+                    @item.OrderDate.ToString("dd-MM-yyyy")
+                </td>
+           
+                <td>
+                    <a asp-controller="Order" asp-action="Details" asp-route-orderId="@item.Id" class="btn btn-primary">Details</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{
+    <script>
+        $("#orderTable").DataTable();
+    </script>
+    @if (TempData["Message"] != null)
+    {
+        <script type="text/javascript">
+            alert('@TempData["Message"].ToString()');
+        </script>
+    }
+}

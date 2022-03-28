@@ -47,14 +47,14 @@ namespace ApplicationCore.Services
 
         public async Task<Genre> GetGenreByIdAsync(int genreId)
         {
-            if (genreId < 0)
+            if (genreId < 1)
                 throw new ArgumentException($"Genre with id {genreId} can not be found.");
             return await _genreRepo.GetByIdAsync(genreId);
         }
 
         public async Task UpdateGenreAsync(int genreId, string genreName)
         {
-            if (genreId < 0)
+            if (genreId < 1)
                 throw new ArgumentException($"Genre with id {genreId} can not be found.");
             var genre = await GetGenreByIdAsync(genreId);
             if (genre == null)
