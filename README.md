@@ -1,5 +1,11 @@
 # GoLo Games
 
+### Contributors
+* <a href="https://github.com/MAliRagipCakir">Muhammed Ali Ragıp Çakır</a>
+* <a href="https://github.com/sinaemre">Sina Emre Bekar</a>
+* <a href="https://github.com/sedaahi">Seda Ahi</a>
+* <a href="https://github.com/omerfe">Ömer Eker</a>
+
 GoLo Games is an e-commerce website that sells keys which users need to enter in order to activate the games they downloaded from various platforms such as Steam. Users can access the newest games, pre-order them before their release dates with available discounts and view their orders in detail. Admins have a personal dashboard which can be used to create, edit or delete controls such as games, platforms, discounts, keys and products. You can find a few videos below to preview the pages.
 
 https://user-images.githubusercontent.com/92364088/160476167-80318282-773a-44c7-86b4-ac65cc89b740.mp4
@@ -62,7 +68,6 @@ Install-Package Microsoft.EntityFrameworkCore.Tools -v 5.0.12
 ### Resources
 * https://github.com/dotnet-architecture/eShopOnWeb
 * https://github.com/yigith/TechMarket
-* https://www.connectionstrings.com/postgresql/
 * https://docs.microsoft.com/en-us/aspnet/core/fundamentals/localization?view=aspnetcore-5.0#localization-middleware
 * https://getbootstrap.com/docs/5.1/forms/layout/#inline-forms
 * https://getbootstrap.com/docs/5.1/components/pagination/#alignment
