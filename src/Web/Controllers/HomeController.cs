@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
@@ -53,7 +54,17 @@ namespace Web.Controllers
 		public async Task<IActionResult> Details(int productId)
 		{
 			if (productId < 1) return BadRequest();
-			return View(await _productDetailsViewModelService.GetProductDetailsViewModelAsync(productId));
+			ProductDetailsViewModel vm;
+            try
+            {
+				vm = await _productDetailsViewModelService.GetProductDetailsViewModelAsync(productId);
+
+			}
+            catch (ArgumentException ex)
+            {
+				return NotFound(ex.Message);
+            }
+			return View(vm);
 		}
 
 

@@ -20,6 +20,9 @@ namespace Web.Services
         }
         public async Task<ProductDetailsViewModel> GetProductDetailsViewModelAsync(int productId)
         {
+            if (productId < 1)
+                throw new ArgumentException($"Product with the id {productId} can not be found.");
+            
             var specDetail = new ProductsDetailSpecification(productId);
             var product = await _productRepo.FirstOrDefaultAsync(specDetail);
             var specNewRelease = new ProductsNewReleaseSpecification();

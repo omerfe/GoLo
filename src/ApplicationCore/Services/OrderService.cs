@@ -13,12 +13,14 @@ namespace ApplicationCore.Services
         private readonly IRepository<Cart> _cartRepo;
         private readonly IRepository<Order> _orderRepo;
         private readonly IRepository<Key> _keyRepo;
+        private readonly IRepository<Product> _productRepo;
 
-        public OrderService(IRepository<Cart> cartRepo, IRepository<Order> orderRepo, IRepository<Key> keyRepo)
+        public OrderService(IRepository<Cart> cartRepo, IRepository<Order> orderRepo, IRepository<Key> keyRepo, IRepository<Product> productRepo)
         {
             _cartRepo = cartRepo;
             _orderRepo = orderRepo;
             _keyRepo = keyRepo;
+            _productRepo = productRepo;
         }
         public async Task<Order> CreateOrderAsync(int cartId, string email)
         {
@@ -77,7 +79,7 @@ namespace ApplicationCore.Services
                     orderDetail.ImagePath = item.Product.Game.ImagePath;
                     orderDetail.OrderDiscountId = item.Product.Discounts
                         .FirstOrDefault(x => x.IsValid) == null ? null : item.Product.Discounts.FirstOrDefault(x => x.IsValid).Id;
-                    orderDetail.UnitPrice =  item.Product.Discounts.FirstOrDefault(x => x.IsValid) == null ? item.Product.ProductUnitPrice :
+                    orderDetail.UnitPrice = item.Product.Discounts.FirstOrDefault(x => x.IsValid) == null ? item.Product.ProductUnitPrice :
                         (item.Product.ProductUnitPrice * (100 - item.Product.Discounts.FirstOrDefault(x => x.IsValid).DiscountRate) / 100);
                     var key = item.Product.Keys.FirstOrDefault(x => x.Status == true);
                     orderDetail.KeyId = key.Id;
@@ -85,9 +87,13 @@ namespace ApplicationCore.Services
 
                     await _keyRepo.UpdateAsync(key);
                     order.OrderDetails.Add(orderDetail);
+                    if (item.Product.Keys.Where(x => x.Status).ToList().Count() < 1)
+                    {
+                        item.Product.IsAvailable = false;
+                        await _productRepo.UpdateAsync(item.Product);
+                    }
                 }
             }
-
             return await _orderRepo.AddAsync(order);
         }
 
@@ -113,7 +119,7 @@ namespace ApplicationCore.Services
             var spec = new OrderSpecification(orderId);
             var order = await _orderRepo.FirstOrDefaultAsync(spec);
 
-            return order;   
+            return order;
         }
     }
 }
