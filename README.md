@@ -23,6 +23,12 @@ https://user-images.githubusercontent.com/92364088/160476339-f49b5d66-4ef8-4678-
 https://user-images.githubusercontent.com/92364088/160476438-37c6c7c9-5fc7-48c9-950d-c9f29971f5e7.mp4
 
 
+### To Access Admin Panel
+```
+* Admin Username: admin@example.com
+* Admin Password: P@ssword1
+```
+
 ### Project Structure
 ```
 /src
