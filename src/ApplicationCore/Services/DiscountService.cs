@@ -11,11 +11,13 @@ namespace ApplicationCore.Services
     {
         private readonly IRepository<Discount> _discountRepo;
         private readonly IRepository<Product> _productRepo;
+        private readonly IRepository<OrderDetail> _orderDetailRepo;
 
-        public DiscountService(IRepository<Discount> discountRepo, IRepository<Product> productRepo)
+        public DiscountService(IRepository<Discount> discountRepo, IRepository<Product> productRepo, IRepository<OrderDetail> orderDetailRepo)
         {
             _discountRepo = discountRepo;
             _productRepo = productRepo;
+            _orderDetailRepo = orderDetailRepo;
         }
         public async Task<List<Discount>> GetAllDiscountsAsync(int productId)
         {
@@ -51,7 +53,10 @@ namespace ApplicationCore.Services
             if (discount == null)
                 throw new ArgumentException($"Discount with id {discountId} can not be found.");
 
-            if (discount.Product.Keys.Count > 0)
+            var orderDetailSpec = new OrderDetailSpecification(discountId);
+            var orderDetailUsedThisDiscount = await _orderDetailRepo.FirstOrDefaultAsync(orderDetailSpec);
+
+            if (orderDetailUsedThisDiscount != null)
                 throw new ArgumentException($"Discount with id {discountId} can not be deleted.");
 
 
